@@ -1,0 +1,16 @@
+{
+  "name": "sokuseki-guzen-ikemen-maker",
+  "version": "1.0.0",
+  "description": "即席偶然イケメンメーカー — 顔の参照画像とプロンプトを作る統合エンジン",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "preflight": "node tools/preflight.mjs",
+    "test": "node tools/preflight.mjs",
+    "prompt": "node engine/make_prompt.mjs"
+  },
+  "license": "SEE LICENSE IN LICENSE.md"
+}

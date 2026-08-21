@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<meta charset="utf-8">
+<title>保存した人物 — 即席偶然イケメンメーカー</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root{
+    --bg:#f2f2f7; --panel:#fff; --line:#e3e3e8; --fg:#1c1c1e; --muted:#8a8a8e;
+    --accent:#0a7d4a; --num:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:13px/1.7 "Hiragino Sans","Noto Sans JP",system-ui,sans-serif}
+  .verbar{max-width:1200px;margin:10px auto;padding:8px 14px;border-radius:12px;
+    background:var(--accent);color:#fff;font-size:13px;font-weight:600;letter-spacing:.03em}
+  .wrap{max-width:1200px;margin:0 auto 40px;background:var(--panel);
+    border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  header{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;
+    align-items:center;gap:12px;flex-wrap:wrap}
+  h1{margin:0;font-size:15px;font-weight:700;letter-spacing:.03em}
+  .grow{flex:1}
+  .muted{color:var(--muted);font-size:12px}
+  input[type=search],input[type=text]{border:1px solid var(--line);border-radius:8px;
+    padding:6px 10px;font:inherit;background:#fbfbfd;min-width:0}
+  button{border:1px solid var(--line);background:#fbfbfd;color:var(--fg);border-radius:8px;
+    padding:6px 12px;font:inherit;font-size:12px;cursor:pointer}
+  button:hover{border-color:#c7c7cc}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  button.danger:hover{border-color:#d9534f;color:#d9534f}
+  .list{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:12px;padding:16px 20px}
+  .item{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fbfbfd;
+    display:grid;grid-template-columns:96px minmax(0,1fr);gap:0 12px}
+  .item .thumb{grid-row:1/span 4;width:96px;height:96px;border-radius:10px;object-fit:cover;
+    background:#fff;border:1px solid var(--line)}
+  .item .thumb.none{display:grid;place-items:center;font-size:10px;color:var(--muted)}
+  .item>:not(.thumb){grid-column:2}
+  .item h3{margin:0 0 2px;font-size:13px;font-weight:700}
+  .item .sub{font-size:12px;color:var(--muted)}
+  .kv{display:grid;grid-template-columns:64px minmax(0,1fr);gap:1px 8px;
+    font-size:11.5px;line-height:1.6;margin:8px 0 10px}
+  .kv b{color:var(--muted);font-weight:600}
+  .row{display:flex;gap:6px;align-items:center}
+  .tag{display:inline-block;font-size:10.5px;background:#eef2ef;color:var(--accent);
+    border-radius:999px;padding:1px 8px;margin-right:4px}
+  .seed{font-family:var(--num);font-size:10.5px;color:var(--muted)}
+  .empty{padding:56px 20px;text-align:center;color:var(--muted);line-height:2}
+  footer{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:8px;
+    align-items:center;flex-wrap:wrap}
+  dialog{border:1px solid var(--line);border-radius:14px;padding:0;max-width:560px;width:92vw}
+  dialog header{border-bottom:1px solid var(--line)}
+  dialog .body{padding:16px 20px}
+  textarea{width:100%;height:200px;border:1px solid var(--line);border-radius:8px;
+    padding:8px;font-family:var(--num);font-size:11px;resize:vertical}
+</style>
+
+<div class="verbar">保存した人物　v0.9300</div>
+<div class="wrap">
+  <header>
+    <h1>保存した人物</h1>
+    <span class="muted" id="count"></span>
+    <span class="grow"></span>
+    <input type="search" id="q" placeholder="名前・職業・メモで絞る">
+    <button id="reload">読み直す</button>
+  </header>
+  <div class="list" id="list"></div>
+  <div class="empty" id="empty" hidden>
+    まだ保存されていない。<br>
+    メーカーの画面で名前を入れて「保存」を押す。
+  </div>
+  <footer>
+    <button id="exp">書き出す（JSON）</button>
+    <button id="imp">取り込む</button>
+    <span class="grow"></span>
+    <span class="muted" id="usage"></span>
+  </footer>
+</div>
+
+<dialog id="dlg">
+  <header><h1 id="dlgTitle">取り込む</h1><span class="grow"></span>
+    <button id="dlgClose">閉じる</button></header>
+  <div class="body">
+    <p class="muted" id="dlgNote"></p>
+    <textarea id="dlgText" spellcheck="false"></textarea>
+    <div class="row" style="margin-top:10px">
+      <button class="primary" id="dlgOk">取り込む（足す）</button>
+      <button id="dlgReplace" class="danger">ぜんぶ入れ替える</button>
+    </div>
+  </div>
+</dialog>
+
+<script type="module">
+// このファイルは2か所にある。アプリ直下(engine/ を読む)と engine/ の中(隣を読む)。
+// どちらから開かれても動くように、先に隣を試して、無ければ engine/ を見る
+let Store;
+try { Store = await import('./store.js?v=09300'); }
+catch { Store = await import('./engine/store.js?v=09300'); }
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const when = t => { const d = new Date(t || 0); return isNaN(d) ? '—' :
+  `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} ` +
+  `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; };
+
+function render() {
+  const q = $('q').value.trim();
+  const all = Store.all();
+  const list = q ? all.filter(r => JSON.stringify(r).includes(q)) : all;
+  $('count').textContent = q ? `${list.length} / ${all.length}件` : `${all.length}件`;
+  const u = Store.usage();
+  $('usage').textContent = `${(u.bytes/1024).toFixed(1)} KB（この端末のブラウザに保存）`;
+  $('empty').hidden = all.length > 0;
+  $('list').innerHTML = list.map(r => {
+    const fix = Object.keys(r.person || {}).length;
+    const adj = Object.keys(r.adj || {}).length;
+    const ov = Object.keys(r.ov || {}).length;
+    const sn = r.snapshot || {};
+    const thumb = r.thumb
+      ? `<img class="thumb" src="${esc(r.thumb)}" alt="">`
+      : `<div class="thumb none">画像なし</div>`;
+    return `<div class="item" data-id="${esc(r.id)}">
+      ${thumb}
+      <h3>${esc(r.title || '無題')}</h3>
+      <div class="sub">${sn.age ? esc(`${sn.age}歳・${sn.role || ''}`) : when(r.savedAt)}</div>
+      <div class="kv">
+        ${sn.bodyType ? `<b>体型</b><span>${esc(sn.height || '')}・${esc(sn.weight || '')}／${esc(sn.bodyType)}</span>` : ''}
+        ${sn.mbti ? `<b>MBTI</b><span>${esc(sn.mbti)}（${esc(sn.personality || '')}）</span>` : ''}
+        ${sn.vibe ? `<b>雰囲気</b><span>${esc(sn.vibe)}</span>` : ''}
+        <b>シード</b><span class="seed">${r.seed >>> 0}</span>
+        <b>手直し</b><span>${[ov && ov + '軸', adj && adj + '項目の微調整',
+          fix && fix + '項目の人物像'].filter(Boolean).join('／') || 'なし'}</span>
+      </div>
+      ${fix ? Object.entries(r.person).slice(0,4)
+          .map(([k,v]) => `<span class="tag">${esc(v)}</span>`).join('') : ''}
+      <div class="row" style="margin-top:8px">
+        <button class="primary" data-load="${esc(r.id)}">この人物を開く</button>
+        <button data-rename="${esc(r.id)}">名前</button>
+        <button data-view="${esc(r.id)}">中身</button>
+        <span class="grow"></span>
+        <button class="danger" data-del="${esc(r.id)}">削除</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  $('list').querySelectorAll('[data-load]').forEach(b => b.onclick = () => open_(b.dataset.load));
+  $('list').querySelectorAll('[data-del]').forEach(b => b.onclick = () => {
+    const r = Store.get(b.dataset.del);
+    if (confirm(`「${r ? r.title : ''}」を削除する。戻せない。`)) { Store.remove(b.dataset.del); render(); }
+  });
+  $('list').querySelectorAll('[data-view]').forEach(b => b.onclick = () => {
+    const r = Store.get(b.dataset.view); if (!r) return;
+    $('dlgTitle').textContent = r.title || '無題';
+    $('dlgNote').textContent = '保存されている人物像。ここは読むだけ。';
+    $('dlgText').value = JSON.stringify(r.snapshot || {}, null, 1);
+    $('dlgOk').hidden = true; $('dlgReplace').hidden = true;
+    dlg.showModal();
+  });
+  $('list').querySelectorAll('[data-rename]').forEach(b => b.onclick = () => {
+    const r = Store.get(b.dataset.rename); if (!r) return;
+    const t = prompt('名前', r.title || ''); if (t == null) return;
+    Store.save(Object.assign({}, r, { title: t })); render();
+  });
+}
+
+/** メーカーの画面へ送る。開いていなければ開く */
+function open_(id) {
+  const rec = Store.get(id); if (!rec) return;
+  if (window.opener && !window.opener.closed) {
+    window.opener.postMessage({ type: 'ikemen-load', rec }, '*');
+    window.opener.focus();
+  } else {
+    // 単独で開かれたとき。id を渡して、向こうで localStorage から読ませる
+    window.open('index.html?load=' + encodeURIComponent(id), 'ikemen_main');
+  }
+}
+
+$('q').oninput = render;
+$('reload').onclick = render;
+
+const dlg = $('dlg');
+$('exp').onclick = () => {
+  $('dlgTitle').textContent = '書き出す';
+  $('dlgNote').textContent = 'この内容をファイルに貼って残す。別の端末で「取り込む」に貼れば戻る。';
+  $('dlgText').value = Store.exportAll();
+  $('dlgOk').hidden = true; $('dlgReplace').hidden = true;
+  dlg.showModal(); $('dlgText').select();
+};
+$('imp').onclick = () => {
+  $('dlgTitle').textContent = '取り込む';
+  $('dlgNote').textContent = '書き出した内容を貼る。「足す」は今あるものを残したまま増やす。';
+  $('dlgText').value = '';
+  $('dlgOk').hidden = false; $('dlgReplace').hidden = false;
+  dlg.showModal();
+};
+$('dlgClose').onclick = () => dlg.close();
+$('dlgOk').onclick = () => {
+  try { const n = Store.importAll($('dlgText').value); dlg.close(); render(); alert(n + '件を足した'); }
+  catch (e) { alert('取り込めない: ' + e.message); }
+};
+$('dlgReplace').onclick = () => {
+  if (!confirm('いま保存されているものを全部消して入れ替える。戻せない。')) return;
+  try { const n = Store.importAll($('dlgText').value, { replace: true }); dlg.close(); render(); alert(n + '件にした'); }
+  catch (e) { alert('取り込めない: ' + e.message); }
+};
+
+addEventListener('storage', render);   // 別のタブで保存されたら追いかける
+render();
+</script>
+</html>

@@ -1,0 +1,1069 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>即席偶然イケメンメーカー v0.9300</title>
+<style>
+  :root{
+    --bg1:#d8dbe1; --bg2:#eceef1; --bg3:#d6d9df;
+    --panel:rgba(255,255,255,.80); --panel2:rgba(255,255,255,.55);
+    --line:rgba(60,60,67,.16); --text:#1d1d1f; --sub:#6e6e73;
+    --blue:#007aff; --radius:16px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    background:linear-gradient(145deg,var(--bg1),var(--bg2) 52%,var(--bg3));
+    background-attachment:fixed; color:var(--text);
+    font:15px/1.65 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif;
+    padding:20px;
+  }
+  .window{
+    max-width:2180px;margin:0 auto;background:var(--panel);
+    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.13);backdrop-filter:blur(24px);
+  }
+  .titlebar{
+    height:44px;display:flex;align-items:center;gap:8px;padding:0 14px;
+    border-bottom:1px solid var(--line);background:rgba(255,255,255,.5);
+  }
+  .dot{width:12px;height:12px;border-radius:50%}
+  .d1{background:#ff5f57}.d2{background:#febc2e}.d3{background:#28c840}
+  .titlebar h1{font-size:13px;font-weight:600;margin:0 auto;color:var(--sub);letter-spacing:.02em}
+  .work{display:grid;grid-template-columns:300px 280px minmax(0,1fr) 560px 320px}
+  .farcol{padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+  .farleft{border-right:1px solid var(--line)}
+  .farright{border-left:1px solid var(--line)}
+  .kv{display:grid;grid-template-columns:76px minmax(0,1fr);gap:2px 8px;font-size:12px;line-height:1.7}
+  .pfrows{display:flex;flex-direction:column;gap:1px}
+  .pfrow{display:grid;grid-template-columns:82px minmax(0,1fr) 22px;gap:6px;align-items:start;
+    font-size:12px;line-height:1.65;padding:2px 0;border-bottom:1px solid var(--line)}
+  .pfrow b{color:var(--muted);font-weight:600}
+  .pfrow.pf-on{background:rgba(10,125,74,.07)}
+  .pfrow.pf-on b{color:#0a7d4a}
+  .pf-b{border:0;background:transparent;cursor:pointer;font-size:11px;color:var(--muted);padding:0}
+  .pf-b:hover{color:var(--fg)}
+  .pfsec>summary{cursor:pointer;list-style:none;display:flex;align-items:center}
+  .pfsec>summary::-webkit-details-marker{display:none}
+  .pfsec>summary::before{content:'\25b8';margin-right:6px;color:var(--muted);
+    transition:transform .12s;display:inline-block}
+  .pfsec[open]>summary::before{transform:rotate(90deg)}
+  .pfsec>summary h2{margin:0;display:flex;align-items:center;gap:6px}
+  .pfn{font-size:10px;color:var(--muted);font-weight:400}
+  .pfsec[open]>summary{margin-bottom:6px}
+  .pfsec{border-left:3px solid var(--c);padding-left:11px}
+  .pfsec>summary::before{color:var(--c)}
+  .pfsec>summary h2{color:var(--c)}
+  .pfsec>summary:hover{background:color-mix(in srgb,var(--c) 7%,transparent);
+    border-radius:6px}
+  .pfsec .pfrow b{color:color-mix(in srgb,var(--c) 62%,var(--muted))}
+  .pfsec .pfrow.pf-on{background:color-mix(in srgb,var(--c) 9%,transparent)}
+  .pfsec .pfrow.pf-on b{color:var(--c)}
+  .pfn{background:color-mix(in srgb,var(--c) 12%,transparent);border-radius:999px;
+    padding:0 6px;color:var(--c)}
+  .kv b{color:var(--muted);font-weight:600}
+  .flow{font-size:12px;line-height:1.85;white-space:pre-wrap;word-break:break-word}
+  @media(max-width:1700px){
+    .work{grid-template-columns:280px minmax(0,1fr) 560px}
+    .farcol{grid-column:1/-1;border:0;border-top:1px solid var(--line);
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  }
+    .stage{padding:18px;border-left:1px solid var(--line);border-right:1px solid var(--line);background:rgba(242,242,247,.5)}
+  .leftcol{padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+  .canvaswrap{position:relative;border-radius:12px;overflow:hidden;background:#fff;
+    box-shadow:0 2px 10px rgba(0,0,0,.06)}
+  canvas{width:100%;height:auto;display:block}
+  .actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  button{font:inherit;font-weight:500;padding:11px 18px;border-radius:11px;border:1px solid var(--line);
+    background:#fff;color:var(--text);cursor:pointer;transition:transform .08s,background .15s}
+  button:active{transform:scale(.97)}
+  button.primary{background:var(--blue);color:#fff;border-color:transparent;flex:1 1 160px}
+  button:disabled{opacity:.45;cursor:default}
+  .side{padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+  .card{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:14px}
+  .card h2{font-size:12px;font-weight:600;color:var(--sub);margin:0 0 10px;letter-spacing:.06em}
+  .card h2.fold{cursor:pointer;user-select:none}
+  .card h2.fold::before{content:'▾ ';font-size:10px}
+  .card h2.fold.closed::before{content:'▸ '}
+  .folded{display:none !important}
+  .scorerow{display:flex;align-items:baseline;gap:10px}
+  .score{font-size:40px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+  .rank{font-size:22px;font-weight:700;color:var(--blue)}
+  .stars{color:#f0a500;letter-spacing:2px;font-size:15px;margin-top:4px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .tag{font-size:11px;padding:3px 9px;border-radius:99px;background:rgba(0,122,255,.10);color:#0060d0}
+  .prof{font-size:13.5px;line-height:1.8}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  td{padding:3px 0;border-bottom:1px solid rgba(60,60,67,.07)}
+  td:last-child{text-align:right;color:var(--sub);font-variant-numeric:tabular-nums}
+  .seed{font-size:11.5px;color:var(--sub);word-break:break-all}
+  select{font:inherit;font-size:13px;padding:7px 10px;border-radius:9px;border:1px solid var(--line);background:#fff;width:100%}
+  .muted{color:var(--sub);font-size:12px}
+  .opts{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
+  .opts select{flex:1 1 180px;width:auto}
+  .srow{display:grid;grid-template-columns:92px 1fr 44px 22px;gap:6px;align-items:center;margin-bottom:5px}
+  .srow button.rst{padding:0;width:20px;height:20px;border-radius:6px;font-size:11px;line-height:1;color:var(--sub)}
+  .srow label{font-size:12px;color:var(--sub)}
+  .grp{font-size:11px;font-weight:600;color:var(--blue);letter-spacing:.06em;
+       margin:10px 0 4px;padding-bottom:2px;border-bottom:1px solid var(--line)}
+  .grp:first-child{margin-top:0}
+  .srow span{font-size:12px;color:var(--sub);text-align:right;font-variant-numeric:tabular-nums}
+  .srow input[type=range]{width:100%}
+  canvas{cursor:crosshair;touch-action:none}
+  .canvaswrap{touch-action:none}
+  .canvaswrap{position:relative;overflow:hidden}
+  .canvaswrap.pan{cursor:grab}
+  .canvaswrap.pan:active{cursor:grabbing}
+  #ring{position:absolute;border:2px solid rgba(0,0,0,.55);border-radius:50%;
+    box-shadow:0 0 0 1px rgba(255,255,255,.8) inset;pointer-events:none;display:none;
+    transform:translate(-50%,-50%)}
+  /* 指の下に隠れるので中心にも印を出す */
+  #ring::after{content:'';position:absolute;left:50%;top:50%;width:9px;height:9px;
+    margin:-4.5px 0 0 -4.5px;border-radius:50%;
+    background:rgba(255,255,255,.9);box-shadow:0 0 0 1.5px rgba(0,0,0,.6)}
+  .chk{font-size:12.5px;color:var(--sub);display:flex;align-items:center;gap:6px;white-space:nowrap}
+  #edit{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+  .gspan{grid-column:1 / -1}
+  .erow{display:grid;grid-template-columns:66px minmax(0,1fr);gap:6px;align-items:center;margin-bottom:5px}
+  .erow label{font-size:12px;color:var(--sub)}
+  .erow select{font-size:12.5px;padding:5px 8px}
+  .erow select.fixed{border-color:var(--blue);background:rgba(0,122,255,.06);font-weight:600}
+  .err{background:#fff2f2;border:1px solid #f3c9c9;color:#a02020;border-radius:10px;padding:10px;font-size:13px;margin-top:10px;display:none}
+  .err.on{display:block}
+  .loading{position:absolute;inset:0;display:grid;place-items:center;background:rgba(255,255,255,.7);
+    font-size:13px;color:var(--sub);opacity:0;pointer-events:none;transition:opacity .18s}
+  .loading.on{opacity:1}
+  @media (max-width:1420px){
+    .work{grid-template-columns:minmax(0,1fr) 380px}
+    .leftcol{grid-column:1 / -1;flex-direction:row;flex-wrap:wrap}
+    .leftcol .card{flex:1 1 300px}
+    .stage{border-left:0}
+  }
+  @media (max-width:860px){
+    .leftcol{flex-direction:column;padding:12px}
+    #edit{grid-template-columns:1fr}
+    .erow{grid-template-columns:84px minmax(0,1fr)}
+    .srow{grid-template-columns:88px 1fr 40px 24px}
+    .opts{gap:8px}
+    .chk{font-size:13px;padding:3px 0}
+    .actions button{min-height:44px}
+    .card h2.fold{padding:4px 0}
+    body{padding:0}
+    .window{max-width:none;border:0;border-radius:0;box-shadow:none;background:transparent;backdrop-filter:none}
+    .titlebar{display:none}
+    .work{grid-template-columns:1fr}
+    .stage{border-right:0;padding:12px;background:transparent}
+    .side{padding:12px;gap:12px}
+    .actions{position:sticky;bottom:0;padding:10px 0 calc(10px + env(safe-area-inset-bottom));
+      background:linear-gradient(180deg,rgba(236,238,241,0),rgba(236,238,241,.96) 30%)}
+  }
+</style>
+</head>
+<body>
+<div id="verbar" style="max-width:2180px;margin:0 auto 10px;padding:8px 14px;border-radius:12px;
+  background:#0a7d4a;color:#fff;font-size:13px;font-weight:600;letter-spacing:.03em">
+  即席偶然イケメンメーカー v0.9300
+</div>
+<div class="window">
+  <div class="titlebar"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+    <h1>即席偶然イケメンメーカー　v0.9300</h1></div>
+  <div class="work">
+    <div class="farcol farleft">
+      <div id="pfleft"></div>
+      <div class="card">
+        <h2>この人物</h2>
+        <div style="display:flex;gap:6px">
+          <input id="pfTitle" placeholder="名前を付けて保存" style="flex:1;min-width:0">
+          <button id="pfSave">保存</button>
+        </div>
+        <div style="display:flex;gap:6px;margin-top:6px">
+          <button id="pfDb" style="flex:1">保存した人物…</button>
+          <button id="pfReset">編集を戻す</button>
+        </div>
+        <div class="muted" id="pfState" style="margin-top:6px"></div>
+      </div>
+    </div>
+    <div class="leftcol">
+      <div class="card">
+        <h2>イケメン度</h2>
+        <div class="scorerow"><span class="score" id="score">–</span><span class="rank" id="rank"></span></div>
+        <div class="stars" id="stars"></div>
+        <table id="brk" style="margin-top:8px"></table>
+        <div class="tags" id="tags"></div>
+      </div>
+      <div class="card">
+        <h2>プロフィール</h2>
+        <div class="prof" id="prof">「ガチャを回す」を押してください。</div>
+      </div>
+      <div class="card">
+        <h2>人物像</h2>
+        <div class="prof" id="person">—</div>
+        <div class="tags" id="rareTags" style="margin-top:6px"></div>
+      </div>
+      <div class="card">
+        <h2>生成AI向け</h2>
+        <div class="prof" id="faceLine" style="margin-bottom:8px">—</div>
+        <textarea id="cardPrompt" readonly
+          style="width:100%;height:150px;font-size:11px;line-height:1.6;resize:vertical"></textarea>
+        <div style="display:flex;gap:6px;margin-top:6px">
+          <button id="copyCard" style="flex:1">基準カードを写す</button>
+        </div>
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <select id="derivedType" style="flex:1;min-width:0"></select>
+          <button id="copyDerived">派生を写す</button>
+        </div>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="canvaswrap">
+        <canvas id="cv" width="1024" height="1024"></canvas>
+        <div class="loading" id="load">生成中…</div>
+        <div id="ring"></div>
+      </div>
+      <div class="err" id="err"></div>
+      <div style="display:none">
+      </div>
+      <div class="actions">
+        <button class="primary" id="go">ガチャを回す</button>
+        <button id="save">画像を保存</button>
+        <button id="share">URLをコピー</button>
+      </div>
+      <div class="opts">
+        <select id="bg"></select>
+        <label class="chk">表示 <input type="range" id="zoom" min="70" max="300" step="5" value="100" style="width:110px"> <span id="v_zoom">100%</span></label>
+        <button id="zoomOut" style="font-size:13px;padding:5px 11px">−</button>
+        <button id="zoomIn" style="font-size:13px;padding:5px 11px">＋</button>
+        <button id="zoom100" style="font-size:12px;padding:5px 10px">100%</button>
+        <label class="chk"><input type="checkbox" id="panMode"> 移動</label>
+        <select id="guide" style="width:auto;flex:0 0 auto">
+          <option value="">ガイドなし</option>
+          <option value="cross">十字ライン</option>
+          <option value="golden">黄金比ライン</option>
+          <option value="both">両方</option>
+        </select>
+        <label class="chk"><input type="checkbox" id="forceGlass"> 眼鏡を必ず付ける</label>
+      </div>
+      
+    </div>
+    <div class="side">
+      <div class="card">
+        <h2 class="fold" data-fold="edit">構成　選ぶと差し替わります
+          <button id="clearOv" style="float:right;font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500">固定を解除</button>
+        </h2>
+        <div id="edit"></div>
+        <div class="seed" id="seed" style="margin-top:10px"></div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h2 class="fold" data-fold="adjBox">微調整
+          <button id="adjReset" style="float:right;font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500">初期化</button>
+        </h2>
+        <div id="adjBox"></div>
+        <div class="srow" style="margin-top:8px"><label>眉の色</label>
+          <select id="browColor" style="grid-column:2 / span 3">
+            <option value="">素材のまま</option>
+            <option value="hair">髪色に合わせる</option>
+            <option value="black">黒</option>
+            <option value="darkbrown">焦茶</option>
+            <option value="brown">茶</option>
+            <option value="lightbrown">明るい茶</option>
+          </select></div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h2 class="fold" data-fold="stampBox">スタンプ　画像をクリック
+          <button id="stampClear" style="float:right;font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500;margin-left:6px">全消去</button><button id="stampUndo" style="float:right;font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500">1つ戻す</button>
+        </h2>
+        <div id="stampBox">
+        <div class="opts">
+          <label class="chk"><input type="radio" name="stmp" value="" checked> 置かない</label>
+          <label class="chk"><input type="radio" name="stmp" value="pimple"> ニキビA</label>
+          <label class="chk"><input type="radio" name="stmp" value="pimpleB"> ニキビB</label>
+          <label class="chk"><input type="radio" name="stmp" value="mole"> ほくろ</label>
+          <label class="chk"><input type="radio" name="stmp" value="acnescar"> ニキビ跡</label>
+          <label class="chk"><input type="radio" name="stmp" value="blotch"> しみ</label>
+          <label class="chk"><input type="radio" name="stmp" value="stamperase"> 消しゴム</label>
+          <span class="muted" id="stampN"></span>
+        </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h2 class="fold" data-fold="brushBox">ブラシ　画像をなぞって塗る
+          <button id="brushClear" style="float:right;font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500;margin-left:6px">全消去</button><button id="brushUndo" style="float:right;font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500">1つ戻す</button>
+        </h2>
+        <div id="brushBox">
+        <div class="opts">
+          <label class="chk"><input type="radio" name="stmp" value="shine"> てかり</label>
+          <label class="chk"><input type="radio" name="stmp" value="gloss"> 白い艶</label>
+          <label class="chk"><input type="radio" name="stmp" value="shadow"> 影</label>
+          <label class="chk"><input type="radio" name="stmp" value="stubble"> 青ひげ</label>
+          <label class="chk"><input type="radio" name="stmp" value="pore"> 毛穴</label>
+          <label class="chk"><input type="radio" name="stmp" value="blush"> 赤み</label>
+          <label class="chk"><input type="radio" name="stmp" value="blur"> ぼかし</label>
+          <label class="chk"><input type="radio" name="stmp" value="eraser"> 消しゴム</label>
+        </div>
+        <div class="srow" style="margin-top:8px"><label>ブラシの大きさ</label><input type="range" id="b_size" min="10" max="140" step="2" value="42"><span id="v_bsize">42</span><button class="rst" data-rst="bsize" title="既定に戻す">↺</button></div>
+        <div class="srow"><label>ブラシの強度</label><input type="range" id="b_str" min="5" max="100" step="5" value="45"><span id="v_bstr">45%</span><button class="rst" data-rst="bstr" title="既定に戻す">↺</button></div>
+        </div>
+      </div>
+      <div class="muted" id="perf"></div>
+    </div>
+    <div class="farcol farright">
+      <div id="pfright"></div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+const V='0.9300';
+import * as A from './app.js?v=09300';
+import * as E from './engine.js?v=09300';
+import { load, preload } from './loader.js?v=09300';
+import { encodeState, decodeState, shareNote } from './engine/url_state.js?v=09300';
+import { buildBaseCard, setPresets, DERIVED_TYPES } from './engine/base_card.mjs?v=09300';
+import { judge, lines as rareLines } from './engine/rarity.js?v=09300';
+import { sections, options, LAYOUT } from './engine/profile_view.js?v=09300';
+import * as Store from './engine/store.js?v=09300';
+
+const $ = id => document.getElementById(id);
+const cv = $('cv'), ctx = cv.getContext('2d');
+let M = null, BG = null, cur = null, portrait = null;
+
+/* 落ち着いた背景は手続き生成。ポップ系は画像。 */
+const CALM = {
+  studio: [[232,232,235],[168,170,176],512,430,.62,1.25],
+  paper : [[243,238,228],[214,205,190],512,430,.70,1.10],
+  dark  : [[128,132,150],[18,20,28],  512,380,.75,1.60],
+  idblue: [[186,204,222],[140,165,192],512,430,.90,1.00],
+};
+const BGLIST = [
+  ['none','背景なし(白)'],['studio','スタジオグレー'],['paper','温白紙'],
+  ['idblue','証明写真ブルー'],['dark','ダーク'],
+  ['bg_pop_neon','ネオン'],['bg_pop_sticker','ステッカー'],
+  ['bg_pop_burst','バースト'],['bg_pop_comic','コミック'],
+];
+const IMGBG = new Map();
+async function imageBG(key){
+  if(IMGBG.has(key)) return IMGBG.get(key);
+  try{
+    const bmp=await createImageBitmap(await (await fetch(`assets/17_bg/${key}.webp`)).blob());
+    const c=document.createElement('canvas'); c.width=c.height=1024;
+    c.getContext('2d').drawImage(bmp,0,0,1024,1024);
+    IMGBG.set(key,c); return c;
+  }catch(e){ console.error(e); IMGBG.set(key,null); return null; }
+}
+const bgCache = new Map();
+function calmCanvas(key){
+  if(bgCache.has(key)) return bgCache.get(key);
+  const e=CALM[key];
+  if(!e) return null;
+  const [c0,c1,cx,cy,rr,gm]=e;
+  const c=document.createElement('canvas'); c.width=c.height=1024;
+  const g=c.getContext('2d');
+  const grad=g.createRadialGradient(cx,cy,0,cx,cy,1024*rr);
+  for(let i=0;i<=12;i++){
+    const u=i/12, t=Math.pow(u,gm);
+    grad.addColorStop(u,`rgb(${[0,1,2].map(k=>Math.round(c0[k]+(c1[k]-c0[k])*t)).join(',')})`);
+  }
+  g.fillStyle=grad; g.fillRect(0,0,1024,1024);
+  bgCache.set(key,c);
+  return c;
+}
+
+async function boot(){
+  M = await A.init();
+  setPresets(await (await fetch('face_presets.json')).json());
+  ADJ = Object.assign({}, A.ADJ0);
+  buildAdjUI(); wireAdj();
+  $('bg').innerHTML = BGLIST.map(([v,t])=>`<option value="${v}">${t}</option>`).join('');
+  const st = decodeState(location.hash, A.ADJ0);
+  if(st.version && st.version !== A.VERSION)
+    console.warn('URLの版が違う: ' + st.version + ' → ' + A.VERSION);
+  OV = st.ov;
+  ADJ = Object.assign({}, A.ADJ0, st.adj);
+  syncAdjUI();
+  await draw(st.seed != null ? st.seed : (Math.random()*4294967296)>>>0);
+}
+
+let OV = {};
+let ADJ = null;   // A.ADJ0 から初期化する
+let STAMPS = [];
+const GROUPS = [
+  ['輪郭', [['faceW','横幅',88,112,1,100],['faceH','縦',90,112,1,100],['chinY','あごの高さ',-24,24,1,0],['centri','求心 / 遠心',-100,100,5,0]]],
+  ['目',   [['eyeGap','間隔',-40,40,2,0],['eyeScale','大きさ',80,125,1,100],
+            ['eyeWidth','横幅',80,125,1,100],['eyeHeight','縦の開き',75,135,1,100],
+            ['eyeY','高さ',-20,20,1,0],['lidDrop','上まぶた',-10,16,1,0],
+            ['lidRise','下まぶた',-10,16,1,0],['innerY','目頭の上下',-12,12,1,0],['outerY','目尻の上下',-12,12,1,0]]],
+  ['眉',   [['browY','高さ',-24,24,1,0],['browGap','間隔',-30,30,2,0],
+            ['browInner','眉頭の上下',-12,12,1,0],['browOuter','眉尻の上下',-12,12,1,0],['browTilt','全体の傾き',-12,12,1,0],['browAlpha','濃さ',40,130,5,100]]],
+  ['鼻と口',[['noseY','鼻の高さ',-20,20,1,0],['noseW','小鼻の幅',80,125,1,100],
+            ['lipThick','唇の厚さ',70,140,2,100],['lipWidth','唇の幅',80,120,1,100],['mouthCorner','口角の上下',-10,10,1,0],['mouthY','人中(口の高さ)',-24,24,1,0]]],
+];
+const PCT = new Set(['eyeScale','eyeWidth','eyeHeight','faceW','faceH','lipThick','lipWidth','noseW','browAlpha']);
+function buildAdjUI(){
+  $('adjBox').innerHTML = GROUPS.map(([g,rows])=>
+    `<div class="grp">${g}</div>` + rows.map(([k,ja,mn,mx,st,dv])=>
+      `<div class="srow"><label>${ja}</label>`
+      + `<input type="range" id="a_${k}" min="${mn}" max="${mx}" step="${st}" value="${dv}">`
+      + `<span id="v_${k}">${PCT.has(k)?dv+'%':dv}</span>`
+      + `<button class="rst" data-rst="${k}" title="既定に戻す">↺</button></div>`).join('')
+  ).join('');
+}
+
+function syncAdjUI(){
+  for(const [, rows] of GROUPS) for(const [k] of rows){
+    const el = $('a_' + k); if(!el) continue;
+    const v = PCT.has(k) ? Math.round(ADJ[k] * 100) : ADJ[k];
+    el.value = v;
+    const out = $('v_' + k); if(out) out.textContent = PCT.has(k) ? v + '%' : String(v);
+  }
+}
+
+const AXGROUPS = [
+  ['顔立ち', [['outline','輪郭'],['skinTone','肌']]],
+  ['目と眉', [['eye','目'],['tear','涙袋'],['socket','眼窩'],
+             ['browShape','眉の形'],['browDensity','眉の濃さ']]],
+  ['鼻と口', [['nose','鼻'],['mouth','口']]],
+  ['髪とひげ',[['hair','髪型'],['hairColor','髪色'],['beard','ひげ'],['beardStrength','ひげの濃さ']]],
+  ['肌',     [['pimple','ニキビ'],['acnemark','ニキビ跡'],['mole','ほくろ'],
+             ['freckle','そばかす'],['pores','毛穴'],['redness','小鼻の赤み']]],
+  ['装い',   [['glass','眼鏡'],['glassColor','眼鏡の色'],['cloth','服'],['clothColor','服の色'],
+             ['tie','ネクタイ'],['tieColor','ネクタイの色']]],
+];
+const AXES = AXGROUPS.flatMap(([,r])=>r);
+function optionsOf(axis){
+  const A=M.axes;
+  if(axis==='tie') return [{id:'on',label:'あり'},{id:'none',label:'なし'}];
+  if(axis==='browShape') return A.brow.options;
+  if(axis==='browDensity') return A.brow.density;
+  if(axis==='beardStrength') return A.beard.strength;
+  if(axis==='skinTone') return A.skinTone.options;
+  return A[axis]?.options || [];
+}
+const J = () => A.JA_LABEL;
+const EX = {
+  eye: id => { const g={A:'一重',B:'二重',C:'奥二重'}[id[3]]||'';
+               return g+'の'+(J().eyeShape[id.replace(/^eye[ABC]\d+_/,'')]||id); },
+  nose: id => J().nose[id.replace(/^nose\d+_/,'')] || id,
+  mouth: id => J().mouth[id.replace(/^mouth\d+_/,'')] || id,
+  browShape: id => J().brow[id.replace(/^\d+_/,'')] || id,
+  hairColor: id => J().hairColor[id] || id,
+  skinTone: id => J().tone[id] || id,
+  beard: id => id==='none' ? 'なし' : (J().beard[id] || id),
+  tear: id => ({none:'なし',tear01_subtle:'控えめ',tear02_natural:'自然',tear03_strong:'はっきり'})[id] || id,
+  socket: id => '深さ '+id.split('_')[1],
+  pimple: id => ({pimple_n0:'0個',pimple_n1:'1個',pimple_n2:'2個',pimple_n3:'3個',pimple_n5:'5個',pimple_n8:'8個'})[id] || id,
+  glass: id => id==='none' ? 'なし' : ({boston:'ボストン',browline:'ブロウライン',halfrim:'ハーフリム',
+    metalsquare:'メタルスクエア',oval:'オーバル',rimless:'リムレス',round:'ラウンド',
+    square:'スクエア',thick:'太フレーム',wellington:'ウェリントン'})[id] || id,
+  glassColor: id => ({black:'黒',brown:'茶',silver:'シルバー',gold:'ゴールド',navy:'ネイビー'})[id] || id,
+  browDensity: id => ({N:'標準',S:'薄め'})[id] || id,
+  beardStrength: id => ({weak:'薄い',mid:'ふつう',strong:'濃い'})[id] || id,
+  hair: id => ({buzz:'坊主',softmohawk:'ソフトモヒカン',fadeshort:'フェードショート',skinfade:'スキンフェード',
+    spiky:'スパイキー',upbang:'アップバング',sidepart:'サイドパート',crop:'クロップ',pompadour:'ポンパドール',
+    shortlayer:'ショートレイヤー',mushroom:'マッシュルーム',centerpart:'センターパート',koreanpart:'韓国風パート',
+    mushwolf:'マッシュウルフ',seethrough:'シースルー',onelength:'ワンレングス',sweptpart:'流し前髪',
+    mushfade:'マッシュフェード',permmush:'パーママッシュ',shortpart:'ショートパート',
+    mediumstraight:'ミディアムストレート',mediumlayer:'ミディアムレイヤー',looseperm:'ゆるパーマ',
+    spiralperm:'スパイラルパーマ',twistperm:'ツイストパーマ',wolfmedium:'ウルフミディアム',
+    centermedium:'センターミディアム',sweptmedium:'流しミディアム',wavymedium:'ウェーブミディアム',
+    mediummush:'ミディアムマッシュ'})[id.replace(/^hair\d+_/,'')] || id,
+  outline: id => (J().outline[id]||id).replace(/の$/,''),
+  redness: id => id==='none'?'なし':'あり',
+  pores: id => id==='none'?'なし':'あり',
+  freckle: id => id==='none'?'なし':'あり',
+  acnemark: id => id==='none'?'なし':'あり',
+  mole: id => id==='none'?'なし':'あり',
+};
+function labelOf(axis,o){
+  if(o.label) return o.label;
+  const f=EX[axis];
+  try{ return f ? f(o.id) : String(o.id); }catch{ return String(o.id); }
+}
+function buildEditor(s){
+  const box=$('edit');
+  const rowHTML=([axis,ja])=>{
+    const opts=optionsOf(axis);
+    const cur = axis==='skinTone'? s.tone.id
+              : axis==='beardStrength'? s.beardStrength.id
+              : axis==='cloth'? s.cloth.id
+              : axis==='tie'? (s.tie?'on':'none')
+              : s[axis];
+    const fixed = OV[axis]!=null;
+    const sel = fixed ? OV[axis] : cur;
+    const o=opts.map(x=>`<option value="${x.id}"${x.id===sel?' selected':''}>${labelOf(axis,x)}（${x.id}）</option>`).join('');
+    return `<div class="erow"><label>${ja}</label><select data-axis="${axis}" class="${fixed?'fixed':''}">`
+         + `<option value="">おまかせに戻す</option>${o}</select></div>`;
+  };
+  box.innerHTML=AXGROUPS.map(([g,rows])=>
+    `<div class="grp gspan">${g}</div>`+rows.map(rowHTML).join('')).join('');
+  box.querySelectorAll('select').forEach(sel=>{
+    const axis=sel.dataset.axis;
+    sel.onchange=()=>{
+      if(sel.value==='') delete OV[axis]; else OV[axis]=sel.value;
+      draw(cur_seed);
+    };
+  });
+}
+
+let cur_seed=0;
+async function draw(seed){
+  cur_seed=seed;
+  $('err').classList.remove('on');
+  $('load').classList.add('on');
+  await new Promise(r=>requestAnimationFrame(r));
+  try{
+    const t0=performance.now();
+    const ov={...OV};
+    if($('forceGlass').checked && !ov.glass){
+      const gs=M.axes.glass.options.filter(o=>o.id!=='none');
+      ov.glass = gs[Math.floor(A.mulberry32(seed^0x9e37)()*gs.length)].id;
+    }
+    const s = A.roll(seed, ov);
+    cur=s;
+    await preload(A.neededFiles(s));
+    const t1=performance.now();
+    const bgKey=$('bg').value;
+    const seedRGB = (bgKey!=='none' && CALM[bgKey]) ? CALM[bgKey][0] : [255,255,255];
+    const pm = rebuildPaint(false, REDRAW_PAINT), po = rebuildPaint(true, REDRAW_PAINT);
+    REDRAW_PAINT=false;
+    let marks = STAMPS.slice();
+    if(pm) marks.push({layer:pm});
+    if(po) marks.push({layer:po, over:true});
+    const u8 = await A.compose(s, seedRGB, ADJ, marks);
+    const t2=performance.now();
+
+    // 合成結果は人物の被覆率をαに持つ。背景の上に重ねられる。
+    const img = ctx.createImageData(1024,1024);
+    img.data.set(u8);
+    if(!portrait){ portrait=document.createElement('canvas'); portrait.width=portrait.height=1024; }
+    portrait.getContext('2d').putImageData(img,0,0);
+    const key=bgKey;
+    const bgc = key==='none' ? null : (CALM[key] ? calmCanvas(key) : await imageBG(key));
+    ctx.clearRect(0,0,1024,1024);
+    if(bgc) ctx.drawImage(bgc,0,0);
+    else { ctx.fillStyle='#fff'; ctx.fillRect(0,0,1024,1024); }
+    ctx.save();
+    if(bgc){
+      // ポップ系の背景は色が強く人物が沈むので、影を濃くしてシルエットを分ける
+      const strong = !CALM[key];
+      ctx.shadowOffsetX=strong?6:4; ctx.shadowOffsetY=strong?6:4;
+      ctx.shadowBlur=strong?14:9;
+      ctx.shadowColor=strong?'rgba(0,0,0,0.62)':'rgba(0,0,0,0.45)';
+    }
+    ctx.drawImage(portrait,0,0);
+    ctx.restore();
+    applyBlur();
+    drawGuide();
+    cur=s;
+
+    const adjUsed = Object.assign({_strokes:STROKES.filter(x=>x.kind!=='eraser').length}, ADJ);
+    const sc=A.ikemenScore(s, adjUsed, STAMPS), rk=A.rank(sc), ra=A.rarity(s);
+    $('score').textContent=sc; $('rank').textContent=rk;
+    $('stars').textContent='★'.repeat(ra.stars)+'☆'.repeat(5-ra.stars);
+    $('tags').innerHTML=ra.hits.map(h=>`<span class="tag">${h.label}</span>`).join('');
+    const g=A.geometry(s, ADJ);
+    $('brk').innerHTML = g ? Object.keys(A.AXIS_JA).map(k=>
+      `<tr><td>${A.AXIS_JA[k]}</td><td>${Math.round(g[k]*100)}</td></tr>`).join('') : '';
+    $('prof').textContent=A.profileText(s);
+    buildEditor(s);
+    $('stampN').textContent = (STAMPS.length||STROKES.length) ? `スタンプ${STAMPS.length} / 筆${STROKES.length}` : '';
+    $('seed').textContent='seed '+seed+(Object.keys(OV).length?`　固定 ${Object.keys(OV).length}項目`:'');
+    location.hash = encodeState({ seed, ov: OV, adj: ADJ, adj0: A.ADJ0, version: A.VERSION });
+    try{ renderPrompt(seed, ov, adjUsed); }
+    catch(e){ $('faceLine').textContent = 'プロンプト: ' + e.message; }
+    const st=A.stats();
+    const pa = pm ? Math.round(pm.w*pm.h/1024) : 0;
+    $('perf').textContent =
+      `v${A.VERSION}　背景 ${$('bg').selectedOptions[0].textContent}`
+      + `　読み込み ${(t1-t0).toFixed(0)}ms / 合成 ${(t2-t1).toFixed(0)}ms`
+      + `　描画 ${(performance.now()-t2).toFixed(0)}ms`
+      + `　筆${STROKES.length} 塗り${pa}k画素`
+      + `　キャッシュ ${st.count}点 ${(st.bytes/1048576).toFixed(1)}MB`;
+  }catch(e){
+    $('err').textContent='生成に失敗しました: '+(e && e.message ? e.message : e);
+    $('err').classList.add('on');
+    console.error(e);
+  }finally{
+    $('load').classList.remove('on');
+  }
+}
+
+function wireAdj(){
+  for(const [,rows] of GROUPS) for(const [k] of rows){
+    const el=$('a_'+k), out=$('v_'+k);
+    if(!el) continue;
+    const fmt=v=>PCT.has(k)?v+'%':String(v);
+    el.oninput=()=>{ out.textContent=fmt(+el.value); };
+    el.onchange=()=>{ ADJ[k]=PCT.has(k)?(+el.value)/100:+el.value; draw(cur_seed); };
+  }
+  document.querySelectorAll('button.rst').forEach(b=>b.onclick=()=>{
+    const k=b.dataset.rst;
+    if(k==='bsize'){ $('b_size').value=42; $('b_size').dispatchEvent(new Event('input')); return; }
+    if(k==='bstr'){ $('b_str').value=45; $('b_str').dispatchEvent(new Event('input')); return; }
+    const d=PCT.has(k)?100:0;
+    const el=$('a_'+k);
+    if(el){ el.value=d; el.dispatchEvent(new Event('input')); }
+    ADJ[k]=PCT.has(k)?1.0:0;
+    draw(cur_seed);
+  });
+}
+let ZOOM=1, PANX=0, PANY=0;
+function applyZoom(){
+  cv.style.width='100%'; cv.style.display='block';
+  cv.style.transformOrigin='50% 50%';
+  cv.style.transform=`translate(${PANX}px,${PANY}px) scale(${ZOOM})`;
+  $('v_zoom').textContent=Math.round(ZOOM*100)+'%';
+  $('zoom').value=Math.round(ZOOM*100);
+}
+function setZoom(z){ ZOOM=Math.min(3,Math.max(0.7,z)); applyZoom(); }
+function panBy(dx,dy){ PANX+=dx; PANY+=dy; applyZoom(); }
+function center(){ PANX=0; PANY=0; setZoom(1); }
+$('zoom').oninput=()=>setZoom((+$('zoom').value)/100);
+$('zoom100').onclick=()=>{ center(); };
+$('zoomIn').onclick=()=>setZoom(ZOOM*1.2);
+$('zoomOut').onclick=()=>setZoom(ZOOM/1.2);
+$('panMode').onchange=()=>{
+  document.querySelector('.canvaswrap').classList.toggle('pan',$('panMode').checked);
+  $('ring').style.display='none';
+};
+addEventListener('keydown',ev=>{
+  if(/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  const step=40;
+  switch(ev.key){
+    case '+': case ';': case '=': setZoom(ZOOM*1.15); break;
+    case '-': setZoom(ZOOM/1.15); break;
+    case '8': panBy(0,step); break;
+    case '2': panBy(0,-step); break;
+    case '4': panBy(step,0); break;
+    case '6': panBy(-step,0); break;
+    case '5': center(); break;
+    default: return;
+  }
+  ev.preventDefault();
+});
+$('browColor').onchange=()=>{
+  const v=$('browColor').value;
+  ADJ.browHair = (v==='hair');
+  ADJ.browColor = (v==='hair'||v==='') ? '' : v;
+  draw(cur_seed);
+};
+$('adjReset').onclick=()=>{
+  for(const [,rows] of GROUPS) for(const [k] of rows){
+    const d=PCT.has(k)?100:0; const el=$('a_'+k);
+    if(el){ el.value=d; el.dispatchEvent(new Event('input')); }
+  }
+  ADJ=Object.assign({}, A.ADJ0); $('browColor').value='';
+  for(const [key,,fmt] of SLIDERS){
+    const d=/^(eyeScale|eyeWidth|eyeHeight|faceW|faceH|lipThick)$/.test(key)?100:0;
+    $('a_'+key).value=d; $('v_'+key).textContent=fmt(d);
+  }
+  draw(cur_seed);
+};
+let stampKind='';
+document.querySelectorAll('input[name=stmp]').forEach(r=>r.onchange=()=>{
+  stampKind=r.value;
+  $('ring').style.display = (stampKind && !['pimple','mole'].includes(stampKind)) ? 'block' : 'none';
+});
+const STAMP_KINDS=['pimple','pimpleB','mole','acnescar','blotch'];
+const isBrush = k => k && !STAMP_KINDS.includes(k) && k!=='stamperase';   // 消しゴムとぼかしもブラシ扱い
+
+/* ブラシは1枚のペイント層に描く。ストロークごとに記録し、Ctrl+Zで巻き戻す。 */
+let STROKES=[];                    // [{kind,radius,strength,pts:[{x,y}]}]
+let REDRAW_PAINT=false;            // 巻き戻しや消去のときだけ全部描き直す
+let paintCv=null;
+/* 乗算のペイント層と、上に重ねる層(白い艶)を別に作る。
+   乗算では 255/232 = 1.099 倍が上限で、艶の白は出せない。
+
+   性能のための工夫が3つある。
+   1) キャンバスを使い回す。毎回 createElement すると GC が走る
+   2) ストロークが増えたときは差分だけ描き足す。作り直すと O(N^2) になる
+   3) 実際に描いた範囲だけを切り出して渡す。全画面(1,048,576px)のままだと
+      合成の走査量が中央素材(42,484px)の25倍になる */
+
+/* 1ストロークを描く。ペイント層の作り直しと差分描画の両方から使う。 */
+const COL={shine:'255,252,246', shadow:'200,186,176', stubble:'176,178,190',
+           pore:'186,158,146', blush:'236,176,168', gloss:'255,255,255'};
+const DOT={stubble:{r:1.85, veil:0.55, hard:'168,172,196', soft:'210,218,240', per:44},
+           pore:   {r:1.1,  veil:0.0,  hard:'120,90,74',   soft:'150,118,100', per:13}};
+function DRAW_ONE(g,st,overMode){
+  const era = st.kind==='eraser';
+  g.globalCompositeOperation = era ? 'destination-out' : 'source-over';
+  const rgb=COL[st.kind]||COL.shadow;
+  const dot=DOT[st.kind];
+  for(const p of st.pts){
+    if(dot && !era){
+      if(dot.veil>0){
+        const gv=g.createRadialGradient(p.x,p.y,0,p.x,p.y,st.radius);
+        gv.addColorStop(0,`rgba(${dot.soft},${st.strength*dot.veil})`);
+        gv.addColorStop(0.55,`rgba(${dot.soft},${st.strength*dot.veil*0.72})`);
+        gv.addColorStop(1,`rgba(${dot.soft},0)`);
+        g.fillStyle=gv; g.beginPath(); g.arc(p.x,p.y,st.radius,0,7); g.fill();
+      }
+      const n=Math.max(1,Math.round(Math.PI*st.radius*st.radius/dot.per));
+      for(let k=0;k<n;k++){
+        const a2=Math.random()*6.283, rad=Math.sqrt(Math.random())*st.radius;
+        const u=rad/st.radius, fall=Math.max(0,1-u*u);
+        if(Math.random()>fall*0.85+0.15) continue;
+        const px=p.x+Math.cos(a2)*rad, py=p.y+Math.sin(a2)*rad;
+        const pr=dot.r*(0.62+Math.random()*0.9);
+        const al=st.strength*(0.55+Math.random()*0.45)*fall;
+        const gd=g.createRadialGradient(px,py,0,px,py,pr);
+        gd.addColorStop(0,`rgba(${dot.hard},${al})`);
+        gd.addColorStop(1,`rgba(${dot.hard},0)`);
+        g.fillStyle=gd; g.beginPath(); g.arc(px,py,pr,0,7); g.fill();
+      }
+    }else{
+      const grd=g.createRadialGradient(p.x,p.y,0,p.x,p.y,st.radius);
+      grd.addColorStop(0, era?`rgba(0,0,0,${st.strength})`:`rgba(${rgb},${st.strength})`);
+      grd.addColorStop(1, era?'rgba(0,0,0,0)':`rgba(${rgb},0)`);
+      g.fillStyle=grd; g.beginPath(); g.arc(p.x,p.y,st.radius,0,7); g.fill();
+    }
+  }
+}
+const PAINT={mul:null, over:null};
+const PSTATE={mul:{n:0,box:null,layer:null,pts:0}, over:{n:0,box:null,layer:null,pts:0}};
+function paintCanvas(key){
+  if(!PAINT[key]){
+    const c=document.createElement('canvas'); c.width=c.height=1024;
+    PAINT[key]=c;
+  }
+  return PAINT[key];
+}
+function rebuildPaint(overMode, fullRedraw){
+  const key=overMode?'over':'mul';
+  const st0=PSTATE[key];
+  const cvv=paintCanvas(key);
+  const g=cvv.getContext('2d');
+  const list=STROKES.filter(s=>s.kind!=='blur');
+  const hasEraser=list.some(s=>s.kind==='eraser');
+  // 消しゴムが混ざる場合と、ストロークが減った場合は作り直す
+  const redraw = fullRedraw || hasEraser || list.length < st0.n;
+  // 何も変わっていなければ前回の層をそのまま返す。
+  // getImageData と数百KBのコピーが毎回走るのを避ける(筆94本で合成84msの主因)。
+  const nPts = list.reduce((a,s)=>a+s.pts.length,0);
+  if(!redraw && list.length===st0.n && nPts===st0.pts) return st0.layer;
+  // 点だけが増えた場合(ドラッグ中)は、増えた点だけを描き足す。
+  // 最後の1本を描き直すと、ドラッグが伸びるほど重くなる。
+  const lastGrew = !redraw && list.length===st0.n && nPts>st0.pts;
+  const from = redraw ? 0 : list.length;
+  if(redraw){ g.clearRect(0,0,1024,1024); st0.box=null; for(const s of list) s.drawn={}; }
+  const COL={shine:'255,252,246', shadow:'200,186,176', stubble:'176,178,190',
+             pore:'186,158,146', blush:'236,176,168', gloss:'255,255,255'};
+  const OVERK=new Set(['gloss']);
+  let bx0=1e9,by0=1e9,bx1=-1e9,by1=-1e9;
+  if(st0.box){ [bx0,by0,bx1,by1]=st0.box; }
+  const grow=(x,y,r)=>{ bx0=Math.min(bx0,x-r-2); by0=Math.min(by0,y-r-2);
+                        bx1=Math.max(bx1,x+r+2); by1=Math.max(by1,y+r+2); };
+  let drew=st0.n>0 && !redraw;
+  if(lastGrew){
+    // 末尾のストロークのうち、まだ描いていない点だけ
+    const st=list[list.length-1];
+    const era = st.kind==='eraser';
+    if(era || OVERK.has(st.kind)===!!overMode){
+      const done = (st.drawn && st.drawn[key]) || 0;
+      const fresh = st.pts.slice(done);
+      if(fresh.length){
+        drew=true;
+        for(const p of fresh) grow(p.x,p.y,st.radius);
+        DRAW_ONE(g, {...st, pts:fresh}, overMode);
+      }
+    }
+    st.drawn = st.drawn || {}; st.drawn[key] = st.pts.length;
+  }
+  for(let si=redraw?0:st0.n; si<list.length; si++){
+    const st=list[si];
+    const era = st.kind==='eraser';
+    if(!era && OVERK.has(st.kind)!==!!overMode) continue;
+    drew=true;
+    for(const p of st.pts) grow(p.x,p.y,st.radius);
+    DRAW_ONE(g,st,overMode);
+    st.drawn = st.drawn || {}; st.drawn[key] = st.pts.length;
+  }
+  g.globalCompositeOperation='source-over';
+  st0.n=list.length; st0.pts=nPts;
+  if(!drew || bx1<bx0) { st0.box=null; st0.layer=null; return null; }
+  bx0=Math.max(0,Math.floor(bx0)); by0=Math.max(0,Math.floor(by0));
+  bx1=Math.min(1024,Math.ceil(bx1)); by1=Math.min(1024,Math.ceil(by1));
+  st0.box=[bx0,by0,bx1,by1];
+  const w=bx1-bx0, h=by1-by0;
+  if(w<=0||h<=0) return null;
+  const d=g.getImageData(bx0,by0,w,h).data;
+  st0.layer={data:new Uint8Array(d.buffer.slice(0)),x0:bx0,y0:by0,w,h,over:!!overMode};
+  return st0.layer;
+}
+function toCanvas(ev){
+  const r=cv.getBoundingClientRect();
+  return {x:Math.round((ev.clientX-r.left)/r.width*1024),
+          y:Math.round((ev.clientY-r.top)/r.height*1024), rect:r};
+}
+let painting=false, lastPt=null;
+cv.addEventListener('pointermove',ev=>{
+  if(panning){ PANX=ev.clientX-panStart.x; PANY=ev.clientY-panStart.y; applyZoom(); return; }
+  const p=toCanvas(ev);
+  if(isBrush(stampKind)||stampKind==='stamperase'){
+    // リングは .canvaswrap の中にあるので、位置は親の矩形を基準にする。
+    // キャンバスは transform で拡大しているため、キャンバスの矩形を使うとずれる。
+    const rr=$('ring');
+    const wrapR=document.querySelector('.canvaswrap').getBoundingClientRect();
+    const scale=p.rect.width/1024, rad=(+$('b_size').value)*scale;
+    rr.style.display='block';
+    rr.style.left=(ev.clientX-wrapR.left)+'px';
+    rr.style.top=(ev.clientY-wrapR.top)+'px';
+    rr.style.width=rr.style.height=(rad*2)+'px';
+  }
+  if(!painting||!isBrush(stampKind)) return;
+  const s=STROKES[STROKES.length-1];
+  const d=lastPt?Math.hypot(p.x-lastPt.x,p.y-lastPt.y):999;
+  if(d < s.radius*0.28) return;         // 密に置きすぎない
+  s.pts.push({x:p.x,y:p.y}); lastPt=p;
+  scheduleDraw();
+});
+cv.addEventListener('pointerleave',()=>{ $('ring').style.display='none'; });
+let panning=false, panStart=null;
+cv.addEventListener('pointerdown',ev=>{
+  if(stampKind || $('panMode').checked) ev.preventDefault();
+  if($('panMode').checked){
+    panning=true; panStart={x:ev.clientX-PANX,y:ev.clientY-PANY};
+    cv.setPointerCapture(ev.pointerId); return;
+  }
+  if(!stampKind||!cur) return;
+  const p=toCanvas(ev);
+  if(isBrush(stampKind)){
+    cv.setPointerCapture(ev.pointerId);
+    painting=true; lastPt=p;
+    STROKES.push({kind:stampKind,radius:+$('b_size').value,
+                  strength:(+$('b_str').value)/100, pts:[{x:p.x,y:p.y}]});
+    LASTOP.push('brush');
+    scheduleDraw();
+  }else if(stampKind==='stamperase'){
+    // スタンプ用の消しゴム。ブラシの大きさの範囲にあるスタンプを消す
+    const r=+$('b_size').value;
+    const before=STAMPS.length;
+    STAMPS=STAMPS.filter(st=>Math.hypot(st.x-p.x,st.y-p.y)>r);
+    if(STAMPS.length!==before) draw(cur_seed);
+  }else{
+    STAMPS.push({kind:stampKind,x:p.x,y:p.y,size:1,seed:(Math.random()*1e9)|0});
+    LASTOP.push('stamp'); draw(cur_seed);
+  }
+});
+addEventListener('pointerup',ev=>{
+  painting=false; lastPt=null; panning=false;
+  // タッチでは pointerleave が来ないことがある
+  if(ev.pointerType!=='mouse') $('ring').style.display='none';
+});
+addEventListener('pointercancel',()=>{ painting=false; lastPt=null; panning=false; });
+let pending=false;
+function scheduleDraw(){
+  if(pending) return; pending=true;
+  requestAnimationFrame(()=>{ pending=false; draw(cur_seed); });
+}
+$('b_size').oninput=()=>$('v_bsize').textContent=$('b_size').value;
+$('b_str').oninput=()=>$('v_bstr').textContent=$('b_str').value+'%';
+$('stampUndo').onclick=()=>{ if(STAMPS.length){ STAMPS.pop(); draw(cur_seed); } };
+$('stampClear').onclick=()=>{ if(STAMPS.length){ STAMPS=[]; draw(cur_seed); } };
+$('brushUndo').onclick=()=>{ if(STROKES.length){ STROKES.pop(); REDRAW_PAINT=true; draw(cur_seed); } };
+$('brushClear').onclick=()=>{ if(STROKES.length){ STROKES=[]; REDRAW_PAINT=true; draw(cur_seed); } };
+/* Ctrl+Z は最後の操作を戻す。どちらが後だったかを記録しておく */
+let LASTOP=[];
+function undo(){
+  const op=LASTOP.pop();
+  if(op==='brush' && STROKES.length){ STROKES.pop(); REDRAW_PAINT=true; }
+  else if(op==='stamp' && STAMPS.length) STAMPS.pop();
+  else if(STROKES.length){ STROKES.pop(); REDRAW_PAINT=true; }
+  else if(STAMPS.length) STAMPS.pop();
+  else return;
+  draw(cur_seed);
+}
+addEventListener('keydown',ev=>{
+  if((ev.ctrlKey||ev.metaKey) && ev.key.toLowerCase()==='z'){ ev.preventDefault(); undo(); }
+});
+function applyBlur(){
+  const bs=STROKES.filter(s=>s.kind==='blur');
+  if(!bs.length) return;
+  const m=document.createElement('canvas'); m.width=m.height=1024;
+  const mg=m.getContext('2d');
+  for(const st of bs){
+    for(const p of st.pts){
+      const g2=mg.createRadialGradient(p.x,p.y,0,p.x,p.y,st.radius);
+      g2.addColorStop(0,`rgba(255,255,255,${st.strength})`);
+      g2.addColorStop(1,'rgba(255,255,255,0)');
+      mg.fillStyle=g2; mg.beginPath(); mg.arc(p.x,p.y,st.radius,0,7); mg.fill();
+    }
+  }
+  const b=document.createElement('canvas'); b.width=b.height=1024;
+  const bg2=b.getContext('2d');
+  bg2.filter='blur(4px)'; bg2.drawImage(cv,0,0); bg2.filter='none';
+  bg2.globalCompositeOperation='destination-in'; bg2.drawImage(m,0,0);
+  ctx.drawImage(b,0,0);
+}
+function drawGuide(){
+  const g=$('guide').value; if(!g) return;
+  ctx.save(); ctx.lineWidth=2;
+  if(g==='cross'||g==='both'){
+    ctx.strokeStyle='rgba(0,160,255,.65)';
+    ctx.beginPath(); ctx.moveTo(512,0); ctx.lineTo(512,1024);
+    ctx.moveTo(0,486); ctx.lineTo(1024,486); ctx.stroke();
+  }
+  if(g==='golden'||g==='both'){
+    // 縦の3分割(生え際310 / 眉 / 鼻の下 / あご769)と横の5分割
+    ctx.strokeStyle='rgba(255,120,0,.7)';
+    const top=310, chin=769, step=(chin-top)/3;
+    ctx.beginPath();
+    for(let i=0;i<=3;i++){ const y=top+step*i; ctx.moveTo(180,y); ctx.lineTo(844,y); }
+    ctx.stroke();
+    ctx.strokeStyle='rgba(0,190,120,.7)';
+    ctx.beginPath();
+    const L=512-174, W2=348/5;      // 顔幅348を5分割
+    for(let i=0;i<=5;i++){ const x=L+W2*i; ctx.moveTo(x,330); ctx.lineTo(x,700); }
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+$('guide').onchange=()=>draw(cur_seed);
+document.querySelectorAll('h2.fold').forEach(hh=>{
+  hh.onclick=ev=>{
+    if(ev.target.tagName==='BUTTON') return;      // 見出し内のボタンは通す
+    const t=$(hh.dataset.fold);
+    if(!t) return;
+    const closed=t.classList.toggle('folded');
+    hh.classList.toggle('closed',closed);
+  };
+});
+$('go').onclick=()=>draw((Math.random()*4294967296)>>>0);
+$('forceGlass').onchange=()=>cur&&draw(cur_seed);
+$('clearOv').onclick=()=>{ OV={}; draw(cur_seed); };
+$('bg').onchange=()=>cur&&draw(cur_seed);
+$('save').onclick=()=>{
+  cv.toBlob(b=>{
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(b); a.download=`ikemen_${cur?cur.seed:0}.png`; a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  },'image/png');
+};
+let LAST = null;
+const PFIX = {};        // 人物像で手で選んだ項目。抽選より優先する
+const PFOPEN = {};      // カテゴリの開け閉め
+function renderPrompt(seed, ov, adjUsed){
+  // **合成に使ったものと同じ ov / adj を渡す。** 渡し忘れると画像と文章がずれる。
+  // イケメン度が画面の数字と一致するかで、渡せているか分かる
+  LAST = buildBaseCard({ seed, ov, adj: adjUsed });
+  const p = LAST.person;
+  const j = judge(cur, p, adjUsed, STAMPS);
+  $('faceLine').textContent = LAST.block;
+  $('person').textContent =
+    `${p.name}／${p.age}歳・${p.role}／${p.height}・${p.weight}／${p.bodyType}／MBTI ${p.mbti}`;
+  $('rareTags').innerHTML =
+    `<span class="tag">${j.rank} ${j.score}pt</span>` +
+    rareLines(j).slice(0,6).map(s=>`<span class="tag">${s.replace(/\s+/g,' ')}</span>`).join('');
+  $('cardPrompt').value = LAST.prompt;
+  renderPerson(p);
+  const sel = $('derivedType');
+  if(!sel.options.length)
+    sel.innerHTML = DERIVED_TYPES.map(t=>`<option>${t}</option>`).join('');
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function renderPerson(p){
+  const secs = sections(p);
+  const box = id => secs.filter(s => LAYOUT[id].includes(s.id)).map(s => `
+    <details class="card pfsec" data-sec="${s.id}" style="--c:${HUE[s.id] || '#8a8a8e'}"${PFOPEN[s.id] ?? s.open ? ' open' : ''}>
+    <summary><h2>${s.title}<span class="pfn">${s.rows.length}</span></h2></summary>
+    <div class="pfrows">` + s.rows.map(r => {
+      const opts = r.pool ? options(r.pool) : [];
+      const btn = !r.key ? ''
+        : opts.length ? `<button class="pf-b" data-sel="${r.key}" data-pool="${r.pool}" title="選び直す">▼</button>`
+                      : `<button class="pf-b" data-dice="${r.key}" title="引き直す">&#127922;</button>`;
+      const on = PFIX[r.key] != null ? ' pf-on' : '';
+      return `<div class="pfrow${on}"><b>${esc(r.label)}</b><span>${esc(r.value)}</span>${btn}</div>`;
+    }).join('') + `</div></details>`).join('');
+  $('pfleft').innerHTML = box('left');
+  $('pfright').innerHTML = box('right');
+  const n = Object.keys(PFIX).length;
+  $('pfState').textContent = n ? `${n}項目を手で選んでいる` : '抽選のまま';
+  // 開け閉めを覚えておく。引き直すたびに閉じると使いものにならない
+  document.querySelectorAll('.pfsec').forEach(d =>
+    d.ontoggle = () => { PFOPEN[d.dataset.sec] = d.open; });
+  document.querySelectorAll('[data-sel]').forEach(b => b.onclick = () => openPick(b));
+  document.querySelectorAll('[data-dice]').forEach(b => b.onclick = () => {
+    // 候補が無い項目は、別のシードで引き直してその項目だけ持ってくる
+    const k = b.dataset.dice;
+    const alt = buildBaseCard({ seed: (cur_seed ^ (Date.now() & 0xffff)) >>> 0, person: PFIX });
+    PFIX[k] = alt.person[k];
+    draw(cur_seed);
+  });
+}
+function openPick(b){
+  const k = b.dataset.sel, list = options(b.dataset.pool);
+  const now = LAST.person[k];
+  const sel = document.createElement('select');
+  sel.innerHTML = list.map(o => `<option${o===now?' selected':''}>${esc(o)}</option>`).join('');
+  sel.style.cssText = 'position:fixed;z-index:99;font-size:12px;max-width:280px';
+  const r = b.getBoundingClientRect();
+  sel.style.left = Math.max(8, r.right - 260) + 'px'; sel.style.top = r.bottom + 'px';
+  document.body.appendChild(sel); sel.focus();
+  const done = () => { sel.remove(); };
+  sel.onchange = () => { PFIX[k] = sel.value; done(); draw(cur_seed); };
+  sel.onblur = done;
+}
+$('pfReset').onclick = () => { for(const k in PFIX) delete PFIX[k]; draw(cur_seed); };
+function faceThumb(px = 128){
+  // 顔まわりだけを切って小さくする。1024 のまま持つと容量が保たない
+  const t = document.createElement('canvas'); t.width = t.height = px;
+  const g = t.getContext('2d');
+  g.fillStyle = '#fff'; g.fillRect(0, 0, px, px);
+  g.drawImage($('cv'), 190, 90, 644, 644, 0, 0, px, px);
+  return t.toDataURL('image/webp', 0.72);
+}
+$('pfSave').onclick = () => {
+  if(!LAST) return;
+  try{
+    const rec = Store.save({
+      title: $('pfTitle').value || LAST.person.name || '無題',
+      seed: cur_seed, ov: OV, adj: ADJ, person: Object.assign({}, PFIX),
+      snapshot: LAST.person,          // 人物像229キーの写し。一覧で中身を見るため
+      thumb: faceThumb(),             // 顔のサムネイル
+    });
+    $('pfState').textContent = `「${rec.title}」を保存した`;
+  }catch(e){ $('pfState').textContent = e.message; }
+};
+$('pfDb').onclick = () => window.open('db.html', 'ikemen_db');
+// 保存した人物を読み込む。db.html から呼ばれる
+function applyRecord(rec){
+  if(!rec) return;
+  OV = Object.assign({}, rec.ov || {});
+  ADJ = Object.assign({}, A.ADJ0, rec.adj || {});
+  for(const k in PFIX) delete PFIX[k];
+  Object.assign(PFIX, rec.person || {});
+  syncAdjUI();
+  draw(rec.seed >>> 0);          // draw の中で buildEditor(s) が走り、構成も戻る
+}
+addEventListener('message', e => {
+  if(e.data && e.data.type === 'ikemen-load') applyRecord(e.data.rec);
+});
+// 別のタブから開かれた直後の受け渡し
+try{
+  const q = new URLSearchParams(location.search).get('load');
+  if(q){ const r = Store.get(q); if(r) setTimeout(()=>applyRecord(r), 0); }
+}catch(e){}
+$('copyCard').onclick = async () => {
+  await navigator.clipboard.writeText($('cardPrompt').value);
+  $('copyCard').textContent = '写した'; setTimeout(()=>$('copyCard').textContent='基準カードを写す',1400);
+};
+$('copyDerived').onclick = async () => {
+  if(!LAST) return;
+  await navigator.clipboard.writeText(LAST.derived($('derivedType').value));
+  $('copyDerived').textContent = '写した'; setTimeout(()=>$('copyDerived').textContent='派生を写す',1400);
+};
+$('share').onclick=async()=>{
+  const url = location.origin + location.pathname + '#' +
+    encodeState({ seed: cur ? cur.seed : 0, ov: OV, adj: ADJ, adj0: A.ADJ0, version: A.VERSION });
+  const note = shareNote(STAMPS, STROKES);
+  if(note) $('perf').textContent = note;
+  try{ await navigator.clipboard.writeText(url); $('share').textContent='コピーしました'; }
+  catch{ $('share').textContent='コピー不可'; }
+  setTimeout(()=>$('share').textContent='URLをコピー',1600);
+};
+applyZoom();
+boot();
+</script>
+</body>
+</html>
