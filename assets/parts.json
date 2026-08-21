@@ -1,0 +1,1413 @@
+{
+ "spec": {
+  "canvas": 1024,
+  "multiplyNeutral": 232,
+  "multiplyFormula": "out = base * (1 - a + a * rgb / 232)",
+  "multiplyWarning": "乗算レイヤー52枚中32枚に rgb>232 の画素が計384,950px ある。これはベースを明るくするため Canvas標準 multiply では再現不可能。ピクセル演算(typed array)で実装すること",
+  "baseSkin": [
+   240,
+   205,
+   178
+  ],
+  "anchors": {
+   "irisCenter": [
+    512,
+    486
+   ],
+   "halfPupil": 95,
+   "headTop": 154,
+   "chin": 769,
+   "nostril": 614,
+   "lipSeam": 667,
+   "neckTop": 524
+  },
+  "assetFormat": "WebP q90、bboxで切り抜き。crop.json に [x,y,w,h]"
+ },
+ "layerOrder": [
+  {
+   "layer": "background",
+   "mode": "base"
+  },
+  {
+   "layer": "body",
+   "mode": "over",
+   "tint": "skin"
+  },
+  {
+   "layer": "face",
+   "mode": "over",
+   "tint": "skin"
+  },
+  {
+   "layer": "eyeShade",
+   "mode": "multiply",
+   "pair": "RL"
+  },
+  {
+   "layer": "nose",
+   "mode": "multiply"
+  },
+  {
+   "layer": "mouth",
+   "mode": "multiply"
+  },
+  {
+   "layer": "eyeCore",
+   "mode": "over",
+   "pair": "RL"
+  },
+  {
+   "layer": "tear",
+   "mode": "multiply",
+   "pair": "RL"
+  },
+  {
+   "layer": "sclera",
+   "mode": "untint",
+   "note": "白目を肌トーンから外す"
+  },
+  {
+   "layer": "skinDetail",
+   "mode": "multiply",
+   "note": "13_skin。順序は skinDetailOrder"
+  },
+  {
+   "layer": "beard",
+   "mode": "multiply",
+   "note": "選ばれた口と輪郭でクリップ"
+  },
+  {
+   "layer": "brow",
+   "mode": "over",
+   "pair": "RL",
+   "note": "L/Rを別バッファで合成してから over"
+  },
+  {
+   "layer": "ear",
+   "mode": "over",
+   "tint": "skin",
+   "note": "v13で髪より前へ変更"
+  },
+  {
+   "layer": "hair",
+   "mode": "over",
+   "colorize": "hair"
+  },
+  {
+   "layer": "glass",
+   "mode": "over",
+   "colorize": "glass"
+  },
+  {
+   "layer": "cloth",
+   "mode": "over"
+  },
+  {
+   "layer": "necktie",
+   "mode": "over",
+   "note": "cloth01_dressshirt のときのみ選択可"
+  }
+ ],
+ "skinDetailOrder": [
+  "socket",
+  "redness",
+  "pores",
+  "freckle",
+  "acnemark",
+  "pimple",
+  "beard",
+  "mole"
+ ],
+ "axes": {
+  "outline": {
+   "label": "輪郭",
+   "folder": "01_face",
+   "prefix": "face_",
+   "drives": [
+    "ear",
+    "glass"
+   ],
+   "options": [
+    {
+     "id": "diamond",
+     "label": "ひし形",
+     "w": 1
+    },
+    {
+     "id": "egg",
+     "label": "卵型",
+     "w": 1
+    },
+    {
+     "id": "hex",
+     "label": "六角",
+     "w": 1
+    },
+    {
+     "id": "homeplate",
+     "label": "ホームベース",
+     "w": 1
+    },
+    {
+     "id": "invtri",
+     "label": "逆三角",
+     "w": 1
+    },
+    {
+     "id": "long",
+     "label": "面長",
+     "w": 1
+    },
+    {
+     "id": "pear",
+     "label": "洋なし",
+     "w": 1
+    },
+    {
+     "id": "rect",
+     "label": "長方",
+     "w": 1
+    },
+    {
+     "id": "round",
+     "label": "丸型",
+     "w": 1
+    },
+    {
+     "id": "slim",
+     "label": "細面",
+     "w": 1
+    },
+    {
+     "id": "square",
+     "label": "四角",
+     "w": 1
+    }
+   ]
+  },
+  "skinTone": {
+   "label": "肌の色",
+   "procedural": true,
+   "applyTo": [
+    "body",
+    "face",
+    "ear"
+   ],
+   "method": "RGBに target/[240,205,178] をチャンネル別に乗算。乗算レイヤーは比率ベースなので自動追従する",
+   "options": [
+    {
+     "id": "light",
+     "label": "色白",
+     "rgb": [
+      247,
+      216,
+      195
+     ],
+     "w": 22
+    },
+    {
+     "id": "neutral",
+     "label": "標準",
+     "rgb": [
+      240,
+      205,
+      178
+     ],
+     "w": 46
+    },
+    {
+     "id": "tan",
+     "label": "小麦",
+     "rgb": [
+      222,
+      181,
+      148
+     ],
+     "w": 22
+    },
+    {
+     "id": "deep",
+     "label": "褐色",
+     "rgb": [
+      198,
+      154,
+      120
+     ],
+     "w": 10,
+     "saturationBoost": 1.08
+    }
+   ]
+  },
+  "eye": {
+   "label": "目",
+   "files": "{folder}/{id}_{LR}_{core|shade}.png",
+   "options": [
+    {
+     "id": "eyeA01_almond",
+     "folder": "05_eye_monolid",
+     "group": "一重",
+     "w": 1
+    },
+    {
+     "id": "eyeA02_narrow",
+     "folder": "05_eye_monolid",
+     "group": "一重",
+     "w": 1
+    },
+    {
+     "id": "eyeA03_round",
+     "folder": "05_eye_monolid",
+     "group": "一重",
+     "w": 1
+    },
+    {
+     "id": "eyeA04_droop",
+     "folder": "05_eye_monolid",
+     "group": "一重",
+     "w": 1
+    },
+    {
+     "id": "eyeA05_upturn",
+     "folder": "05_eye_monolid",
+     "group": "一重",
+     "w": 1
+    },
+    {
+     "id": "eyeA06_slim",
+     "folder": "05_eye_monolid",
+     "group": "一重",
+     "w": 1
+    },
+    {
+     "id": "eyeA07_large",
+     "folder": "05_eye_monolid",
+     "group": "一重",
+     "w": 1
+    },
+    {
+     "id": "eyeA08_halflid",
+     "folder": "05_eye_monolid",
+     "group": "一重",
+     "w": 1
+    },
+    {
+     "id": "eyeA09_sanpaku",
+     "folder": "05_eye_monolid",
+     "group": "一重",
+     "w": 1
+    },
+    {
+     "id": "eyeA10_deepset",
+     "folder": "05_eye_monolid",
+     "group": "一重",
+     "w": 1
+    },
+    {
+     "id": "eyeB01_almond",
+     "folder": "06_eye_double",
+     "group": "二重",
+     "w": 1
+    },
+    {
+     "id": "eyeB02_narrow",
+     "folder": "06_eye_double",
+     "group": "二重",
+     "w": 1
+    },
+    {
+     "id": "eyeB03_round",
+     "folder": "06_eye_double",
+     "group": "二重",
+     "w": 1
+    },
+    {
+     "id": "eyeB04_droop",
+     "folder": "06_eye_double",
+     "group": "二重",
+     "w": 1
+    },
+    {
+     "id": "eyeB05_upturn",
+     "folder": "06_eye_double",
+     "group": "二重",
+     "w": 1
+    },
+    {
+     "id": "eyeB06_slim",
+     "folder": "06_eye_double",
+     "group": "二重",
+     "w": 1
+    },
+    {
+     "id": "eyeB07_large",
+     "folder": "06_eye_double",
+     "group": "二重",
+     "w": 1
+    },
+    {
+     "id": "eyeB08_halflid",
+     "folder": "06_eye_double",
+     "group": "二重",
+     "w": 1
+    },
+    {
+     "id": "eyeB09_sanpaku",
+     "folder": "06_eye_double",
+     "group": "二重",
+     "w": 1
+    },
+    {
+     "id": "eyeB10_deepset",
+     "folder": "06_eye_double",
+     "group": "二重",
+     "w": 1
+    },
+    {
+     "id": "eyeC01_almond",
+     "folder": "07_eye_hooded",
+     "group": "奥二重",
+     "w": 1
+    },
+    {
+     "id": "eyeC02_narrow",
+     "folder": "07_eye_hooded",
+     "group": "奥二重",
+     "w": 1
+    },
+    {
+     "id": "eyeC03_round",
+     "folder": "07_eye_hooded",
+     "group": "奥二重",
+     "w": 1
+    },
+    {
+     "id": "eyeC04_droop",
+     "folder": "07_eye_hooded",
+     "group": "奥二重",
+     "w": 1
+    },
+    {
+     "id": "eyeC05_upturn",
+     "folder": "07_eye_hooded",
+     "group": "奥二重",
+     "w": 1
+    },
+    {
+     "id": "eyeC06_slim",
+     "folder": "07_eye_hooded",
+     "group": "奥二重",
+     "w": 1
+    },
+    {
+     "id": "eyeC07_large",
+     "folder": "07_eye_hooded",
+     "group": "奥二重",
+     "w": 1
+    },
+    {
+     "id": "eyeC08_halflid",
+     "folder": "07_eye_hooded",
+     "group": "奥二重",
+     "w": 1
+    },
+    {
+     "id": "eyeC09_sanpaku",
+     "folder": "07_eye_hooded",
+     "group": "奥二重",
+     "w": 1
+    },
+    {
+     "id": "eyeC10_deepset",
+     "folder": "07_eye_hooded",
+     "group": "奥二重",
+     "w": 1
+    }
+   ]
+  },
+  "nose": {
+   "label": "鼻",
+   "folder": "03_nose",
+   "mode": "multiply",
+   "options": [
+    {
+     "id": "nose01_straight",
+     "w": 1
+    },
+    {
+     "id": "nose02_aquiline",
+     "w": 1
+    },
+    {
+     "id": "nose03_button",
+     "w": 1
+    },
+    {
+     "id": "nose04_small",
+     "w": 1
+    },
+    {
+     "id": "nose05_upturned",
+     "w": 1
+    },
+    {
+     "id": "nose06_wide",
+     "w": 1
+    },
+    {
+     "id": "nose07_longhigh",
+     "w": 1
+    },
+    {
+     "id": "nose08_flat",
+     "w": 1
+    },
+    {
+     "id": "nose09_greek",
+     "w": 1
+    },
+    {
+     "id": "nose10_droop",
+     "w": 1
+    }
+   ]
+  },
+  "mouth": {
+   "label": "口",
+   "folder": "04_mouth",
+   "mode": "multiply",
+   "options": [
+    {
+     "id": "mouth01_standard",
+     "w": 1
+    },
+    {
+     "id": "mouth02_thin",
+     "w": 1
+    },
+    {
+     "id": "mouth03_full",
+     "w": 1
+    },
+    {
+     "id": "mouth04_downturn",
+     "w": 1
+    },
+    {
+     "id": "mouth05_upturn",
+     "w": 1
+    },
+    {
+     "id": "mouth06_small",
+     "w": 1
+    },
+    {
+     "id": "mouth07_wide",
+     "w": 1
+    },
+    {
+     "id": "mouth08_bow",
+     "w": 1
+    },
+    {
+     "id": "mouth09_fulllow",
+     "w": 1
+    },
+    {
+     "id": "mouth10_parted",
+     "w": 1
+    }
+   ]
+  },
+  "brow": {
+   "label": "眉",
+   "folder": "08_brow",
+   "files": "08_brow/brow{N|S}{shape}_{LR}.png",
+   "density": [
+    {
+     "id": "N",
+     "label": "標準",
+     "w": 72
+    },
+    {
+     "id": "S",
+     "label": "薄め",
+     "w": 28
+    }
+   ],
+   "options": [
+    {
+     "id": "01_straight",
+     "w": 1
+    },
+    {
+     "id": "02_arch",
+     "w": 1
+    },
+    {
+     "id": "03_angled",
+     "w": 1
+    },
+    {
+     "id": "04_thick",
+     "w": 1
+    },
+    {
+     "id": "05_narrow",
+     "w": 1
+    },
+    {
+     "id": "06_short",
+     "w": 1
+    },
+    {
+     "id": "07_long",
+     "w": 1
+    },
+    {
+     "id": "08_upturn",
+     "w": 1
+    },
+    {
+     "id": "09_droop",
+     "w": 1
+    },
+    {
+     "id": "10_rounded",
+     "w": 1
+    },
+    {
+     "id": "11_messy",
+     "w": 1
+    },
+    {
+     "id": "12_sharpangle",
+     "w": 1
+    },
+    {
+     "id": "13_boldflat",
+     "w": 1
+    },
+    {
+     "id": "14_sword",
+     "w": 1
+    },
+    {
+     "id": "15_longtail",
+     "w": 1
+    },
+    {
+     "id": "16_softinner",
+     "w": 1
+    },
+    {
+     "id": "17_stepped",
+     "w": 1
+    },
+    {
+     "id": "18_thickdroop",
+     "w": 1
+    },
+    {
+     "id": "19_sharparch",
+     "w": 1
+    },
+    {
+     "id": "20_bushy",
+     "w": 1
+    }
+   ]
+  },
+  "tear": {
+   "label": "涙袋",
+   "folder": "09_tear",
+   "mode": "multiply",
+   "files": "09_tear/{id}_{LR}.png",
+   "options": [
+    {
+     "id": "none",
+     "w": 25
+    },
+    {
+     "id": "tear01_subtle",
+     "w": 35
+    },
+    {
+     "id": "tear02_natural",
+     "w": 30
+    },
+    {
+     "id": "tear03_strong",
+     "w": 10
+    }
+   ]
+  },
+  "cloth": {
+   "label": "服",
+   "folder": "10_cloth",
+   "options": [
+    {
+     "id": "none",
+     "label": "なし",
+     "w": 6
+    },
+    {
+     "id": "cloth01_dressshirt",
+     "label": "ドレスシャツ",
+     "w": 18,
+     "accessory": "cloth01_necktie"
+    },
+    {
+     "id": "cloth02_shirt",
+     "label": "シャツ",
+     "w": 20
+    },
+    {
+     "id": "cloth03_tshirt",
+     "label": "Tシャツ",
+     "w": 24
+    },
+    {
+     "id": "cloth04_opencollar",
+     "label": "オープンカラー",
+     "w": 18
+    },
+    {
+     "id": "cloth05_sleeveless",
+     "label": "ノースリーブ",
+     "w": 12
+    },
+    {
+     "id": "cloth06_tanktop",
+     "label": "タンクトップ",
+     "w": 8
+    }
+   ],
+   "accessories": {
+    "cloth01_necktie": {
+     "label": "ネクタイ",
+     "w": 50,
+     "note": "dressshirt の上に over。単独では使わない"
+    }
+   },
+   "note": "none は服のレイヤーを描かない。素体は鎖骨から上の素肌で、そのまま出せる"
+  },
+  "hair": {
+   "label": "髪",
+   "folder": "11_hair",
+   "colorize": "hair",
+   "options": [
+    {
+     "id": "hair01_buzz",
+     "w": 1
+    },
+    {
+     "id": "hair02_softmohawk",
+     "w": 1
+    },
+    {
+     "id": "hair03_fadeshort",
+     "w": 1
+    },
+    {
+     "id": "hair04_skinfade",
+     "w": 1
+    },
+    {
+     "id": "hair05_spiky",
+     "w": 1
+    },
+    {
+     "id": "hair06_upbang",
+     "w": 1
+    },
+    {
+     "id": "hair07_sidepart",
+     "w": 1
+    },
+    {
+     "id": "hair08_crop",
+     "w": 1
+    },
+    {
+     "id": "hair09_pompadour",
+     "w": 1
+    },
+    {
+     "id": "hair10_shortlayer",
+     "w": 1
+    },
+    {
+     "id": "hair11_mushroom",
+     "w": 1
+    },
+    {
+     "id": "hair12_centerpart",
+     "w": 1
+    },
+    {
+     "id": "hair13_koreanpart",
+     "w": 1
+    },
+    {
+     "id": "hair14_mushwolf",
+     "w": 1
+    },
+    {
+     "id": "hair15_seethrough",
+     "w": 1
+    },
+    {
+     "id": "hair16_onelength",
+     "w": 1
+    },
+    {
+     "id": "hair17_sweptpart",
+     "w": 1
+    },
+    {
+     "id": "hair18_mushfade",
+     "w": 1
+    },
+    {
+     "id": "hair19_permmush",
+     "w": 1
+    },
+    {
+     "id": "hair20_shortpart",
+     "w": 1
+    },
+    {
+     "id": "hair21_mediumstraight",
+     "w": 1
+    },
+    {
+     "id": "hair22_mediumlayer",
+     "w": 1
+    },
+    {
+     "id": "hair23_looseperm",
+     "w": 1
+    },
+    {
+     "id": "hair24_spiralperm",
+     "w": 1
+    },
+    {
+     "id": "hair25_twistperm",
+     "w": 1
+    },
+    {
+     "id": "hair26_wolfmedium",
+     "w": 1
+    },
+    {
+     "id": "hair27_centermedium",
+     "w": 1
+    },
+    {
+     "id": "hair28_sweptmedium",
+     "w": 1
+    },
+    {
+     "id": "hair29_wavymedium",
+     "w": 1
+    },
+    {
+     "id": "hair30_mediummush",
+     "w": 1
+    }
+   ]
+  },
+  "hairColor": {
+   "label": "髪色",
+   "palette": "hair",
+   "options": [
+    {
+     "id": "kuro",
+     "label": "黒",
+     "w": 40
+    },
+    {
+     "id": "ankasshoku",
+     "label": "暗褐色",
+     "w": 24
+    },
+    {
+     "id": "kuriiro",
+     "label": "栗色",
+     "w": 18
+    },
+    {
+     "id": "akaruicha",
+     "label": "明るい茶",
+     "w": 12
+    },
+    {
+     "id": "beju",
+     "label": "ベージュ",
+     "w": 6
+    }
+   ]
+  },
+  "ear": {
+   "label": "耳",
+   "folder": "12_ear",
+   "linkedTo": "outline",
+   "files": "12_ear/ear_{outline}.png",
+   "tint": "skin"
+  },
+  "glass": {
+   "label": "眼鏡",
+   "folder": "16_glass",
+   "linkedTo": "outline",
+   "files": "16_glass/glass_{shape}_{outline}.png",
+   "colorize": "glass",
+   "options": [
+    {
+     "id": "none",
+     "w": 70
+    },
+    {
+     "id": "boston",
+     "w": 3
+    },
+    {
+     "id": "browline",
+     "w": 3
+    },
+    {
+     "id": "halfrim",
+     "w": 3
+    },
+    {
+     "id": "metalsquare",
+     "w": 3
+    },
+    {
+     "id": "oval",
+     "w": 3
+    },
+    {
+     "id": "rimless",
+     "w": 3
+    },
+    {
+     "id": "round",
+     "w": 3
+    },
+    {
+     "id": "square",
+     "w": 3
+    },
+    {
+     "id": "thick",
+     "w": 3
+    },
+    {
+     "id": "wellington",
+     "w": 3
+    }
+   ]
+  },
+  "glassColor": {
+   "label": "眼鏡の色",
+   "palette": "glass",
+   "options": [
+    {
+     "id": "black",
+     "w": 34
+    },
+    {
+     "id": "brown",
+     "w": 24
+    },
+    {
+     "id": "silver",
+     "w": 18
+    },
+    {
+     "id": "gold",
+     "w": 12
+    },
+    {
+     "id": "navy",
+     "w": 12
+    }
+   ]
+  },
+  "socket": {
+   "label": "眼窩の深さ",
+   "folder": "13_skin",
+   "mode": "multiply",
+   "options": [
+    {
+     "id": "socket_0",
+     "w": 8
+    },
+    {
+     "id": "socket_1",
+     "w": 20
+    },
+    {
+     "id": "socket_2",
+     "w": 26
+    },
+    {
+     "id": "socket_3",
+     "w": 22
+    },
+    {
+     "id": "socket_4",
+     "w": 14
+    },
+    {
+     "id": "socket_5",
+     "w": 7
+    },
+    {
+     "id": "socket_6",
+     "w": 3
+    }
+   ]
+  },
+  "pimple": {
+   "label": "ニキビ",
+   "folder": "13_skin",
+   "mode": "multiply",
+   "options": [
+    {
+     "id": "pimple_n0",
+     "label": "0個",
+     "w": 60
+    },
+    {
+     "id": "pimple_n1",
+     "label": "1個",
+     "w": 14
+    },
+    {
+     "id": "pimple_n2",
+     "label": "2個",
+     "w": 13
+    },
+    {
+     "id": "pimple_n3",
+     "label": "3個",
+     "w": 7
+    },
+    {
+     "id": "pimple_n5",
+     "label": "5個",
+     "w": 4
+    },
+    {
+     "id": "pimple_n8",
+     "label": "8個",
+     "w": 2
+    }
+   ]
+  },
+  "beard": {
+   "label": "ひげ",
+   "folder": "14_beard",
+   "mode": "multiply",
+   "clipToOutline": true,
+   "note": "egg輪郭まで抽出済み。合成時に選ばれた輪郭のαを掛ける。輪郭ごとの変形は warp_outline.py",
+   "options": [
+    {
+     "id": "none",
+     "w": 58
+    },
+    {
+     "id": "beard_shaved",
+     "label": "剃った跡",
+     "w": 16
+    },
+    {
+     "id": "beard_chin",
+     "label": "あごのみ",
+     "w": 10
+    },
+    {
+     "id": "beard_mous",
+     "label": "鼻下のみ",
+     "w": 6
+    },
+    {
+     "id": "beard_full",
+     "label": "全体",
+     "w": 10
+    }
+   ],
+   "strength": [
+    {
+     "id": "weak",
+     "alpha": 0.45,
+     "w": 40
+    },
+    {
+     "id": "mid",
+     "alpha": 0.7,
+     "w": 38
+    },
+    {
+     "id": "strong",
+     "alpha": 1.0,
+     "w": 22
+    }
+   ]
+  },
+  "redness": {
+   "label": "小鼻の赤み",
+   "folder": "13_skin",
+   "mode": "multiply",
+   "toggle": true,
+   "options": [
+    {
+     "id": "none",
+     "w": 50
+    },
+    {
+     "id": "redness",
+     "w": 50
+    }
+   ]
+  },
+  "pores": {
+   "label": "毛穴",
+   "folder": "13_skin",
+   "mode": "multiply",
+   "toggle": true,
+   "options": [
+    {
+     "id": "none",
+     "w": 50
+    },
+    {
+     "id": "pores",
+     "w": 50
+    }
+   ]
+  },
+  "freckle": {
+   "label": "そばかす",
+   "folder": "13_skin",
+   "mode": "multiply",
+   "toggle": true,
+   "options": [
+    {
+     "id": "none",
+     "w": 78
+    },
+    {
+     "id": "freckle",
+     "w": 22
+    }
+   ]
+  },
+  "acnemark": {
+   "label": "ニキビ跡",
+   "folder": "13_skin",
+   "mode": "multiply",
+   "toggle": true,
+   "options": [
+    {
+     "id": "none",
+     "w": 70
+    },
+    {
+     "id": "acnemark",
+     "w": 30
+    }
+   ]
+  },
+  "mole": {
+   "label": "ほくろ",
+   "folder": "13_skin",
+   "mode": "multiply",
+   "toggle": true,
+   "options": [
+    {
+     "id": "none",
+     "w": 75
+    },
+    {
+     "id": "mole",
+     "w": 25
+    }
+   ]
+  },
+  "sclera": {
+   "label": "白目",
+   "folder": "15_sclera",
+   "auto": true,
+   "note": "目の種類ごとにマスクがある。目shadeを乗算した直後、マスク内の画素を肌トーンの比率で割り戻す",
+   "files": "15_sclera/{eye}_{LR}.png"
+  },
+  "clothColor": {
+   "label": "服の色",
+   "palette": "CLOTH_PAL",
+   "options": [
+    {
+     "id": "white",
+     "label": "白",
+     "w": 20
+    },
+    {
+     "id": "lightgray",
+     "label": "ライトグレー",
+     "w": 14
+    },
+    {
+     "id": "gray",
+     "label": "グレー",
+     "w": 14
+    },
+    {
+     "id": "saxe",
+     "label": "サックス",
+     "w": 12
+    },
+    {
+     "id": "navy",
+     "label": "ネイビー",
+     "w": 12
+    },
+    {
+     "id": "beige",
+     "label": "ベージュ",
+     "w": 9
+    },
+    {
+     "id": "olive",
+     "label": "オリーブ",
+     "w": 7
+    },
+    {
+     "id": "wine",
+     "label": "ワイン",
+     "w": 4
+    },
+    {
+     "id": "charcoal",
+     "label": "チャコール",
+     "w": 5
+    },
+    {
+     "id": "black",
+     "label": "黒",
+     "w": 3
+    }
+   ]
+  },
+  "tieColor": {
+   "label": "ネクタイの色",
+   "palette": "CLOTH_PAL",
+   "options": [
+    {
+     "id": "navy",
+     "label": "ネイビー",
+     "w": 26
+    },
+    {
+     "id": "charcoal",
+     "label": "チャコール",
+     "w": 20
+    },
+    {
+     "id": "wine",
+     "label": "ワイン",
+     "w": 18
+    },
+    {
+     "id": "black",
+     "label": "黒",
+     "w": 14
+    },
+    {
+     "id": "olive",
+     "label": "オリーブ",
+     "w": 8
+    },
+    {
+     "id": "gray",
+     "label": "グレー",
+     "w": 8
+    },
+    {
+     "id": "saxe",
+     "label": "サックス",
+     "w": 6
+    }
+   ]
+  }
+ },
+ "palettes": {
+  "hair": {
+   "formula": "t = clip((L-40)/180)^gamma;  out = shadow + (highlight-shadow)*t",
+   "entries": {
+    "kuro": [
+     [
+      14,
+      13,
+      15
+     ],
+     [
+      132,
+      124,
+      124
+     ],
+     0.95
+    ],
+    "ankasshoku": [
+     [
+      32,
+      26,
+      22
+     ],
+     [
+      182,
+      152,
+      122
+     ],
+     0.78
+    ],
+    "kuriiro": [
+     [
+      52,
+      36,
+      26
+     ],
+     [
+      206,
+      158,
+      112
+     ],
+     0.72
+    ],
+    "akaruicha": [
+     [
+      86,
+      60,
+      40
+     ],
+     [
+      228,
+      186,
+      136
+     ],
+     0.65
+    ],
+    "beju": [
+     [
+      124,
+      102,
+      72
+     ],
+     [
+      244,
+      224,
+      192
+     ],
+     0.6
+    ]
+   }
+  },
+  "glass": {
+   "formula": "t = clip((L-30)/180);  out = base + (base*2.3+35 - base)*t",
+   "alphaSplit": {
+    "frame": "a > 0.5 → パレット色",
+    "lens": "a <= 0.5 → [236,236,236] 固定"
+   },
+   "warning": "輝度で分けてはいけない。フレームのハイライト(L>=170)が白く抜けて斑点になる",
+   "entries": {
+    "black": [
+     30,
+     28,
+     28
+    ],
+    "brown": [
+     74,
+     50,
+     34
+    ],
+    "silver": [
+     126,
+     130,
+     136
+    ],
+    "gold": [
+     150,
+     124,
+     66
+    ],
+    "navy": [
+     38,
+     46,
+     78
+    ]
+   }
+  }
+ },
+ "knownIssues": [
+  {
+   "severity": "low",
+   "target": "11_hair/hair14",
+   "detail": "左首に肌の薄片が残る。髪本体と地続きのため自動では切れない。x[608,668] y[639,770] 付近"
+  },
+  {
+   "severity": "low",
+   "target": "11_hair/hair28",
+   "detail": "もみあげの回復が67%と他より低い"
+  },
+  {
+   "severity": "accepted",
+   "target": "11_hair/hair06",
+   "detail": "もみあげ69%。このままで良いと判断済み"
+  },
+  {
+   "severity": "accepted",
+   "target": "16_bg/bg_pop_collage",
+   "detail": "タイトルが幅広の髪型で一部欠ける。許容と判断済み"
+  }
+ ],
+ "excluded": [
+  "13_skin/pimple.png"
+ ],
+ "counts": {
+  "outline": 11,
+  "skinTone": 4,
+  "eye": 30,
+  "nose": 10,
+  "mouth": 10,
+  "brow": 20,
+  "tear": 4,
+  "cloth": 6,
+  "hair": 30,
+  "hairColor": 5,
+  "glass": 11,
+  "glassColor": 5,
+  "socket": 7,
+  "pimple": 6,
+  "beard": 4,
+  "redness": 2,
+  "pores": 2,
+  "freckle": 2,
+  "acnemark": 2,
+  "mole": 2
+ },
+ "fileCount": 418,
+ "version": "v22 (2026-08-19) cloth color",
+ "transform": {
+  "module": "warp_outline.py",
+  "note": "egg の輪郭から目標輪郭へ行ごとに横方向へ写像。髪とひげに適用する。幅は耳を除いて測り61行で平滑化する。耳の張り出しが段差になり歪みの原因になるため",
+  "appliesTo": [
+   "hair",
+   "beard"
+  ],
+  "clamp": [
+   0.85,
+   1.15
+  ]
+ }
+}
