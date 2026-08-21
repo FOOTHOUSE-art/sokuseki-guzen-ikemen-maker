@@ -271,9 +271,24 @@ const AXGROUPS = [""",
              '<span style="float:right;display:flex;gap:6px">'
              '<button id="adjSuggest" style="font-size:11px;padding:3px 9px;border-radius:8px;'
              'font-weight:500">提案に戻す</button>'
-             '<button id="adjZero" style="font-size:11px;padding:3px 9px;border-radius:8px;'
+             '<button id="adjReset" style="font-size:11px;padding:3px 9px;border-radius:8px;'
              'font-weight:500">完全初期化</button></span>',
              'index.html 微調整のボタン')
+
+    # **「初期化」は元から壊れている。** SLIDERS がどこにも定義されておらず、
+    # 押すと「SLIDERS is not defined」で止まる。v0.9157 の時点でそう。
+    # 前半のループ(GROUPS と PCT を使う)だけで用は足りるので、後半を捨てる
+    h = sub1(h,
+             """  ADJ=Object.assign({}, A.ADJ0); $('browColor').value='';
+  for(const [key,,fmt] of SLIDERS){
+    const d=/^(eyeScale|eyeWidth|eyeHeight|faceW|faceH|lipThick)$/.test(key)?100:0;
+    $('a_'+key).value=d; $('v_'+key).textContent=fmt(d);
+  }
+  draw(cur_seed);""",
+             """  ADJ=Object.assign({}, A.ADJ0); $('browColor').value='';
+  syncAdjUI();
+  draw(cur_seed);""",
+             'index.html 完全初期化の直し')
 
     # **ガチャのときだけ微調整も引き直す。**
     # URLや保存から戻したときに引き直すと、同じ人物が別の顔になる
@@ -296,7 +311,7 @@ $('adjSuggest').onclick = () => {
   if(!SUGGEST) return;
   ADJ = Object.assign({}, SUGGEST); syncAdjUI(); draw(cur_seed);
 };
-$('adjZero').onclick = () => { ADJ = Object.assign({}, A.ADJ0); syncAdjUI(); draw(cur_seed); };""",
+""",
              'index.html ガチャで微調整も引く')
 
     # draw() の最後で作る。$('perf') を書いている行の直前に差す
@@ -481,7 +496,6 @@ $('share').onclick=async()=>{""",
         ('delete rest[k]', '🎲 が引き直す項目を固定しない'),
         ('syncAdjUI()', 'スライダーを戻す'),
         ('window.__pfix', '検査の窓口'),
-        ("$('adjZero')", '完全初期化'),
         ("$('adjSuggest')", '提案に戻す'),
         ('bestAdj(', 'イケメン寄りに引く'),
         ('window.__adj', '微調整の窓口'),

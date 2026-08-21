@@ -6,7 +6,14 @@ const mk=()=>({innerHTML:'',textContent:'',value:'',checked:false,style:{},datas
   addEventListener(){},getContext:()=>({clearRect(){},drawImage(){},fillRect(){},putImageData(){},
     getImageData:(a,b,w=1,h=1)=>({data:new Uint8ClampedArray(w*h*4),width:w,height:h}),createImageData:(w=1,h=1)=>({data:new Uint8ClampedArray((w.width||w)*(h||1)*4),width:w.width||w,height:h||1}),save(){},restore(){},translate(){},scale(){},beginPath(){},arc(){},fill(){},stroke(){},closePath(){},moveTo(){},lineTo(){}}),toBlob(){},toDataURL:()=>'data:,'});
 export const ids=new Map();
-globalThis.document={getElementById:i=>{if(!ids.has(i))ids.set(i,mk());return ids.get(i);},
+// **HTML に無い id は null を返す。** 何でも作って返すと、
+// 消したボタンのハンドラが残っていても素通りする(実際に踏んだ)。
+// ブラウザでは null.onclick で全体が止まる
+const HAVE = new Set([...fs.readFileSync('index.html','utf8').matchAll(/id="([A-Za-z0-9_]+)"/g)].map(m=>m[1]));
+globalThis.__knownIds = HAVE;
+globalThis.document={getElementById:i=>{
+    if(!HAVE.has(i)) return null;
+    if(!ids.has(i))ids.set(i,mk());return ids.get(i);},
   createElement:()=>mk(),querySelectorAll:()=>[],body:{appendChild(){}},addEventListener(){}};
 globalThis.window=globalThis; globalThis.open=()=>{}; globalThis.devicePixelRatio=1;
 globalThis.addEventListener=()=>{};
@@ -23,3 +30,5 @@ globalThis.fetch=async u=>{const p=String(u).replace(/^\.\//,'').replace(/\?.*$/
   return {json:async()=>JSON.parse(fs.readFileSync(p,'utf8')),blob:async()=>null,ok:true};};
 globalThis.createImageBitmap=async()=>({width:1,height:1,close(){}});
 globalThis.OffscreenCanvas=class{constructor(w,h){const o=mk();o.width=w;o.height=h;return o;}};
+
+globalThis.Event=class{constructor(t){this.type=t;}};

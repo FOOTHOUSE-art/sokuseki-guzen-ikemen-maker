@@ -123,6 +123,17 @@ for (const f of ['index.html', 'db.html', 'app.js', 'engine.js', 'assets/parts.j
   /\?v=09157/.test(h) ? ng('?v= が古いまま') : ok('?v= が今の版');
 }
 
+// **HTML に無い id を触っていないか。** $('x') が null を返し、
+// null.onclick で**スクリプト全体が止まる**。画面が丸ごと動かなくなる
+for (const page of ['index.html', 'db.html']) {
+  if (!fs.existsSync(page)) continue;
+  const h = fs.readFileSync(page, 'utf8');
+  const have = new Set([...h.matchAll(/id="([A-Za-z0-9_]+)"/g)].map(m => m[1]));
+  const used = [...h.matchAll(/\$\('([A-Za-z0-9_]+)'\)/g)].map(m => m[1]);
+  const bad = [...new Set(used.filter(x => !have.has(x) && !/^(a_|v_)/.test(x)))];
+  bad.length ? ng(`${page} に無い id を触っている`, bad.join(' ')) : ok(`${page} の id`);
+}
+
 // **fetch() の行き先が実在するか。** import と違って、綴りを間違えても
 // 構文チェックには出ない。404 になって初めて分かる(実際に踏んだ)
 for (const page of ['index.html', 'db.html']) {

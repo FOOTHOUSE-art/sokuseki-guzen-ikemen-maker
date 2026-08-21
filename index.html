@@ -260,7 +260,7 @@
       </div>
       <div class="card" style="margin-top:12px">
         <h2 class="fold" data-fold="adjBox">微調整
-          <span style="float:right;display:flex;gap:6px"><button id="adjSuggest" style="font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500">提案に戻す</button><button id="adjZero" style="font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500">完全初期化</button></span>
+          <span style="float:right;display:flex;gap:6px"><button id="adjSuggest" style="font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500">提案に戻す</button><button id="adjReset" style="font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500">完全初期化</button></span>
         </h2>
         <div id="adjBox"></div>
         <div class="srow" style="margin-top:8px"><label>眉の色</label>
@@ -659,10 +659,7 @@ $('adjReset').onclick=()=>{
     if(el){ el.value=d; el.dispatchEvent(new Event('input')); }
   }
   ADJ=Object.assign({}, A.ADJ0); $('browColor').value='';
-  for(const [key,,fmt] of SLIDERS){
-    const d=/^(eyeScale|eyeWidth|eyeHeight|faceW|faceH|lipThick)$/.test(key)?100:0;
-    $('a_'+key).value=d; $('v_'+key).textContent=fmt(d);
-  }
+  syncAdjUI();
   draw(cur_seed);
 };
 let stampKind='';
@@ -953,7 +950,7 @@ $('adjSuggest').onclick = () => {
   if(!SUGGEST) return;
   ADJ = Object.assign({}, SUGGEST); syncAdjUI(); draw(cur_seed);
 };
-$('adjZero').onclick = () => { ADJ = Object.assign({}, A.ADJ0); syncAdjUI(); draw(cur_seed); };
+
 $('forceGlass').onchange=()=>cur&&draw(cur_seed);
 $('clearOv').onclick=()=>{ OV={}; draw(cur_seed); };
 $('bg').onchange=()=>cur&&draw(cur_seed);

@@ -96,7 +96,7 @@ await press('share', 'URLをコピー');
 {
   const g = globalThis;
   const before = JSON.stringify(g.__adj ? g.__adj() : null);
-  await press('adjZero', '完全初期化', () => {
+  await press('adjReset', '完全初期化', () => {
     const a = g.__adj ? g.__adj() : null;
     return a && Object.values(a).some(v => typeof v === 'number' && v !== 0 && v !== 1)
       ? '既定に戻っていない' : '';
