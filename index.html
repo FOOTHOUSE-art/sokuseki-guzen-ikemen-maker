@@ -173,6 +173,8 @@
       <div id="pfleft"></div>
       <div class="card">
         <h2>この人物</h2>
+        <label class="chk" style="display:flex;gap:6px;align-items:center;margin-bottom:8px">
+          <input type="checkbox" id="adjRandom" checked>微調整も自然な範囲で引く</label>
         <div style="display:flex;gap:6px">
           <input id="pfTitle" placeholder="名前を付けて保存" style="flex:1;min-width:0">
           <button id="pfSave">保存</button>
@@ -323,6 +325,7 @@ import { buildBaseCard, setPresets, DERIVED_TYPES } from './engine/base_card.mjs
 import { judge, lines as rareLines } from './engine/rarity.js?v=09300';
 import { sections, options, LAYOUT, HUE } from './engine/profile_view.js?v=09300';
 import * as Store from './engine/store.js?v=09300';
+import { naturalAdj } from './engine/face_text.js?v=09300';
 
 const $ = id => document.getElementById(id);
 const cv = $('cv'), ctx = cv.getContext('2d');
@@ -371,8 +374,6 @@ function calmCanvas(key){
 
 async function boot(){
   M = await A.init();
-  // **1つ失敗しても画面ごと止めない。** ここで例外が出ると buildAdjUI まで
-  // 届かず、微調整も背景も作られないまま「顔だけ出る」状態になる
   try{ setPresets(await (await fetch('engine/face_presets.json')).json()); }
   catch(e){ console.error('顔立ちプリセットを読めない:', e); }
   ADJ = Object.assign({}, A.ADJ0);
@@ -932,7 +933,11 @@ document.querySelectorAll('h2.fold').forEach(hh=>{
     hh.classList.toggle('closed',closed);
   };
 });
-$('go').onclick=()=>draw((Math.random()*4294967296)>>>0);
+$('go').onclick=()=>{
+  const s=(Math.random()*4294967296)>>>0;
+  if($('adjRandom').checked){ ADJ = naturalAdj(s, A.ADJ0); syncAdjUI(); }
+  draw(s);
+};
 $('forceGlass').onchange=()=>cur&&draw(cur_seed);
 $('clearOv').onclick=()=>{ OV={}; draw(cur_seed); };
 $('bg').onchange=()=>cur&&draw(cur_seed);
@@ -987,9 +992,13 @@ function renderPerson(p){
     d.ontoggle = () => { PFOPEN[d.dataset.sec] = d.open; });
   document.querySelectorAll('[data-sel]').forEach(b => b.onclick = () => openPick(b));
   document.querySelectorAll('[data-dice]').forEach(b => b.onclick = () => {
-    // 候補が無い項目は、別のシードで引き直してその項目だけ持ってくる
+    // 候補が無い項目は、別のシードで引き直してその項目だけ持ってくる。
+    // **引き直す項目を PFIX に入れたまま渡さない。** 渡すとその値で固定され、
+    // 何度押しても同じものが返る(最初これで動かなかった)
     const k = b.dataset.dice;
-    const alt = buildBaseCard({ seed: (cur_seed ^ (Date.now() & 0xffff)) >>> 0, person: PFIX });
+    const rest = Object.assign({}, PFIX); delete rest[k];
+    const alt = buildBaseCard({ seed: (cur_seed ^ (Date.now() & 0xffff)) >>> 0,
+      ov: OV, adj: ADJ, person: rest });
     PFIX[k] = alt.person[k];
     draw(cur_seed);
   });
@@ -1008,6 +1017,7 @@ function openPick(b){
   sel.onblur = done;
 }
 $('pfReset').onclick = () => { for(const k in PFIX) delete PFIX[k]; draw(cur_seed); };
+
 function faceThumb(px = 128){
   // 顔まわりだけを切って小さくする。1024 のまま持つと容量が保たない
   const t = document.createElement('canvas'); t.width = t.height = px;

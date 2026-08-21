@@ -461,3 +461,42 @@ export function refPrefixFace(opt = {}) {
   return L.join('\n') + '\n\n';
 }
 
+
+/* ============================================================
+ * 8. 微調整を自然な範囲で引く
+ * ------------------------------------------------------------
+ * 素のままだと25軸すべてが既定値で、顔の差が「素材の組み合わせ」だけになる。
+ * 実際の顔は、同じ目の素材でも間隔や高さが少しずつ違う。
+ *
+ * **幅は狭く取る。** スライダーの上限まで振ると漫画になる。
+ * 中央に寄る分布(一様乱数を2つ足す)を使い、極端な値が出にくいようにした。
+ * ========================================================== */
+const NAT = {
+  faceW: ['r', 0.03], faceH: ['r', 0.03], chinY: ['p', 5], centri: ['p', 10],
+  eyeGap: ['p', 8], eyeScale: ['r', 0.05], eyeWidth: ['r', 0.04], eyeHeight: ['r', 0.06],
+  eyeY: ['p', 4], lidDrop: ['p', 5], lidRise: ['p', 3], innerY: ['p', 5], outerY: ['p', 5],
+  browY: ['p', 8], browGap: ['p', 6], browInner: ['p', 4], browOuter: ['p', 4],
+  browTilt: ['p', 3], browAlpha: ['r', 0.08],
+  noseY: ['p', 4], noseW: ['r', 0.05],
+  lipThick: ['r', 0.07], lipWidth: ['r', 0.05], mouthCorner: ['p', 4], mouthY: ['p', 5],
+};
+
+/** @param {number} seed @param {object} adj0 app.js の ADJ0 */
+export function naturalAdj(seed, adj0 = {}) {
+  let a = (seed ^ 0x9e3779b9) | 0;
+  const rnd = () => {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+  const tri = () => rnd() + rnd() - 1;        // -1〜1。中央に寄る
+  const out = Object.assign({}, adj0);
+  for (const [k, [kind, w]] of Object.entries(NAT)) {
+    if (!(k in out)) continue;
+    out[k] = kind === 'p'
+      ? Math.round(tri() * w)                          // px はそのまま
+      : Math.round((1 + tri() * w) * 100) / 100;       // 倍率は小数2桁(URLは%で持つ)
+  }
+  return out;
+}

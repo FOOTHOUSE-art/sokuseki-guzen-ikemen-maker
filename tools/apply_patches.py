@@ -131,12 +131,14 @@ const AXGROUPS = [""",
              "import { encodeState, decodeState, shareNote } from './engine/url_state.js?v=09300';\n"
              "import { buildBaseCard, setPresets, DERIVED_TYPES } from './engine/base_card.mjs?v=09300';\n"
              "import { judge, lines as rareLines } from './engine/rarity.js?v=09300';\n"
-             "import { sections, options, LAYOUT } from './engine/profile_view.js?v=09300';\n"
-             "import * as Store from './engine/store.js?v=09300';",
+             "import { sections, options, LAYOUT, HUE } from './engine/profile_view.js?v=09300';\n"
+             "import * as Store from './engine/store.js?v=09300';\n"
+             "import { naturalAdj } from './engine/face_text.js?v=09300';",
              'index.html 統合エンジンの読み込み')
     h = sub1(h, "  M = await A.init();",
              "  M = await A.init();\n"
-             "  setPresets(await (await fetch('face_presets.json')).json());",
+             "  try{ setPresets(await (await fetch('engine/face_presets.json')).json()); }\n"
+             "  catch(e){ console.error('顔立ちプリセットを読めない:', e); }",
              'index.html プリセットの読み込み')
 
     # 画面。プロフィールのカードの下に足す
@@ -174,8 +176,16 @@ const AXGROUPS = [""",
     #   300 + 280 + 720 + 560 + 320 = 2180
     h = h.replace('max-width:1560px', 'max-width:2180px')
     # **?v= を上げる。** GitHub Pages はキャッシュを持つので、
-    # ここを据え置くと直したのに古いものが動く
+    # ここを据え置くと直したのに古いものが動く。
+    # **index.html だけ上げてはいけない。** app.js や warp.js の中にも ?v= があり、
+    # 食い違うと同じファイルが別のモジュールとして2回読まれる。
+    # loader.js が2つになり、片方の crop が null のまま落ちる(実際に踏んだ)
     h = h.replace('?v=09157', '?v=09300')
+    for f in ('app.js', 'warp.js', 'engine.js', 'loader.js'):
+        q = app / f
+        if q.exists():
+            q.write_text(q.read_text(encoding='utf-8').replace('?v=09157', '?v=09300'),
+                         encoding='utf-8')
 
     # 画面の列を5つにする。イケメン度の左と、構成の右に足す
     h = sub1(h,
@@ -227,6 +237,8 @@ const AXGROUPS = [""",
       <div id="pfleft"></div>
       <div class="card">
         <h2>この人物</h2>
+        <label class="chk" style="display:flex;gap:6px;align-items:center;margin-bottom:8px">
+          <input type="checkbox" id="adjRandom" checked>微調整も自然な範囲で引く</label>
         <div style="display:flex;gap:6px">
           <input id="pfTitle" placeholder="名前を付けて保存" style="flex:1;min-width:0">
           <button id="pfSave">保存</button>
@@ -248,6 +260,16 @@ const AXGROUPS = [""",
     <div class="farcol farright">
       <div id="pfright"></div>""",
              'index.html 最右列')
+
+    # **ガチャのときだけ微調整も引き直す。**
+    # URLや保存から戻したときに引き直すと、同じ人物が別の顔になる
+    h = sub1(h, "$('go').onclick=()=>draw((Math.random()*4294967296)>>>0);",
+             """$('go').onclick=()=>{
+  const s=(Math.random()*4294967296)>>>0;
+  if($('adjRandom').checked){ ADJ = naturalAdj(s, A.ADJ0); syncAdjUI(); }
+  draw(s);
+};""",
+             'index.html ガチャで微調整も引く')
 
     # draw() の最後で作る。$('perf') を書いている行の直前に差す
     # 「眼鏡を必ず付ける」は OV ではなく draw の中の ov に足される。
@@ -310,9 +332,13 @@ function renderPerson(p){
     d.ontoggle = () => { PFOPEN[d.dataset.sec] = d.open; });
   document.querySelectorAll('[data-sel]').forEach(b => b.onclick = () => openPick(b));
   document.querySelectorAll('[data-dice]').forEach(b => b.onclick = () => {
-    // 候補が無い項目は、別のシードで引き直してその項目だけ持ってくる
+    // 候補が無い項目は、別のシードで引き直してその項目だけ持ってくる。
+    // **引き直す項目を PFIX に入れたまま渡さない。** 渡すとその値で固定され、
+    // 何度押しても同じものが返る(最初これで動かなかった)
     const k = b.dataset.dice;
-    const alt = buildBaseCard({ seed: (cur_seed ^ (Date.now() & 0xffff)) >>> 0, person: PFIX });
+    const rest = Object.assign({}, PFIX); delete rest[k];
+    const alt = buildBaseCard({ seed: (cur_seed ^ (Date.now() & 0xffff)) >>> 0,
+      ov: OV, adj: ADJ, person: rest });
     PFIX[k] = alt.person[k];
     draw(cur_seed);
   });
@@ -331,6 +357,7 @@ function openPick(b){
   sel.onblur = done;
 }
 $('pfReset').onclick = () => { for(const k in PFIX) delete PFIX[k]; draw(cur_seed); };
+
 function faceThumb(px = 128){
   // 顔まわりだけを切って小さくする。1024 のまま持つと容量が保たない
   const t = document.createElement('canvas'); t.width = t.height = px;

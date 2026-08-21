@@ -52,7 +52,10 @@ export function sections(p) {
     ] },
 
     { id: 'body', title: '体型', open: true, rows: [
-      R('身長・体重', `${p.height}・${p.weight}`, 'heightRaw'),
+      R('身長', p.height, 'height'),
+      // **体重は体型から決まる。** 体型を選び直すと、同じ身長のまま体重が変わる。
+      // 直に上書きもできるが、そのときは体型と食い違ったままになる
+      R('体重', p.weight, 'weight'),
       R('体型', p.bodyType, 'bodyType', 'bodyTypes'),
       R('頭身', headRatio(p)),
       R('足', `${p.footSize}・${p.footShape}`, 'footShape', 'footShapes'),

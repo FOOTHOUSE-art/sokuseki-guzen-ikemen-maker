@@ -123,8 +123,53 @@ for (const f of ['index.html', 'db.html', 'app.js', 'engine.js', 'assets/parts.j
   /\?v=09157/.test(h) ? ng('?v= が古いまま') : ok('?v= が今の版');
 }
 
+// **fetch() の行き先が実在するか。** import と違って、綴りを間違えても
+// 構文チェックには出ない。404 になって初めて分かる(実際に踏んだ)
+for (const page of ['index.html', 'db.html']) {
+  if (!fs.existsSync(page)) continue;
+  const h = fs.readFileSync(page, 'utf8');
+  const bad = [...h.matchAll(/fetch\('([^']+)'\)/g)].map(m => m[1])
+    .filter(u => !/^https?:/.test(u))
+    .filter(u => !fs.existsSync(u.replace(/\?.*$/, '')));
+  bad.length ? ng(`${page} の fetch 先`, bad.join(' ')) : ok(`${page} の fetch 先`);
+}
+
+// **?v= が食い違うと、同じファイルが別のモジュールとして2回読まれる。**
+// loader.js が2つになり、index.html 側の crop が null のまま
+// 「Cannot read properties of null」で落ちる。実際にこれで Pages が動かなかった。
+{
+  const files = ['index.html', 'db.html', 'app.js', 'engine.js', 'warp.js', 'loader.js',
+                 'engine/sokuseki.js', 'engine/db.html'].filter(f => fs.existsSync(f));
+  const vs = new Set();
+  for (const f of files)
+    for (const m of fs.readFileSync(f, 'utf8').matchAll(/\?v=([0-9]+)/g)) vs.add(m[1]);
+  vs.size <= 1 ? ok('?v= が全ファイルでそろっている', [...vs][0] || 'なし')
+               : ng('?v= が食い違っている', [...vs].join(' / ') + ' — モジュールが二重に読まれる');
+}
+
 for (const f of ['.gitignore', '.github/workflows/test.yml'])
   fs.existsSync(f) ? ok(f) : ng(f, '無い。ブラウザで上げると落ちやすい');
+
+// **素材を除外していないか。** 除外したまま上げると、Pages で顔が出ない。
+// git status では気づけない(そもそも一覧に出てこないため)
+{
+  const gi = fs.readFileSync('.gitignore', 'utf8');
+  const bad = ['assets/', 'assets', 'engine/', '*.json', '*.js']
+    .filter(p => gi.split('\n').some(l => l.trim() === p));
+  bad.length ? ng('.gitignore が動くのに要るものを除いている', bad.join(' '))
+             : ok('.gitignore が要るものを除いていない');
+}
+
+// **画面を最後まで組み上げてみる。** 静的検査では取れない事故が3回続いたため
+console.log('\n■ 画面');
+try {
+  const out = run(process.execPath, ['tools/boot_check.mjs']);
+  for (const l of out.split('\n')) if (/^\s+OK/.test(l)) R.ok++;
+  ok('index.html が最後まで組み上がる');
+} catch (e) {
+  const out = ((e.stdout || '') + '').split('\n').filter(l => /NG/.test(l));
+  ng('index.html が組み上がらない', out.join(' / '));
+}
 
 console.log(`\n${R.ng ? `NG ${R.ng}件。直してからにする` : '通った。上げてよい'}` +
   `　(OK ${R.ok} / 飛ばした ${R.skip})\n`);

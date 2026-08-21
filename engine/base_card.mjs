@@ -122,6 +122,11 @@ export function buildBaseCard({ seed, adj = {}, ov = {}, initial = {}, fixed = {
   // 計測A/B/C の補完は、偶然では画面を描くときに呼ばれていた。
   // ここでは画面が無いので自分で呼ぶ。呼ばないと B が null のまま出る
   ensureProfileMeasurements(person);
+  // **手で選んだ値を最後にもう一度かぶせる。**
+  // base への注入は「そこから先の生成が追随する」ぶん強いが、
+  // 内面(principleText など)は generateInnerProfile が後から上書きしてしまう。
+  // 体型のように追随してほしいものは base で、追随の要らないものはここで効く。
+  Object.assign(person, fixPerson);
 
   // 年齢が決まってから、顔に年齢の差分を足す(決定H)
   const aged = faceToJa(face, adj, PRESETS, { age: person.age });

@@ -46,7 +46,7 @@ Windows は `start.bat`。GitHub Pages に置けばそのまま公開できる(`
 |---|---|
 | 直下 | アプリ本体。`index.html` `app.js` `engine.js` `warp.js` `loader.js` `assets/` |
 | `engine/` | 統合エンジン。node でも動く。検査もここ |
-| `docs/` | 設計・実装記録・差分・素材の直し方・上げ方 |
+| `docs/` | 設計・実装記録・差分・素材の直し方・上げ方(`DEPLOY.md` が更新手順) |
 | `tools/` | 生成と検査。`preflight.mjs` `apply_patches.py` `mask_editor.html` |
 | `samples/` | 出力の例 |
 
@@ -69,7 +69,13 @@ npm test          # = node tools/preflight.mjs
 ```
 
 検査7本・プロンプトの生成・ドキュメントの参照・Pages で要るファイル・
-`?v=` が古くないか、まで見る。push すると GitHub Actions でも同じものが走る。
+`?v=` がそろっているか・`fetch` の行き先が実在するか、まで見る。
+
+**最後に `index.html` を DOM の代役で最後まで走らせる**(`tools/boot_check.mjs`)。
+`?v=` の食い違い・`fetch` のパス違い・`import` の書き漏れは、
+**構文チェックにもファイル存在チェックにも出ない。** 実際にこれで3回落ちた。
+
+push すると GitHub Actions でも同じものが走る。
 
 ## 生成物を手で編集しない
 

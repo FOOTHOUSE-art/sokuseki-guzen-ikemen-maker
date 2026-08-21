@@ -1,1 +1,2878 @@
-{"01_face/face_diamond.webp": [277, 152, 472, 632], "01_face/face_egg.webp": [272, 151, 481, 621], "01_face/face_hex.webp": [274, 152, 479, 632], "01_face/face_homeplate.webp": [269, 151, 487, 621], "01_face/face_invtri.webp": [271, 152, 484, 620], "01_face/face_long.webp": [284, 151, 458, 631], "01_face/face_pear.webp": [270, 151, 485, 622], "01_face/face_rect.webp": [284, 151, 455, 621], "01_face/face_round.webp": [263, 152, 499, 634], "01_face/face_slim.webp": [282, 152, 461, 620], "01_face/face_square.webp": [274, 151, 477, 621], "02_body/body_common_final.webp": [0, 522, 1022, 502], "03_nose/nose01_straight.webp": [413, 479, 199, 220], "03_nose/nose02_aquiline.webp": [346, 510, 333, 176], "03_nose/nose03_button.webp": [426, 531, 173, 144], "03_nose/nose04_small.webp": [415, 524, 195, 165], "03_nose/nose05_upturned.webp": [314, 508, 397, 184], "03_nose/nose06_wide.webp": [420, 535, 184, 137], "03_nose/nose07_longhigh.webp": [400, 408, 225, 301], "03_nose/nose08_flat.webp": [409, 518, 207, 170], "03_nose/nose09_greek.webp": [408, 438, 209, 265], "03_nose/nose10_droop.webp": [412, 502, 201, 191], "04_mouth/mouth01_standard.webp": [384, 611, 257, 135], "04_mouth/mouth02_thin.webp": [385, 613, 255, 130], "04_mouth/mouth03_full.webp": [374, 600, 277, 160], "04_mouth/mouth04_downturn.webp": [380, 605, 265, 129], "04_mouth/mouth05_upturn.webp": [371, 615, 283, 138], "04_mouth/mouth06_small.webp": [397, 609, 231, 132], "04_mouth/mouth07_wide.webp": [377, 607, 271, 139], "04_mouth/mouth08_bow.webp": [385, 604, 255, 148], "04_mouth/mouth09_fulllow.webp": [374, 605, 277, 149], "04_mouth/mouth10_parted.webp": [387, 607, 251, 139], "05_eye_monolid/eyeA01_almond_L_core.webp": [567, 472, 85, 34], "05_eye_monolid/eyeA01_almond_L_shade.webp": [487, 402, 246, 174], "05_eye_monolid/eyeA01_almond_R_core.webp": [372, 472, 86, 34], "05_eye_monolid/eyeA01_almond_R_shade.webp": [291, 402, 247, 175], "05_eye_monolid/eyeA02_narrow_L_core.webp": [564, 474, 95, 30], "05_eye_monolid/eyeA02_narrow_L_shade.webp": [483, 405, 257, 169], "05_eye_monolid/eyeA02_narrow_R_core.webp": [366, 473, 95, 31], "05_eye_monolid/eyeA02_narrow_R_shade.webp": [283, 405, 259, 170], "05_eye_monolid/eyeA03_round_L_core.webp": [566, 470, 84, 36], "05_eye_monolid/eyeA03_round_L_shade.webp": [487, 400, 244, 176], "05_eye_monolid/eyeA03_round_R_core.webp": [374, 470, 84, 36], "05_eye_monolid/eyeA03_round_R_shade.webp": [294, 400, 243, 176], "05_eye_monolid/eyeA04_droop_L_core.webp": [568, 474, 84, 29], "05_eye_monolid/eyeA04_droop_L_shade.webp": [488, 404, 245, 169], "05_eye_monolid/eyeA04_droop_R_core.webp": [373, 474, 84, 29], "05_eye_monolid/eyeA04_droop_R_shade.webp": [292, 404, 245, 169], "05_eye_monolid/eyeA05_upturn_L_core.webp": [568, 473, 86, 31], "05_eye_monolid/eyeA05_upturn_L_shade.webp": [488, 403, 247, 172], "05_eye_monolid/eyeA05_upturn_R_core.webp": [371, 473, 86, 31], "05_eye_monolid/eyeA05_upturn_R_shade.webp": [290, 403, 247, 172], "05_eye_monolid/eyeA06_slim_L_core.webp": [567, 475, 84, 28], "05_eye_monolid/eyeA06_slim_L_shade.webp": [487, 405, 245, 170], "05_eye_monolid/eyeA06_slim_R_core.webp": [373, 474, 85, 29], "05_eye_monolid/eyeA06_slim_R_shade.webp": [292, 404, 245, 170], "05_eye_monolid/eyeA07_large_L_core.webp": [563, 472, 96, 34], "05_eye_monolid/eyeA07_large_L_shade.webp": [482, 402, 259, 174], "05_eye_monolid/eyeA07_large_R_core.webp": [366, 472, 97, 34], "05_eye_monolid/eyeA07_large_R_shade.webp": [284, 402, 259, 175], "05_eye_monolid/eyeA08_halflid_L_core.webp": [570, 475, 83, 25], "05_eye_monolid/eyeA08_halflid_L_shade.webp": [490, 404, 244, 166], "05_eye_monolid/eyeA08_halflid_R_core.webp": [372, 474, 83, 26], "05_eye_monolid/eyeA08_halflid_R_shade.webp": [291, 404, 244, 166], "05_eye_monolid/eyeA09_sanpaku_L_core.webp": [570, 475, 83, 29], "05_eye_monolid/eyeA09_sanpaku_L_shade.webp": [490, 405, 245, 170], "05_eye_monolid/eyeA09_sanpaku_R_core.webp": [372, 475, 84, 29], "05_eye_monolid/eyeA09_sanpaku_R_shade.webp": [290, 405, 246, 171], "05_eye_monolid/eyeA10_deepset_L_core.webp": [566, 473, 88, 31], "05_eye_monolid/eyeA10_deepset_L_shade.webp": [486, 403, 250, 172], "05_eye_monolid/eyeA10_deepset_R_core.webp": [371, 473, 88, 31], "05_eye_monolid/eyeA10_deepset_R_shade.webp": [288, 403, 251, 172], "06_eye_double/eyeB01_almond_L_core.webp": [564, 465, 89, 43], "06_eye_double/eyeB01_almond_L_shade.webp": [484, 400, 250, 176], "06_eye_double/eyeB01_almond_R_core.webp": [372, 465, 89, 43], "06_eye_double/eyeB01_almond_R_shade.webp": [290, 401, 252, 177], "06_eye_double/eyeB02_narrow_L_core.webp": [565, 467, 93, 37], "06_eye_double/eyeB02_narrow_L_shade.webp": [484, 402, 257, 174], "06_eye_double/eyeB02_narrow_R_core.webp": [366, 467, 94, 38], "06_eye_double/eyeB02_narrow_R_shade.webp": [283, 401, 258, 175], "06_eye_double/eyeB03_round_L_core.webp": [568, 463, 85, 48], "06_eye_double/eyeB03_round_L_shade.webp": [489, 398, 244, 183], "06_eye_double/eyeB03_round_R_core.webp": [373, 463, 84, 48], "06_eye_double/eyeB03_round_R_shade.webp": [293, 398, 243, 183], "06_eye_double/eyeB04_droop_L_core.webp": [564, 466, 91, 43], "06_eye_double/eyeB04_droop_L_shade.webp": [485, 402, 251, 176], "06_eye_double/eyeB04_droop_R_core.webp": [369, 466, 91, 41], "06_eye_double/eyeB04_droop_R_shade.webp": [288, 402, 252, 174], "06_eye_double/eyeB05_upturn_L_core.webp": [565, 466, 93, 39], "06_eye_double/eyeB05_upturn_L_shade.webp": [484, 401, 256, 175], "06_eye_double/eyeB05_upturn_R_core.webp": [367, 467, 93, 40], "06_eye_double/eyeB05_upturn_R_shade.webp": [285, 395, 256, 183], "06_eye_double/eyeB06_slim_L_core.webp": [562, 467, 93, 37], "06_eye_double/eyeB06_slim_L_shade.webp": [481, 402, 256, 172], "06_eye_double/eyeB06_slim_R_core.webp": [370, 467, 93, 37], "06_eye_double/eyeB06_slim_R_shade.webp": [289, 402, 255, 174], "06_eye_double/eyeB07_large_L_core.webp": [561, 461, 97, 48], "06_eye_double/eyeB07_large_L_shade.webp": [480, 397, 260, 183], "06_eye_double/eyeB07_large_R_core.webp": [367, 462, 97, 47], "06_eye_double/eyeB07_large_R_shade.webp": [285, 399, 259, 181], "06_eye_double/eyeB08_halflid_L_core.webp": [563, 467, 98, 36], "06_eye_double/eyeB08_halflid_L_shade.webp": [482, 404, 260, 169], "06_eye_double/eyeB08_halflid_R_core.webp": [364, 467, 99, 36], "06_eye_double/eyeB08_halflid_R_shade.webp": [283, 404, 261, 169], "06_eye_double/eyeB09_sanpaku_L_core.webp": [561, 464, 99, 43], "06_eye_double/eyeB09_sanpaku_L_shade.webp": [481, 401, 262, 177], "06_eye_double/eyeB09_sanpaku_R_core.webp": [363, 464, 100, 44], "06_eye_double/eyeB09_sanpaku_R_shade.webp": [280, 399, 263, 181], "06_eye_double/eyeB10_deepset_L_core.webp": [566, 463, 88, 44], "06_eye_double/eyeB10_deepset_L_shade.webp": [471, 384, 266, 195], "08_brow/browS15_longtail_L.webp": [555, 410, 139, 32], "08_brow/browS15_longtail_R.webp": [333, 410, 138, 32], "08_brow/browS16_softinner_L.webp": [557, 414, 114, 28], "08_brow/browS16_softinner_R.webp": [354, 415, 114, 29], "08_brow/browS17_stepped_L.webp": [555, 417, 111, 27], "08_brow/browS17_stepped_R.webp": [360, 418, 111, 26], "08_brow/browS18_thickdroop_L.webp": [557, 430, 117, 43], "08_brow/browS18_thickdroop_R.webp": [353, 430, 114, 44], "08_brow/browS19_sharparch_L.webp": [557, 413, 108, 29], "08_brow/browS19_sharparch_R.webp": [360, 414, 110, 29], "08_brow/browS20_bushy_L.webp": [557, 402, 147, 43], "08_brow/browS20_bushy_R.webp": [318, 405, 148, 42], "09_tear/tear01_subtle_L.webp": [550, 500, 124, 52], "09_tear/tear01_subtle_R.webp": [350, 500, 124, 52], "09_tear/tear02_natural_L.webp": [550, 500, 124, 52], "09_tear/tear02_natural_R.webp": [350, 500, 124, 52], "09_tear/tear03_strong_L.webp": [550, 500, 124, 52], "09_tear/tear03_strong_R.webp": [350, 500, 124, 52], "10_cloth/cloth01_dressshirt.webp": [0, 758, 1024, 265], "10_cloth/cloth01_necktie.webp": [411, 848, 202, 175], "10_cloth/cloth02_shirt.webp": [0, 758, 1024, 265], "10_cloth/cloth03_tshirt.webp": [0, 783, 1024, 240], "10_cloth/cloth04_opencollar.webp": [0, 758, 1024, 265], "10_cloth/cloth05_sleeveless.webp": [167, 810, 813, 213], "10_cloth/cloth06_tanktop.webp": [196, 840, 639, 183], "12_ear/ear_diamond.webp": [278, 421, 470, 166], "12_ear/ear_egg.webp": [273, 429, 479, 169], "12_ear/ear_hex.webp": [275, 429, 477, 168], "12_ear/ear_homeplate.webp": [270, 428, 484, 168], "12_ear/ear_invtri.webp": [272, 424, 482, 165], "12_ear/ear_long.webp": [285, 415, 456, 169], "12_ear/ear_pear.webp": [271, 431, 483, 171], "12_ear/ear_rect.webp": [285, 412, 453, 159], "12_ear/ear_round.webp": [264, 427, 497, 173], "12_ear/ear_slim.webp": [283, 423, 459, 168], "12_ear/ear_square.webp": [275, 426, 475, 168], "16_glass/glass_boston_diamond.webp": [283, 419, 461, 155], "16_glass/glass_boston_egg.webp": [276, 419, 473, 155], "16_glass/glass_boston_hex.webp": [278, 419, 471, 155], "16_glass/glass_boston_homeplate.webp": [274, 419, 477, 155], "16_glass/glass_boston_invtri.webp": [277, 419, 473, 155], "16_glass/glass_boston_long.webp": [290, 419, 445, 155], "16_glass/glass_boston_pear.webp": [274, 419, 477, 155], "16_glass/glass_boston_rect.webp": [291, 419, 441, 155], "16_glass/glass_boston_round.webp": [267, 419, 490, 155], "16_glass/glass_boston_slim.webp": [287, 419, 452, 155], "16_glass/glass_boston_square.webp": [279, 419, 468, 155], "16_glass/glass_browline_diamond.webp": [283, 437, 461, 191], "16_glass/glass_browline_egg.webp": [276, 437, 473, 191], "16_glass/glass_browline_hex.webp": [278, 437, 471, 191], "16_glass/glass_browline_homeplate.webp": [274, 437, 477, 191], "16_glass/glass_browline_invtri.webp": [277, 437, 473, 191], "16_glass/glass_browline_long.webp": [290, 437, 445, 191], "16_glass/glass_browline_pear.webp": [274, 437, 476, 191], "16_glass/glass_browline_rect.webp": [291, 437, 441, 191], "16_glass/glass_browline_round.webp": [267, 437, 490, 191], "16_glass/glass_browline_slim.webp": [287, 437, 452, 191], "16_glass/glass_browline_square.webp": [279, 437, 468, 191], "16_glass/glass_halfrim_diamond.webp": [283, 446, 461, 182], "16_glass/glass_halfrim_egg.webp": [277, 446, 472, 182], "16_glass/glass_halfrim_hex.webp": [278, 446, 470, 182], "16_glass/glass_halfrim_homeplate.webp": [275, 446, 476, 182], "16_glass/glass_halfrim_invtri.webp": [277, 446, 473, 182], "16_glass/glass_halfrim_long.webp": [290, 446, 445, 182], "16_glass/glass_halfrim_pear.webp": [275, 446, 475, 182], "16_glass/glass_halfrim_rect.webp": [291, 446, 441, 182], "16_glass/glass_halfrim_round.webp": [267, 446, 490, 182], "16_glass/glass_halfrim_slim.webp": [287, 446, 452, 182], "16_glass/glass_halfrim_square.webp": [279, 446, 468, 182], "16_glass/glass_metalsquare_diamond.webp": [283, 442, 461, 180], "16_glass/glass_metalsquare_egg.webp": [277, 442, 471, 180], "16_glass/glass_metalsquare_hex.webp": [279, 442, 469, 180], "16_glass/glass_metalsquare_homeplate.webp": [275, 442, 475, 180], "16_glass/glass_metalsquare_invtri.webp": [277, 442, 473, 180], "16_glass/glass_metalsquare_long.webp": [290, 442, 445, 180], "16_glass/glass_metalsquare_pear.webp": [275, 442, 474, 180], "16_glass/glass_metalsquare_rect.webp": [291, 442, 441, 180], "16_glass/glass_metalsquare_round.webp": [267, 442, 490, 180], "16_glass/glass_metalsquare_slim.webp": [287, 442, 452, 180], "16_glass/glass_metalsquare_square.webp": [279, 442, 468, 180], "16_glass/glass_oval_diamond.webp": [283, 442, 461, 180], "16_glass/glass_oval_egg.webp": [277, 442, 472, 180], "16_glass/glass_oval_hex.webp": [278, 442, 471, 180], "16_glass/glass_oval_homeplate.webp": [274, 442, 477, 180], "16_glass/glass_oval_invtri.webp": [277, 442, 473, 180], "16_glass/glass_oval_long.webp": [290, 442, 445, 180], "16_glass/glass_oval_pear.webp": [275, 442, 475, 180], "16_glass/glass_oval_rect.webp": [291, 442, 441, 180], "16_glass/glass_oval_round.webp": [267, 442, 490, 180], "16_glass/glass_oval_slim.webp": [287, 442, 452, 180], "16_glass/glass_oval_square.webp": [279, 442, 468, 180], "16_glass/glass_rimless_diamond.webp": [283, 446, 461, 176], "16_glass/glass_rimless_egg.webp": [276, 446, 473, 176], "16_glass/glass_rimless_hex.webp": [278, 446, 471, 176], "16_glass/glass_rimless_homeplate.webp": [274, 446, 477, 176], "16_glass/glass_rimless_invtri.webp": [277, 446, 473, 176], "16_glass/glass_rimless_long.webp": [290, 446, 445, 176], "16_glass/glass_rimless_pear.webp": [275, 446, 475, 176], "16_glass/glass_rimless_rect.webp": [291, 446, 441, 176], "16_glass/glass_rimless_round.webp": [267, 446, 490, 176], "16_glass/glass_rimless_slim.webp": [287, 446, 452, 176], "16_glass/glass_rimless_square.webp": [279, 446, 468, 176], "16_glass/glass_round_diamond.webp": [283, 435, 461, 193], "16_glass/glass_round_egg.webp": [277, 435, 472, 193], "16_glass/glass_round_hex.webp": [278, 435, 470, 193], "16_glass/glass_round_homeplate.webp": [275, 435, 476, 193], "16_glass/glass_round_invtri.webp": [277, 435, 473, 193], "16_glass/glass_round_long.webp": [290, 435, 445, 193], "16_glass/glass_round_pear.webp": [275, 435, 475, 193], "16_glass/glass_round_rect.webp": [291, 435, 441, 193], "16_glass/glass_round_round.webp": [267, 435, 490, 193], "16_glass/glass_round_slim.webp": [287, 435, 452, 193], "16_glass/glass_round_square.webp": [279, 435, 468, 193], "16_glass/glass_square_diamond.webp": [283, 443, 461, 179], "16_glass/glass_square_egg.webp": [277, 443, 472, 179], "16_glass/glass_square_hex.webp": [278, 443, 470, 179], "16_glass/glass_square_homeplate.webp": [275, 443, 476, 179], "16_glass/glass_square_invtri.webp": [277, 443, 473, 179], "16_glass/glass_square_long.webp": [290, 443, 445, 179], "16_glass/glass_square_pear.webp": [275, 443, 475, 179], "16_glass/glass_square_rect.webp": [291, 443, 441, 179], "16_glass/glass_square_round.webp": [267, 443, 490, 179], "16_glass/glass_square_slim.webp": [287, 443, 452, 179], "16_glass/glass_square_square.webp": [279, 443, 468, 179], "16_glass/glass_thick_diamond.webp": [284, 437, 459, 191], "16_glass/glass_thick_egg.webp": [277, 437, 471, 191], "16_glass/glass_thick_hex.webp": [278, 437, 470, 191], "16_glass/glass_thick_homeplate.webp": [274, 437, 476, 191], "16_glass/glass_thick_invtri.webp": [277, 437, 472, 191], "16_glass/glass_thick_long.webp": [290, 437, 445, 191], "16_glass/glass_thick_pear.webp": [274, 438, 477, 190], "16_glass/glass_thick_rect.webp": [291, 437, 441, 191], "16_glass/glass_thick_round.webp": [268, 437, 489, 191], "16_glass/glass_thick_slim.webp": [287, 437, 452, 191], "16_glass/glass_thick_square.webp": [280, 437, 466, 191], "16_glass/glass_wellington_diamond.webp": [283, 440, 461, 188], "16_glass/glass_wellington_egg.webp": [277, 440, 471, 188], "16_glass/glass_wellington_hex.webp": [279, 440, 469, 188], "16_glass/glass_wellington_homeplate.webp": [275, 440, 475, 188], "16_glass/glass_wellington_invtri.webp": [277, 440, 473, 188], "16_glass/glass_wellington_long.webp": [290, 440, 445, 188], "16_glass/glass_wellington_pear.webp": [274, 440, 477, 188], "16_glass/glass_wellington_rect.webp": [291, 440, 441, 188], "16_glass/glass_wellington_round.webp": [267, 440, 490, 188], "16_glass/glass_wellington_slim.webp": [287, 440, 452, 188], "16_glass/glass_wellington_square.webp": [279, 440, 468, 188], "11_hair/hair01_buzz.webp": [290, 140, 440, 401], "11_hair/hair02_softmohawk.webp": [296, 104, 430, 474], "11_hair/hair03_fadeshort.webp": [285, 109, 456, 432], "11_hair/hair04_skinfade.webp": [283, 144, 453, 435], "11_hair/hair05_spiky.webp": [273, 102, 481, 437], "11_hair/hair06_upbang.webp": [248, 80, 516, 461], "11_hair/hair07_sidepart.webp": [270, 135, 484, 440], "11_hair/hair08_crop.webp": [276, 115, 471, 436], "11_hair/hair09_pompadour.webp": [283, 125, 457, 461], "11_hair/hair10_shortlayer.webp": [259, 103, 509, 478], "11_hair/hair11_mushroom.webp": [244, 101, 529, 388], "11_hair/hair12_centerpart.webp": [239, 115, 546, 495], "11_hair/hair13_koreanpart.webp": [250, 121, 521, 391], "11_hair/hair14_mushwolf.webp": [205, 123, 614, 648], "11_hair/hair15_seethrough.webp": [271, 127, 482, 435], "11_hair/hair16_onelength.webp": [246, 124, 534, 467], "11_hair/hair17_sweptpart.webp": [254, 102, 511, 408], "11_hair/hair18_mushfade.webp": [246, 114, 533, 369], "11_hair/hair19_permmush.webp": [198, 136, 634, 474], "11_hair/hair20_shortpart.webp": [259, 139, 513, 371], "11_hair/hair21_mediumstraight.webp": [251, 114, 523, 702], "11_hair/hair22_mediumlayer.webp": [1, 95, 812, 901], "11_hair/hair23_looseperm.webp": [211, 99, 605, 651], "11_hair/hair24_spiralperm.webp": [209, 124, 612, 601], "11_hair/hair25_twistperm.webp": [232, 104, 563, 464], "11_hair/hair26_wolfmedium.webp": [46, 90, 774, 855], "11_hair/hair27_centermedium.webp": [1, 112, 846, 884], "11_hair/hair28_sweptmedium.webp": [239, 82, 557, 656], "11_hair/hair29_wavymedium.webp": [203, 99, 622, 646], "11_hair/hair30_mediummush.webp": [225, 98, 580, 713], "13_skin/acnemark.webp": [362, 533, 293, 224], "13_skin/beard_mid.webp": [361, 573, 275, 186], "13_skin/beard_strong.webp": [361, 573, 276, 186], "13_skin/beard_weak.webp": [361, 573, 275, 186], "13_skin/freckle.webp": [352, 479, 321, 165], "13_skin/mole.webp": [373, 596, 14, 17], "13_skin/pimple_n0.webp": null, "13_skin/pimple_n1.webp": [430, 275, 51, 51], "13_skin/pimple_n2.webp": [430, 275, 165, 51], "13_skin/pimple_n3.webp": [367, 275, 228, 325], "13_skin/pimple_n5.webp": [367, 275, 291, 482], "13_skin/pimple_n8.webp": [367, 275, 291, 482], "13_skin/pores.webp": [299, 343, 425, 414], "13_skin/redness.webp": [349, 478, 325, 236], "13_skin/socket_0.webp": null, "13_skin/socket_1.webp": [299, 397, 426, 164], "13_skin/socket_2.webp": [299, 393, 426, 175], "13_skin/socket_3.webp": [299, 389, 426, 184], "13_skin/socket_4.webp": [299, 386, 426, 191], "13_skin/socket_5.webp": [299, 384, 426, 197], "13_skin/socket_6.webp": [299, 382, 426, 202], "14_beard/beard_chin.webp": [288, 520, 450, 248], "14_beard/beard_full.webp": [291, 520, 445, 248], "14_beard/beard_mous.webp": [439, 616, 150, 47], "14_beard/beard_shaved.webp": [288, 520, 450, 248], "15_sclera/eyeA01_almond_L.webp": [579, 483, 57, 19], "15_sclera/eyeA01_almond_R.webp": [388, 483, 56, 20], "15_sclera/eyeA02_narrow_L.webp": [576, 484, 61, 15], "15_sclera/eyeA02_narrow_R.webp": [390, 486, 58, 11], "15_sclera/eyeA03_round_L.webp": [576, 482, 59, 18], "15_sclera/eyeA03_round_R.webp": [389, 483, 59, 18], "15_sclera/eyeA04_droop_L.webp": [579, 483, 55, 17], "15_sclera/eyeA04_droop_R.webp": [392, 484, 54, 15], "15_sclera/eyeA05_upturn_L.webp": [579, 482, 58, 18], "15_sclera/eyeA05_upturn_R.webp": [388, 482, 55, 18], "15_sclera/eyeA06_slim_L.webp": [579, 483, 55, 16], "15_sclera/eyeA06_slim_R.webp": [390, 482, 55, 17], "15_sclera/eyeA07_large_L.webp": [574, 481, 67, 21], "15_sclera/eyeA07_large_R.webp": [384, 482, 67, 20], "15_sclera/eyeA08_halflid_L.webp": [622, 483, 15, 12], "15_sclera/eyeA08_halflid_R.webp": [389, 484, 13, 10], "15_sclera/eyeA09_sanpaku_L.webp": [581, 482, 55, 18], "15_sclera/eyeA09_sanpaku_R.webp": [388, 482, 56, 18], "15_sclera/eyeA10_deepset_L.webp": [580, 482, 54, 17], "06_eye_double/eyeB10_deepset_R_core.webp": [370, 465, 91, 43], "06_eye_double/eyeB10_deepset_R_shade.webp": [287, 386, 267, 193], "07_eye_hooded/eyeC01_almond_L_core.webp": [564, 471, 89, 34], "07_eye_hooded/eyeC01_almond_L_shade.webp": [484, 401, 250, 175], "07_eye_hooded/eyeC01_almond_R_core.webp": [373, 471, 89, 34], "07_eye_hooded/eyeC01_almond_R_shade.webp": [292, 401, 249, 175], "07_eye_hooded/eyeC02_narrow_L_core.webp": [565, 475, 90, 32], "07_eye_hooded/eyeC02_narrow_L_shade.webp": [485, 405, 251, 171], "07_eye_hooded/eyeC02_narrow_R_core.webp": [369, 475, 91, 30], "07_eye_hooded/eyeC02_narrow_R_shade.webp": [287, 404, 252, 172], "07_eye_hooded/eyeC03_round_L_core.webp": [567, 466, 84, 42], "07_eye_hooded/eyeC03_round_L_shade.webp": [488, 399, 244, 179], "07_eye_hooded/eyeC03_round_R_core.webp": [374, 466, 84, 42], "07_eye_hooded/eyeC03_round_R_shade.webp": [293, 399, 244, 179], "07_eye_hooded/eyeC04_droop_L_core.webp": [566, 469, 86, 37], "07_eye_hooded/eyeC04_droop_L_shade.webp": [486, 401, 247, 176], "07_eye_hooded/eyeC04_droop_R_core.webp": [372, 470, 87, 38], "07_eye_hooded/eyeC04_droop_R_shade.webp": [291, 402, 248, 177], "07_eye_hooded/eyeC05_upturn_L_core.webp": [567, 474, 84, 30], "07_eye_hooded/eyeC05_upturn_L_shade.webp": [487, 404, 246, 170], "07_eye_hooded/eyeC05_upturn_R_core.webp": [373, 474, 85, 29], "07_eye_hooded/eyeC05_upturn_R_shade.webp": [292, 404, 245, 170], "07_eye_hooded/eyeC06_slim_L_core.webp": [565, 474, 89, 28], "07_eye_hooded/eyeC06_slim_L_shade.webp": [485, 404, 251, 170], "07_eye_hooded/eyeC06_slim_R_core.webp": [370, 474, 90, 30], "07_eye_hooded/eyeC06_slim_R_shade.webp": [288, 404, 252, 170], "07_eye_hooded/eyeC07_large_L_core.webp": [561, 470, 96, 37], "07_eye_hooded/eyeC07_large_L_shade.webp": [480, 400, 259, 178], "07_eye_hooded/eyeC07_large_R_core.webp": [368, 470, 97, 37], "07_eye_hooded/eyeC07_large_R_shade.webp": [286, 400, 259, 178], "07_eye_hooded/eyeC08_halflid_L_core.webp": [565, 475, 87, 30], "07_eye_hooded/eyeC08_halflid_L_shade.webp": [486, 405, 247, 170], "07_eye_hooded/eyeC08_halflid_R_core.webp": [372, 475, 87, 31], "07_eye_hooded/eyeC08_halflid_R_shade.webp": [291, 405, 247, 170], "07_eye_hooded/eyeC09_sanpaku_L_core.webp": [567, 474, 86, 31], "07_eye_hooded/eyeC09_sanpaku_L_shade.webp": [487, 404, 247, 171], "07_eye_hooded/eyeC09_sanpaku_R_core.webp": [371, 474, 87, 31], "07_eye_hooded/eyeC09_sanpaku_R_shade.webp": [290, 404, 248, 171], "07_eye_hooded/eyeC10_deepset_L_core.webp": [566, 470, 91, 36], "07_eye_hooded/eyeC10_deepset_L_shade.webp": [485, 400, 254, 178], "07_eye_hooded/eyeC10_deepset_R_core.webp": [369, 470, 91, 38], "07_eye_hooded/eyeC10_deepset_R_shade.webp": [286, 400, 255, 178], "08_brow/browN01_straight_L.webp": [560, 417, 124, 31], "08_brow/browN01_straight_R.webp": [340, 413, 124, 32], "08_brow/browN02_arch_L.webp": [555, 410, 119, 35], "08_brow/browN02_arch_R.webp": [351, 409, 116, 33], "08_brow/browN03_angled_L.webp": [554, 410, 121, 33], "08_brow/browN03_angled_R.webp": [350, 414, 120, 33], "08_brow/browN04_thick_L.webp": [556, 403, 134, 42], "08_brow/browN04_thick_R.webp": [335, 404, 132, 41], "08_brow/browN05_narrow_L.webp": [561, 414, 123, 32], "08_brow/browN05_narrow_R.webp": [337, 412, 127, 32], "08_brow/browN06_short_L.webp": [552, 412, 114, 32], "08_brow/browN06_short_R.webp": [360, 413, 115, 32], "08_brow/browN07_long_L.webp": [553, 412, 150, 35], "08_brow/browN07_long_R.webp": [323, 411, 149, 35], "08_brow/browN08_upturn_L.webp": [556, 411, 124, 32], "08_brow/browN08_upturn_R.webp": [344, 411, 122, 32], "08_brow/browN09_droop_L.webp": [558, 419, 123, 30], "08_brow/browN09_droop_R.webp": [347, 417, 121, 28], "08_brow/browN10_rounded_L.webp": [558, 411, 122, 32], "08_brow/browN10_rounded_R.webp": [348, 412, 121, 32], "08_brow/browN11_messy_L.webp": [553, 408, 134, 43], "08_brow/browN11_messy_R.webp": [337, 412, 131, 42], "08_brow/browN12_sharpangle_L.webp": [552, 403, 123, 40], "08_brow/browN12_sharpangle_R.webp": [346, 406, 123, 40], "08_brow/browN13_boldflat_L.webp": [553, 414, 121, 33], "08_brow/browN13_boldflat_R.webp": [351, 414, 119, 34], "08_brow/browN14_sword_L.webp": [552, 406, 119, 40], "08_brow/browN14_sword_R.webp": [351, 407, 121, 40], "08_brow/browN15_longtail_L.webp": [552, 409, 146, 35], "08_brow/browN15_longtail_R.webp": [329, 407, 143, 38], "08_brow/browN16_softinner_L.webp": [554, 411, 118, 33], "08_brow/browN16_softinner_R.webp": [352, 412, 117, 34], "08_brow/browN17_stepped_L.webp": [552, 416, 115, 31], "08_brow/browN17_stepped_R.webp": [358, 416, 116, 31], "08_brow/browN18_thickdroop_L.webp": [555, 428, 121, 47], "08_brow/browN18_thickdroop_R.webp": [351, 428, 120, 47], "08_brow/browN19_sharparch_L.webp": [554, 411, 113, 33], "08_brow/browN19_sharparch_R.webp": [358, 413, 114, 33], "08_brow/browN20_bushy_L.webp": [554, 401, 161, 46], "08_brow/browN20_bushy_R.webp": [315, 403, 151, 46], "08_brow/browS01_straight_L.webp": [561, 420, 120, 25], "08_brow/browS01_straight_R.webp": [342, 415, 120, 28], "08_brow/browS02_arch_L.webp": [559, 412, 115, 29], "08_brow/browS02_arch_R.webp": [353, 410, 112, 30], "08_brow/browS03_angled_L.webp": [557, 412, 117, 30], "08_brow/browS03_angled_R.webp": [352, 415, 116, 29], "08_brow/browS04_thick_L.webp": [559, 406, 130, 35], "08_brow/browS04_thick_R.webp": [336, 406, 131, 36], "08_brow/browS05_narrow_L.webp": [563, 415, 120, 28], "08_brow/browS05_narrow_R.webp": [340, 414, 123, 27], "08_brow/browS06_short_L.webp": [555, 414, 109, 27], "08_brow/browS06_short_R.webp": [363, 415, 108, 28], "08_brow/browS07_long_L.webp": [558, 414, 143, 30], "08_brow/browS07_long_R.webp": [327, 413, 140, 30], "08_brow/browS08_upturn_L.webp": [558, 412, 120, 28], "08_brow/browS08_upturn_R.webp": [346, 413, 120, 28], "08_brow/browS09_droop_L.webp": [560, 422, 118, 24], "08_brow/browS09_droop_R.webp": [349, 420, 115, 23], "08_brow/browS10_rounded_L.webp": [560, 412, 117, 29], "08_brow/browS10_rounded_R.webp": [349, 413, 118, 29], "08_brow/browS11_messy_L.webp": [555, 411, 130, 38], "08_brow/browS11_messy_R.webp": [340, 413, 128, 38], "08_brow/browS12_sharpangle_L.webp": [555, 404, 120, 38], "08_brow/browS12_sharpangle_R.webp": [348, 407, 121, 38], "08_brow/browS13_boldflat_L.webp": [555, 416, 116, 29], "08_brow/browS13_boldflat_R.webp": [354, 417, 114, 28], "08_brow/browS14_sword_L.webp": [554, 408, 117, 35], "08_brow/browS14_sword_R.webp": [351, 409, 119, 35], "15_sclera/eyeA10_deepset_R.webp": [390, 482, 53, 18], "15_sclera/eyeB01_almond_L.webp": [575, 483, 60, 19], "15_sclera/eyeB01_almond_R.webp": [389, 482, 60, 21], "15_sclera/eyeB02_narrow_L.webp": [578, 481, 61, 19], "15_sclera/eyeB02_narrow_R.webp": [386, 482, 60, 18], "15_sclera/eyeB03_round_L.webp": [577, 481, 61, 25], "15_sclera/eyeB03_round_R.webp": [387, 482, 60, 24], "15_sclera/eyeB04_droop_L.webp": [578, 484, 57, 18], "15_sclera/eyeB04_droop_R.webp": [390, 484, 56, 18], "15_sclera/eyeB05_upturn_L.webp": [579, 482, 57, 18], "15_sclera/eyeB05_upturn_R.webp": [389, 483, 56, 18], "15_sclera/eyeB06_slim_L.webp": [576, 482, 62, 18], "15_sclera/eyeB06_slim_R.webp": [388, 482, 60, 19], "15_sclera/eyeB07_large_L.webp": [573, 480, 69, 21], "15_sclera/eyeB07_large_R.webp": [383, 480, 69, 21], "15_sclera/eyeB08_halflid_L.webp": [577, 486, 56, 14], "15_sclera/eyeB08_halflid_R.webp": [392, 486, 53, 13], "15_sclera/eyeB09_sanpaku_L.webp": [574, 482, 66, 23], "15_sclera/eyeB09_sanpaku_R.webp": [385, 482, 65, 26], "15_sclera/eyeB10_deepset_L.webp": [579, 484, 55, 18], "15_sclera/eyeB10_deepset_R.webp": [390, 484, 55, 18], "15_sclera/eyeC01_almond_L.webp": [579, 484, 53, 18], "15_sclera/eyeC01_almond_R.webp": [393, 484, 52, 18], "15_sclera/eyeC02_narrow_L.webp": [576, 485, 58, 15], "15_sclera/eyeC02_narrow_R.webp": [391, 485, 57, 15], "15_sclera/eyeC03_round_L.webp": [580, 478, 57, 25], "15_sclera/eyeC03_round_R.webp": [388, 480, 57, 23], "15_sclera/eyeC04_droop_L.webp": [576, 483, 59, 18], "15_sclera/eyeC04_droop_R.webp": [390, 484, 59, 18], "15_sclera/eyeC05_upturn_L.webp": [579, 484, 53, 15], "15_sclera/eyeC05_upturn_R.webp": [392, 484, 52, 16], "15_sclera/eyeC06_slim_L.webp": [579, 484, 53, 14], "15_sclera/eyeC06_slim_R.webp": [393, 484, 52, 15], "15_sclera/eyeC07_large_L.webp": [575, 483, 62, 19], "15_sclera/eyeC07_large_R.webp": [389, 482, 60, 20], "15_sclera/eyeC08_halflid_L.webp": [580, 486, 49, 12], "15_sclera/eyeC08_halflid_R.webp": [393, 486, 50, 13], "15_sclera/eyeC09_sanpaku_L.webp": [580, 483, 54, 18], "15_sclera/eyeC09_sanpaku_R.webp": [390, 483, 53, 18], "15_sclera/eyeC10_deepset_L.webp": [580, 484, 52, 17], "15_sclera/eyeC10_deepset_R.webp": [394, 485, 52, 16]}
+{
+ "01_face/face_diamond.webp": [
+  277,
+  152,
+  472,
+  632
+ ],
+ "01_face/face_egg.webp": [
+  272,
+  151,
+  481,
+  621
+ ],
+ "01_face/face_hex.webp": [
+  274,
+  152,
+  479,
+  632
+ ],
+ "01_face/face_homeplate.webp": [
+  269,
+  151,
+  487,
+  621
+ ],
+ "01_face/face_invtri.webp": [
+  271,
+  152,
+  484,
+  620
+ ],
+ "01_face/face_long.webp": [
+  284,
+  151,
+  458,
+  631
+ ],
+ "01_face/face_pear.webp": [
+  270,
+  151,
+  485,
+  622
+ ],
+ "01_face/face_rect.webp": [
+  284,
+  151,
+  455,
+  621
+ ],
+ "01_face/face_round.webp": [
+  263,
+  152,
+  499,
+  634
+ ],
+ "01_face/face_slim.webp": [
+  282,
+  152,
+  461,
+  620
+ ],
+ "01_face/face_square.webp": [
+  274,
+  151,
+  477,
+  621
+ ],
+ "02_body/body_common_final.webp": [
+  0,
+  522,
+  1022,
+  502
+ ],
+ "03_nose/nose01_straight.webp": [
+  413,
+  479,
+  199,
+  220
+ ],
+ "03_nose/nose02_aquiline.webp": [
+  346,
+  510,
+  333,
+  176
+ ],
+ "03_nose/nose03_button.webp": [
+  426,
+  531,
+  173,
+  144
+ ],
+ "03_nose/nose04_small.webp": [
+  415,
+  524,
+  195,
+  165
+ ],
+ "03_nose/nose05_upturned.webp": [
+  314,
+  508,
+  397,
+  184
+ ],
+ "03_nose/nose06_wide.webp": [
+  420,
+  535,
+  184,
+  137
+ ],
+ "03_nose/nose07_longhigh.webp": [
+  400,
+  408,
+  225,
+  301
+ ],
+ "03_nose/nose08_flat.webp": [
+  409,
+  518,
+  207,
+  170
+ ],
+ "03_nose/nose09_greek.webp": [
+  408,
+  438,
+  209,
+  265
+ ],
+ "03_nose/nose10_droop.webp": [
+  412,
+  502,
+  201,
+  191
+ ],
+ "04_mouth/mouth01_standard.webp": [
+  384,
+  611,
+  257,
+  135
+ ],
+ "04_mouth/mouth02_thin.webp": [
+  385,
+  613,
+  255,
+  130
+ ],
+ "04_mouth/mouth03_full.webp": [
+  374,
+  600,
+  277,
+  160
+ ],
+ "04_mouth/mouth04_downturn.webp": [
+  380,
+  605,
+  265,
+  129
+ ],
+ "04_mouth/mouth05_upturn.webp": [
+  371,
+  615,
+  283,
+  138
+ ],
+ "04_mouth/mouth06_small.webp": [
+  397,
+  609,
+  231,
+  132
+ ],
+ "04_mouth/mouth07_wide.webp": [
+  377,
+  607,
+  271,
+  139
+ ],
+ "04_mouth/mouth08_bow.webp": [
+  385,
+  604,
+  255,
+  148
+ ],
+ "04_mouth/mouth09_fulllow.webp": [
+  374,
+  605,
+  277,
+  149
+ ],
+ "04_mouth/mouth10_parted.webp": [
+  387,
+  607,
+  251,
+  139
+ ],
+ "05_eye_monolid/eyeA01_almond_L_core.webp": [
+  567,
+  472,
+  85,
+  34
+ ],
+ "05_eye_monolid/eyeA01_almond_L_shade.webp": [
+  487,
+  402,
+  246,
+  174
+ ],
+ "05_eye_monolid/eyeA01_almond_R_core.webp": [
+  372,
+  472,
+  86,
+  34
+ ],
+ "05_eye_monolid/eyeA01_almond_R_shade.webp": [
+  291,
+  402,
+  247,
+  175
+ ],
+ "05_eye_monolid/eyeA02_narrow_L_core.webp": [
+  564,
+  474,
+  95,
+  30
+ ],
+ "05_eye_monolid/eyeA02_narrow_L_shade.webp": [
+  483,
+  405,
+  257,
+  169
+ ],
+ "05_eye_monolid/eyeA02_narrow_R_core.webp": [
+  366,
+  473,
+  95,
+  31
+ ],
+ "05_eye_monolid/eyeA02_narrow_R_shade.webp": [
+  283,
+  405,
+  259,
+  170
+ ],
+ "05_eye_monolid/eyeA03_round_L_core.webp": [
+  566,
+  470,
+  84,
+  36
+ ],
+ "05_eye_monolid/eyeA03_round_L_shade.webp": [
+  487,
+  400,
+  244,
+  176
+ ],
+ "05_eye_monolid/eyeA03_round_R_core.webp": [
+  374,
+  470,
+  84,
+  36
+ ],
+ "05_eye_monolid/eyeA03_round_R_shade.webp": [
+  294,
+  400,
+  243,
+  176
+ ],
+ "05_eye_monolid/eyeA04_droop_L_core.webp": [
+  568,
+  474,
+  84,
+  29
+ ],
+ "05_eye_monolid/eyeA04_droop_L_shade.webp": [
+  488,
+  404,
+  245,
+  169
+ ],
+ "05_eye_monolid/eyeA04_droop_R_core.webp": [
+  373,
+  474,
+  84,
+  29
+ ],
+ "05_eye_monolid/eyeA04_droop_R_shade.webp": [
+  292,
+  404,
+  245,
+  169
+ ],
+ "05_eye_monolid/eyeA05_upturn_L_core.webp": [
+  568,
+  473,
+  86,
+  31
+ ],
+ "05_eye_monolid/eyeA05_upturn_L_shade.webp": [
+  488,
+  403,
+  247,
+  172
+ ],
+ "05_eye_monolid/eyeA05_upturn_R_core.webp": [
+  371,
+  473,
+  86,
+  31
+ ],
+ "05_eye_monolid/eyeA05_upturn_R_shade.webp": [
+  290,
+  403,
+  247,
+  172
+ ],
+ "05_eye_monolid/eyeA06_slim_L_core.webp": [
+  567,
+  475,
+  84,
+  28
+ ],
+ "05_eye_monolid/eyeA06_slim_L_shade.webp": [
+  487,
+  405,
+  245,
+  170
+ ],
+ "05_eye_monolid/eyeA06_slim_R_core.webp": [
+  373,
+  474,
+  85,
+  29
+ ],
+ "05_eye_monolid/eyeA06_slim_R_shade.webp": [
+  292,
+  404,
+  245,
+  170
+ ],
+ "05_eye_monolid/eyeA07_large_L_core.webp": [
+  563,
+  472,
+  96,
+  34
+ ],
+ "05_eye_monolid/eyeA07_large_L_shade.webp": [
+  482,
+  402,
+  259,
+  174
+ ],
+ "05_eye_monolid/eyeA07_large_R_core.webp": [
+  366,
+  472,
+  97,
+  34
+ ],
+ "05_eye_monolid/eyeA07_large_R_shade.webp": [
+  284,
+  402,
+  259,
+  175
+ ],
+ "05_eye_monolid/eyeA08_halflid_L_core.webp": [
+  570,
+  475,
+  83,
+  25
+ ],
+ "05_eye_monolid/eyeA08_halflid_L_shade.webp": [
+  490,
+  404,
+  244,
+  166
+ ],
+ "05_eye_monolid/eyeA08_halflid_R_core.webp": [
+  372,
+  474,
+  83,
+  26
+ ],
+ "05_eye_monolid/eyeA08_halflid_R_shade.webp": [
+  291,
+  404,
+  244,
+  166
+ ],
+ "05_eye_monolid/eyeA09_sanpaku_L_core.webp": [
+  570,
+  475,
+  83,
+  29
+ ],
+ "05_eye_monolid/eyeA09_sanpaku_L_shade.webp": [
+  490,
+  405,
+  245,
+  170
+ ],
+ "05_eye_monolid/eyeA09_sanpaku_R_core.webp": [
+  372,
+  475,
+  84,
+  29
+ ],
+ "05_eye_monolid/eyeA09_sanpaku_R_shade.webp": [
+  290,
+  405,
+  246,
+  171
+ ],
+ "05_eye_monolid/eyeA10_deepset_L_core.webp": [
+  566,
+  473,
+  88,
+  31
+ ],
+ "05_eye_monolid/eyeA10_deepset_L_shade.webp": [
+  486,
+  403,
+  250,
+  172
+ ],
+ "05_eye_monolid/eyeA10_deepset_R_core.webp": [
+  371,
+  473,
+  88,
+  31
+ ],
+ "05_eye_monolid/eyeA10_deepset_R_shade.webp": [
+  288,
+  403,
+  251,
+  172
+ ],
+ "06_eye_double/eyeB01_almond_L_core.webp": [
+  564,
+  465,
+  89,
+  43
+ ],
+ "06_eye_double/eyeB01_almond_L_shade.webp": [
+  484,
+  400,
+  250,
+  176
+ ],
+ "06_eye_double/eyeB01_almond_R_core.webp": [
+  372,
+  465,
+  89,
+  43
+ ],
+ "06_eye_double/eyeB01_almond_R_shade.webp": [
+  290,
+  401,
+  252,
+  177
+ ],
+ "06_eye_double/eyeB02_narrow_L_core.webp": [
+  565,
+  467,
+  93,
+  37
+ ],
+ "06_eye_double/eyeB02_narrow_L_shade.webp": [
+  484,
+  402,
+  257,
+  174
+ ],
+ "06_eye_double/eyeB02_narrow_R_core.webp": [
+  366,
+  467,
+  94,
+  38
+ ],
+ "06_eye_double/eyeB02_narrow_R_shade.webp": [
+  283,
+  401,
+  258,
+  175
+ ],
+ "06_eye_double/eyeB03_round_L_core.webp": [
+  568,
+  463,
+  85,
+  48
+ ],
+ "06_eye_double/eyeB03_round_L_shade.webp": [
+  489,
+  398,
+  244,
+  183
+ ],
+ "06_eye_double/eyeB03_round_R_core.webp": [
+  373,
+  463,
+  84,
+  48
+ ],
+ "06_eye_double/eyeB03_round_R_shade.webp": [
+  293,
+  398,
+  243,
+  183
+ ],
+ "06_eye_double/eyeB04_droop_L_core.webp": [
+  564,
+  466,
+  91,
+  43
+ ],
+ "06_eye_double/eyeB04_droop_L_shade.webp": [
+  485,
+  402,
+  251,
+  176
+ ],
+ "06_eye_double/eyeB04_droop_R_core.webp": [
+  369,
+  466,
+  91,
+  41
+ ],
+ "06_eye_double/eyeB04_droop_R_shade.webp": [
+  288,
+  402,
+  252,
+  174
+ ],
+ "06_eye_double/eyeB05_upturn_L_core.webp": [
+  565,
+  466,
+  93,
+  39
+ ],
+ "06_eye_double/eyeB05_upturn_L_shade.webp": [
+  484,
+  401,
+  256,
+  175
+ ],
+ "06_eye_double/eyeB05_upturn_R_core.webp": [
+  367,
+  467,
+  93,
+  40
+ ],
+ "06_eye_double/eyeB05_upturn_R_shade.webp": [
+  285,
+  395,
+  256,
+  183
+ ],
+ "06_eye_double/eyeB06_slim_L_core.webp": [
+  562,
+  467,
+  93,
+  37
+ ],
+ "06_eye_double/eyeB06_slim_L_shade.webp": [
+  481,
+  402,
+  256,
+  172
+ ],
+ "06_eye_double/eyeB06_slim_R_core.webp": [
+  370,
+  467,
+  93,
+  37
+ ],
+ "06_eye_double/eyeB06_slim_R_shade.webp": [
+  289,
+  402,
+  255,
+  174
+ ],
+ "06_eye_double/eyeB07_large_L_core.webp": [
+  561,
+  461,
+  97,
+  48
+ ],
+ "06_eye_double/eyeB07_large_L_shade.webp": [
+  480,
+  397,
+  260,
+  183
+ ],
+ "06_eye_double/eyeB07_large_R_core.webp": [
+  367,
+  462,
+  97,
+  47
+ ],
+ "06_eye_double/eyeB07_large_R_shade.webp": [
+  285,
+  399,
+  259,
+  181
+ ],
+ "06_eye_double/eyeB08_halflid_L_core.webp": [
+  563,
+  467,
+  98,
+  36
+ ],
+ "06_eye_double/eyeB08_halflid_L_shade.webp": [
+  482,
+  404,
+  260,
+  169
+ ],
+ "06_eye_double/eyeB08_halflid_R_core.webp": [
+  364,
+  467,
+  99,
+  36
+ ],
+ "06_eye_double/eyeB08_halflid_R_shade.webp": [
+  283,
+  404,
+  261,
+  169
+ ],
+ "06_eye_double/eyeB09_sanpaku_L_core.webp": [
+  561,
+  464,
+  99,
+  43
+ ],
+ "06_eye_double/eyeB09_sanpaku_L_shade.webp": [
+  481,
+  401,
+  262,
+  177
+ ],
+ "06_eye_double/eyeB09_sanpaku_R_core.webp": [
+  363,
+  464,
+  100,
+  44
+ ],
+ "06_eye_double/eyeB09_sanpaku_R_shade.webp": [
+  280,
+  399,
+  263,
+  181
+ ],
+ "06_eye_double/eyeB10_deepset_L_core.webp": [
+  566,
+  463,
+  88,
+  44
+ ],
+ "06_eye_double/eyeB10_deepset_L_shade.webp": [
+  471,
+  384,
+  266,
+  195
+ ],
+ "08_brow/browS15_longtail_L.webp": [
+  555,
+  410,
+  139,
+  32
+ ],
+ "08_brow/browS15_longtail_R.webp": [
+  333,
+  410,
+  138,
+  32
+ ],
+ "08_brow/browS16_softinner_L.webp": [
+  557,
+  414,
+  114,
+  28
+ ],
+ "08_brow/browS16_softinner_R.webp": [
+  354,
+  415,
+  114,
+  29
+ ],
+ "08_brow/browS17_stepped_L.webp": [
+  555,
+  417,
+  111,
+  27
+ ],
+ "08_brow/browS17_stepped_R.webp": [
+  360,
+  418,
+  111,
+  26
+ ],
+ "08_brow/browS18_thickdroop_L.webp": [
+  557,
+  430,
+  117,
+  43
+ ],
+ "08_brow/browS18_thickdroop_R.webp": [
+  353,
+  430,
+  114,
+  44
+ ],
+ "08_brow/browS19_sharparch_L.webp": [
+  557,
+  413,
+  108,
+  29
+ ],
+ "08_brow/browS19_sharparch_R.webp": [
+  360,
+  414,
+  110,
+  29
+ ],
+ "08_brow/browS20_bushy_L.webp": [
+  557,
+  402,
+  147,
+  43
+ ],
+ "08_brow/browS20_bushy_R.webp": [
+  318,
+  405,
+  148,
+  42
+ ],
+ "09_tear/tear01_subtle_L.webp": [
+  550,
+  500,
+  124,
+  52
+ ],
+ "09_tear/tear01_subtle_R.webp": [
+  350,
+  500,
+  124,
+  52
+ ],
+ "09_tear/tear02_natural_L.webp": [
+  550,
+  500,
+  124,
+  52
+ ],
+ "09_tear/tear02_natural_R.webp": [
+  350,
+  500,
+  124,
+  52
+ ],
+ "09_tear/tear03_strong_L.webp": [
+  550,
+  500,
+  124,
+  52
+ ],
+ "09_tear/tear03_strong_R.webp": [
+  350,
+  500,
+  124,
+  52
+ ],
+ "10_cloth/cloth01_dressshirt.webp": [
+  0,
+  758,
+  1024,
+  265
+ ],
+ "10_cloth/cloth01_necktie.webp": [
+  411,
+  848,
+  202,
+  175
+ ],
+ "10_cloth/cloth02_shirt.webp": [
+  0,
+  758,
+  1024,
+  265
+ ],
+ "10_cloth/cloth03_tshirt.webp": [
+  0,
+  783,
+  1024,
+  240
+ ],
+ "10_cloth/cloth04_opencollar.webp": [
+  0,
+  758,
+  1024,
+  265
+ ],
+ "10_cloth/cloth05_sleeveless.webp": [
+  167,
+  810,
+  813,
+  213
+ ],
+ "10_cloth/cloth06_tanktop.webp": [
+  196,
+  840,
+  639,
+  183
+ ],
+ "12_ear/ear_diamond.webp": [
+  278,
+  421,
+  470,
+  166
+ ],
+ "12_ear/ear_egg.webp": [
+  273,
+  429,
+  479,
+  169
+ ],
+ "12_ear/ear_hex.webp": [
+  275,
+  429,
+  477,
+  168
+ ],
+ "12_ear/ear_homeplate.webp": [
+  270,
+  428,
+  484,
+  168
+ ],
+ "12_ear/ear_invtri.webp": [
+  272,
+  424,
+  482,
+  165
+ ],
+ "12_ear/ear_long.webp": [
+  285,
+  415,
+  456,
+  169
+ ],
+ "12_ear/ear_pear.webp": [
+  271,
+  431,
+  483,
+  171
+ ],
+ "12_ear/ear_rect.webp": [
+  285,
+  412,
+  453,
+  159
+ ],
+ "12_ear/ear_round.webp": [
+  264,
+  427,
+  497,
+  173
+ ],
+ "12_ear/ear_slim.webp": [
+  283,
+  423,
+  459,
+  168
+ ],
+ "12_ear/ear_square.webp": [
+  275,
+  426,
+  475,
+  168
+ ],
+ "16_glass/glass_boston_diamond.webp": [
+  309,
+  436,
+  408,
+  138
+ ],
+ "16_glass/glass_boston_egg.webp": [
+  304,
+  436,
+  417,
+  138
+ ],
+ "16_glass/glass_boston_hex.webp": [
+  305,
+  436,
+  416,
+  138
+ ],
+ "16_glass/glass_boston_homeplate.webp": [
+  303,
+  436,
+  419,
+  138
+ ],
+ "16_glass/glass_boston_invtri.webp": [
+  305,
+  436,
+  416,
+  138
+ ],
+ "16_glass/glass_boston_long.webp": [
+  313,
+  436,
+  398,
+  138
+ ],
+ "16_glass/glass_boston_pear.webp": [
+  303,
+  436,
+  419,
+  138
+ ],
+ "16_glass/glass_boston_rect.webp": [
+  314,
+  436,
+  395,
+  138
+ ],
+ "16_glass/glass_boston_round.webp": [
+  298,
+  436,
+  428,
+  138
+ ],
+ "16_glass/glass_boston_slim.webp": [
+  311,
+  436,
+  403,
+  138
+ ],
+ "16_glass/glass_boston_square.webp": [
+  306,
+  436,
+  413,
+  138
+ ],
+ "16_glass/glass_browline_diamond.webp": [
+  306,
+  437,
+  414,
+  135
+ ],
+ "16_glass/glass_browline_egg.webp": [
+  302,
+  437,
+  421,
+  135
+ ],
+ "16_glass/glass_browline_hex.webp": [
+  303,
+  437,
+  420,
+  135
+ ],
+ "16_glass/glass_browline_homeplate.webp": [
+  300,
+  437,
+  425,
+  135
+ ],
+ "16_glass/glass_browline_invtri.webp": [
+  302,
+  437,
+  422,
+  135
+ ],
+ "16_glass/glass_browline_long.webp": [
+  311,
+  437,
+  402,
+  135
+ ],
+ "16_glass/glass_browline_pear.webp": [
+  300,
+  438,
+  425,
+  134
+ ],
+ "16_glass/glass_browline_rect.webp": [
+  312,
+  437,
+  399,
+  135
+ ],
+ "16_glass/glass_browline_round.webp": [
+  295,
+  437,
+  434,
+  135
+ ],
+ "16_glass/glass_browline_slim.webp": [
+  309,
+  437,
+  407,
+  135
+ ],
+ "16_glass/glass_browline_square.webp": [
+  304,
+  437,
+  418,
+  135
+ ],
+ "16_glass/glass_halfrim_diamond.webp": [
+  312,
+  449,
+  402,
+  104
+ ],
+ "16_glass/glass_halfrim_egg.webp": [
+  307,
+  449,
+  410,
+  104
+ ],
+ "16_glass/glass_halfrim_hex.webp": [
+  309,
+  449,
+  408,
+  104
+ ],
+ "16_glass/glass_halfrim_homeplate.webp": [
+  306,
+  449,
+  413,
+  104
+ ],
+ "16_glass/glass_halfrim_invtri.webp": [
+  308,
+  449,
+  410,
+  104
+ ],
+ "16_glass/glass_halfrim_long.webp": [
+  316,
+  449,
+  392,
+  104
+ ],
+ "16_glass/glass_halfrim_pear.webp": [
+  306,
+  449,
+  413,
+  104
+ ],
+ "16_glass/glass_halfrim_rect.webp": [
+  317,
+  449,
+  390,
+  104
+ ],
+ "16_glass/glass_halfrim_round.webp": [
+  302,
+  449,
+  420,
+  104
+ ],
+ "16_glass/glass_halfrim_slim.webp": [
+  314,
+  449,
+  397,
+  104
+ ],
+ "16_glass/glass_halfrim_square.webp": [
+  309,
+  449,
+  407,
+  104
+ ],
+ "16_glass/glass_metalsquare_diamond.webp": [
+  312,
+  442,
+  402,
+  112
+ ],
+ "16_glass/glass_metalsquare_egg.webp": [
+  308,
+  442,
+  409,
+  112
+ ],
+ "16_glass/glass_metalsquare_hex.webp": [
+  309,
+  442,
+  408,
+  112
+ ],
+ "16_glass/glass_metalsquare_homeplate.webp": [
+  306,
+  442,
+  412,
+  112
+ ],
+ "16_glass/glass_metalsquare_invtri.webp": [
+  308,
+  442,
+  410,
+  112
+ ],
+ "16_glass/glass_metalsquare_long.webp": [
+  316,
+  442,
+  392,
+  112
+ ],
+ "16_glass/glass_metalsquare_pear.webp": [
+  306,
+  442,
+  412,
+  112
+ ],
+ "16_glass/glass_metalsquare_rect.webp": [
+  317,
+  442,
+  389,
+  112
+ ],
+ "16_glass/glass_metalsquare_round.webp": [
+  302,
+  442,
+  420,
+  112
+ ],
+ "16_glass/glass_metalsquare_slim.webp": [
+  315,
+  442,
+  396,
+  112
+ ],
+ "16_glass/glass_metalsquare_square.webp": [
+  309,
+  442,
+  407,
+  112
+ ],
+ "16_glass/glass_oval_diamond.webp": [
+  309,
+  445,
+  408,
+  107
+ ],
+ "16_glass/glass_oval_egg.webp": [
+  304,
+  445,
+  416,
+  107
+ ],
+ "16_glass/glass_oval_hex.webp": [
+  306,
+  445,
+  414,
+  107
+ ],
+ "16_glass/glass_oval_homeplate.webp": [
+  303,
+  445,
+  419,
+  107
+ ],
+ "16_glass/glass_oval_invtri.webp": [
+  305,
+  445,
+  416,
+  107
+ ],
+ "16_glass/glass_oval_long.webp": [
+  314,
+  445,
+  397,
+  107
+ ],
+ "16_glass/glass_oval_pear.webp": [
+  303,
+  445,
+  419,
+  107
+ ],
+ "16_glass/glass_oval_rect.webp": [
+  314,
+  445,
+  395,
+  107
+ ],
+ "16_glass/glass_oval_round.webp": [
+  298,
+  445,
+  428,
+  107
+ ],
+ "16_glass/glass_oval_slim.webp": [
+  312,
+  445,
+  402,
+  107
+ ],
+ "16_glass/glass_oval_square.webp": [
+  306,
+  445,
+  413,
+  107
+ ],
+ "16_glass/glass_rimless_diamond.webp": [
+  301,
+  448,
+  424,
+  106
+ ],
+ "16_glass/glass_rimless_egg.webp": [
+  296,
+  448,
+  433,
+  106
+ ],
+ "16_glass/glass_rimless_hex.webp": [
+  297,
+  448,
+  432,
+  106
+ ],
+ "16_glass/glass_rimless_homeplate.webp": [
+  294,
+  448,
+  436,
+  106
+ ],
+ "16_glass/glass_rimless_invtri.webp": [
+  297,
+  448,
+  433,
+  106
+ ],
+ "16_glass/glass_rimless_long.webp": [
+  307,
+  448,
+  411,
+  106
+ ],
+ "16_glass/glass_rimless_pear.webp": [
+  294,
+  448,
+  436,
+  106
+ ],
+ "16_glass/glass_rimless_rect.webp": [
+  307,
+  448,
+  409,
+  106
+ ],
+ "16_glass/glass_rimless_round.webp": [
+  289,
+  448,
+  446,
+  106
+ ],
+ "16_glass/glass_rimless_slim.webp": [
+  304,
+  448,
+  417,
+  106
+ ],
+ "16_glass/glass_rimless_square.webp": [
+  298,
+  448,
+  429,
+  106
+ ],
+ "16_glass/glass_round_diamond.webp": [
+  318,
+  435,
+  390,
+  136
+ ],
+ "16_glass/glass_round_egg.webp": [
+  314,
+  435,
+  397,
+  136
+ ],
+ "16_glass/glass_round_hex.webp": [
+  315,
+  435,
+  396,
+  136
+ ],
+ "16_glass/glass_round_homeplate.webp": [
+  313,
+  435,
+  399,
+  136
+ ],
+ "16_glass/glass_round_invtri.webp": [
+  314,
+  435,
+  397,
+  136
+ ],
+ "16_glass/glass_round_long.webp": [
+  322,
+  435,
+  381,
+  136
+ ],
+ "16_glass/glass_round_pear.webp": [
+  313,
+  435,
+  399,
+  136
+ ],
+ "16_glass/glass_round_rect.webp": [
+  322,
+  435,
+  379,
+  136
+ ],
+ "16_glass/glass_round_round.webp": [
+  309,
+  435,
+  406,
+  136
+ ],
+ "16_glass/glass_round_slim.webp": [
+  320,
+  435,
+  385,
+  136
+ ],
+ "16_glass/glass_round_square.webp": [
+  316,
+  435,
+  393,
+  136
+ ],
+ "16_glass/glass_square_diamond.webp": [
+  310,
+  443,
+  406,
+  120
+ ],
+ "16_glass/glass_square_egg.webp": [
+  305,
+  443,
+  415,
+  120
+ ],
+ "16_glass/glass_square_hex.webp": [
+  306,
+  443,
+  414,
+  120
+ ],
+ "16_glass/glass_square_homeplate.webp": [
+  304,
+  443,
+  417,
+  120
+ ],
+ "16_glass/glass_square_invtri.webp": [
+  306,
+  443,
+  414,
+  120
+ ],
+ "16_glass/glass_square_long.webp": [
+  314,
+  443,
+  396,
+  120
+ ],
+ "16_glass/glass_square_pear.webp": [
+  304,
+  443,
+  417,
+  120
+ ],
+ "16_glass/glass_square_rect.webp": [
+  315,
+  443,
+  393,
+  120
+ ],
+ "16_glass/glass_square_round.webp": [
+  299,
+  443,
+  426,
+  120
+ ],
+ "16_glass/glass_square_slim.webp": [
+  312,
+  443,
+  401,
+  120
+ ],
+ "16_glass/glass_square_square.webp": [
+  307,
+  443,
+  411,
+  120
+ ],
+ "16_glass/glass_thick_diamond.webp": [
+  287,
+  440,
+  452,
+  128
+ ],
+ "16_glass/glass_thick_egg.webp": [
+  281,
+  440,
+  463,
+  128
+ ],
+ "16_glass/glass_thick_hex.webp": [
+  283,
+  440,
+  461,
+  128
+ ],
+ "16_glass/glass_thick_homeplate.webp": [
+  279,
+  440,
+  467,
+  128
+ ],
+ "16_glass/glass_thick_invtri.webp": [
+  282,
+  440,
+  463,
+  128
+ ],
+ "16_glass/glass_thick_long.webp": [
+  294,
+  440,
+  437,
+  128
+ ],
+ "16_glass/glass_thick_pear.webp": [
+  279,
+  440,
+  467,
+  128
+ ],
+ "16_glass/glass_thick_rect.webp": [
+  295,
+  440,
+  433,
+  128
+ ],
+ "16_glass/glass_thick_round.webp": [
+  272,
+  440,
+  480,
+  128
+ ],
+ "16_glass/glass_thick_slim.webp": [
+  291,
+  440,
+  444,
+  128
+ ],
+ "16_glass/glass_thick_square.webp": [
+  284,
+  440,
+  458,
+  128
+ ],
+ "16_glass/glass_wellington_diamond.webp": [
+  308,
+  443,
+  410,
+  131
+ ],
+ "16_glass/glass_wellington_egg.webp": [
+  303,
+  443,
+  418,
+  131
+ ],
+ "16_glass/glass_wellington_hex.webp": [
+  304,
+  443,
+  417,
+  131
+ ],
+ "16_glass/glass_wellington_homeplate.webp": [
+  302,
+  443,
+  421,
+  131
+ ],
+ "16_glass/glass_wellington_invtri.webp": [
+  304,
+  443,
+  418,
+  131
+ ],
+ "16_glass/glass_wellington_long.webp": [
+  313,
+  443,
+  399,
+  131
+ ],
+ "16_glass/glass_wellington_pear.webp": [
+  302,
+  443,
+  421,
+  131
+ ],
+ "16_glass/glass_wellington_rect.webp": [
+  314,
+  443,
+  396,
+  131
+ ],
+ "16_glass/glass_wellington_round.webp": [
+  297,
+  443,
+  430,
+  131
+ ],
+ "16_glass/glass_wellington_slim.webp": [
+  311,
+  443,
+  404,
+  131
+ ],
+ "16_glass/glass_wellington_square.webp": [
+  305,
+  443,
+  415,
+  131
+ ],
+ "11_hair/hair01_buzz.webp": [
+  290,
+  140,
+  440,
+  401
+ ],
+ "11_hair/hair02_softmohawk.webp": [
+  296,
+  104,
+  430,
+  474
+ ],
+ "11_hair/hair03_fadeshort.webp": [
+  285,
+  109,
+  456,
+  432
+ ],
+ "11_hair/hair04_skinfade.webp": [
+  283,
+  144,
+  453,
+  435
+ ],
+ "11_hair/hair05_spiky.webp": [
+  273,
+  102,
+  481,
+  437
+ ],
+ "11_hair/hair06_upbang.webp": [
+  248,
+  80,
+  516,
+  461
+ ],
+ "11_hair/hair07_sidepart.webp": [
+  270,
+  135,
+  484,
+  440
+ ],
+ "11_hair/hair08_crop.webp": [
+  276,
+  115,
+  471,
+  436
+ ],
+ "11_hair/hair09_pompadour.webp": [
+  283,
+  125,
+  457,
+  461
+ ],
+ "11_hair/hair10_shortlayer.webp": [
+  259,
+  103,
+  509,
+  478
+ ],
+ "11_hair/hair11_mushroom.webp": [
+  244,
+  101,
+  529,
+  388
+ ],
+ "11_hair/hair12_centerpart.webp": [
+  239,
+  115,
+  546,
+  495
+ ],
+ "11_hair/hair13_koreanpart.webp": [
+  250,
+  121,
+  521,
+  391
+ ],
+ "11_hair/hair14_mushwolf.webp": [
+  205,
+  123,
+  614,
+  648
+ ],
+ "11_hair/hair15_seethrough.webp": [
+  271,
+  127,
+  482,
+  435
+ ],
+ "11_hair/hair16_onelength.webp": [
+  246,
+  124,
+  534,
+  467
+ ],
+ "11_hair/hair17_sweptpart.webp": [
+  254,
+  102,
+  511,
+  408
+ ],
+ "11_hair/hair18_mushfade.webp": [
+  246,
+  114,
+  533,
+  369
+ ],
+ "11_hair/hair19_permmush.webp": [
+  198,
+  136,
+  634,
+  474
+ ],
+ "11_hair/hair20_shortpart.webp": [
+  259,
+  139,
+  513,
+  371
+ ],
+ "11_hair/hair21_mediumstraight.webp": [
+  251,
+  114,
+  523,
+  702
+ ],
+ "11_hair/hair22_mediumlayer.webp": [
+  1,
+  95,
+  812,
+  901
+ ],
+ "11_hair/hair23_looseperm.webp": [
+  211,
+  99,
+  605,
+  651
+ ],
+ "11_hair/hair24_spiralperm.webp": [
+  209,
+  124,
+  612,
+  601
+ ],
+ "11_hair/hair25_twistperm.webp": [
+  232,
+  104,
+  563,
+  464
+ ],
+ "11_hair/hair26_wolfmedium.webp": [
+  46,
+  90,
+  774,
+  855
+ ],
+ "11_hair/hair27_centermedium.webp": [
+  1,
+  112,
+  846,
+  884
+ ],
+ "11_hair/hair28_sweptmedium.webp": [
+  239,
+  82,
+  557,
+  656
+ ],
+ "11_hair/hair29_wavymedium.webp": [
+  203,
+  99,
+  622,
+  646
+ ],
+ "11_hair/hair30_mediummush.webp": [
+  225,
+  98,
+  580,
+  713
+ ],
+ "13_skin/acnemark.webp": [
+  362,
+  533,
+  293,
+  224
+ ],
+ "13_skin/beard_mid.webp": [
+  361,
+  573,
+  275,
+  186
+ ],
+ "13_skin/beard_strong.webp": [
+  361,
+  573,
+  276,
+  186
+ ],
+ "13_skin/beard_weak.webp": [
+  361,
+  573,
+  275,
+  186
+ ],
+ "13_skin/freckle.webp": [
+  352,
+  479,
+  321,
+  165
+ ],
+ "13_skin/mole.webp": [
+  373,
+  596,
+  14,
+  17
+ ],
+ "13_skin/pimple_n0.webp": null,
+ "13_skin/pimple_n1.webp": [
+  430,
+  275,
+  51,
+  51
+ ],
+ "13_skin/pimple_n2.webp": [
+  430,
+  275,
+  165,
+  51
+ ],
+ "13_skin/pimple_n3.webp": [
+  367,
+  275,
+  228,
+  325
+ ],
+ "13_skin/pimple_n5.webp": [
+  367,
+  275,
+  291,
+  482
+ ],
+ "13_skin/pimple_n8.webp": [
+  367,
+  275,
+  291,
+  482
+ ],
+ "13_skin/pores.webp": [
+  299,
+  343,
+  425,
+  414
+ ],
+ "13_skin/redness.webp": [
+  349,
+  478,
+  325,
+  236
+ ],
+ "13_skin/socket_0.webp": null,
+ "13_skin/socket_1.webp": [
+  299,
+  397,
+  426,
+  164
+ ],
+ "13_skin/socket_2.webp": [
+  299,
+  393,
+  426,
+  175
+ ],
+ "13_skin/socket_3.webp": [
+  299,
+  389,
+  426,
+  184
+ ],
+ "13_skin/socket_4.webp": [
+  299,
+  386,
+  426,
+  191
+ ],
+ "13_skin/socket_5.webp": [
+  299,
+  384,
+  426,
+  197
+ ],
+ "13_skin/socket_6.webp": [
+  299,
+  382,
+  426,
+  202
+ ],
+ "14_beard/beard_chin.webp": [
+  288,
+  520,
+  450,
+  248
+ ],
+ "14_beard/beard_full.webp": [
+  291,
+  520,
+  445,
+  248
+ ],
+ "14_beard/beard_mous.webp": [
+  439,
+  616,
+  150,
+  47
+ ],
+ "14_beard/beard_shaved.webp": [
+  288,
+  520,
+  450,
+  248
+ ],
+ "15_sclera/eyeA01_almond_L.webp": [
+  579,
+  483,
+  57,
+  19
+ ],
+ "15_sclera/eyeA01_almond_R.webp": [
+  388,
+  483,
+  56,
+  20
+ ],
+ "15_sclera/eyeA02_narrow_L.webp": [
+  576,
+  484,
+  61,
+  15
+ ],
+ "15_sclera/eyeA02_narrow_R.webp": [
+  390,
+  486,
+  58,
+  11
+ ],
+ "15_sclera/eyeA03_round_L.webp": [
+  576,
+  482,
+  59,
+  18
+ ],
+ "15_sclera/eyeA03_round_R.webp": [
+  389,
+  483,
+  59,
+  18
+ ],
+ "15_sclera/eyeA04_droop_L.webp": [
+  579,
+  483,
+  55,
+  17
+ ],
+ "15_sclera/eyeA04_droop_R.webp": [
+  392,
+  484,
+  54,
+  15
+ ],
+ "15_sclera/eyeA05_upturn_L.webp": [
+  579,
+  482,
+  58,
+  18
+ ],
+ "15_sclera/eyeA05_upturn_R.webp": [
+  388,
+  482,
+  55,
+  18
+ ],
+ "15_sclera/eyeA06_slim_L.webp": [
+  579,
+  483,
+  55,
+  16
+ ],
+ "15_sclera/eyeA06_slim_R.webp": [
+  390,
+  482,
+  55,
+  17
+ ],
+ "15_sclera/eyeA07_large_L.webp": [
+  574,
+  481,
+  67,
+  21
+ ],
+ "15_sclera/eyeA07_large_R.webp": [
+  384,
+  482,
+  67,
+  20
+ ],
+ "15_sclera/eyeA08_halflid_L.webp": [
+  622,
+  483,
+  15,
+  12
+ ],
+ "15_sclera/eyeA08_halflid_R.webp": [
+  389,
+  484,
+  13,
+  10
+ ],
+ "15_sclera/eyeA09_sanpaku_L.webp": [
+  581,
+  482,
+  55,
+  18
+ ],
+ "15_sclera/eyeA09_sanpaku_R.webp": [
+  388,
+  482,
+  56,
+  18
+ ],
+ "15_sclera/eyeA10_deepset_L.webp": [
+  580,
+  482,
+  54,
+  17
+ ],
+ "06_eye_double/eyeB10_deepset_R_core.webp": [
+  370,
+  465,
+  91,
+  43
+ ],
+ "06_eye_double/eyeB10_deepset_R_shade.webp": [
+  287,
+  386,
+  267,
+  193
+ ],
+ "07_eye_hooded/eyeC01_almond_L_core.webp": [
+  564,
+  471,
+  89,
+  34
+ ],
+ "07_eye_hooded/eyeC01_almond_L_shade.webp": [
+  484,
+  401,
+  250,
+  175
+ ],
+ "07_eye_hooded/eyeC01_almond_R_core.webp": [
+  373,
+  471,
+  89,
+  34
+ ],
+ "07_eye_hooded/eyeC01_almond_R_shade.webp": [
+  292,
+  401,
+  249,
+  175
+ ],
+ "07_eye_hooded/eyeC02_narrow_L_core.webp": [
+  565,
+  475,
+  90,
+  32
+ ],
+ "07_eye_hooded/eyeC02_narrow_L_shade.webp": [
+  485,
+  405,
+  251,
+  171
+ ],
+ "07_eye_hooded/eyeC02_narrow_R_core.webp": [
+  369,
+  475,
+  91,
+  30
+ ],
+ "07_eye_hooded/eyeC02_narrow_R_shade.webp": [
+  287,
+  404,
+  252,
+  172
+ ],
+ "07_eye_hooded/eyeC03_round_L_core.webp": [
+  567,
+  466,
+  84,
+  42
+ ],
+ "07_eye_hooded/eyeC03_round_L_shade.webp": [
+  488,
+  399,
+  244,
+  179
+ ],
+ "07_eye_hooded/eyeC03_round_R_core.webp": [
+  374,
+  466,
+  84,
+  42
+ ],
+ "07_eye_hooded/eyeC03_round_R_shade.webp": [
+  293,
+  399,
+  244,
+  179
+ ],
+ "07_eye_hooded/eyeC04_droop_L_core.webp": [
+  566,
+  469,
+  86,
+  37
+ ],
+ "07_eye_hooded/eyeC04_droop_L_shade.webp": [
+  486,
+  401,
+  247,
+  176
+ ],
+ "07_eye_hooded/eyeC04_droop_R_core.webp": [
+  372,
+  470,
+  87,
+  38
+ ],
+ "07_eye_hooded/eyeC04_droop_R_shade.webp": [
+  291,
+  402,
+  248,
+  177
+ ],
+ "07_eye_hooded/eyeC05_upturn_L_core.webp": [
+  567,
+  474,
+  84,
+  30
+ ],
+ "07_eye_hooded/eyeC05_upturn_L_shade.webp": [
+  487,
+  404,
+  246,
+  170
+ ],
+ "07_eye_hooded/eyeC05_upturn_R_core.webp": [
+  373,
+  474,
+  85,
+  29
+ ],
+ "07_eye_hooded/eyeC05_upturn_R_shade.webp": [
+  292,
+  404,
+  245,
+  170
+ ],
+ "07_eye_hooded/eyeC06_slim_L_core.webp": [
+  565,
+  474,
+  89,
+  28
+ ],
+ "07_eye_hooded/eyeC06_slim_L_shade.webp": [
+  485,
+  404,
+  251,
+  170
+ ],
+ "07_eye_hooded/eyeC06_slim_R_core.webp": [
+  370,
+  474,
+  90,
+  30
+ ],
+ "07_eye_hooded/eyeC06_slim_R_shade.webp": [
+  288,
+  404,
+  252,
+  170
+ ],
+ "07_eye_hooded/eyeC07_large_L_core.webp": [
+  561,
+  470,
+  96,
+  37
+ ],
+ "07_eye_hooded/eyeC07_large_L_shade.webp": [
+  480,
+  400,
+  259,
+  178
+ ],
+ "07_eye_hooded/eyeC07_large_R_core.webp": [
+  368,
+  470,
+  97,
+  37
+ ],
+ "07_eye_hooded/eyeC07_large_R_shade.webp": [
+  286,
+  400,
+  259,
+  178
+ ],
+ "07_eye_hooded/eyeC08_halflid_L_core.webp": [
+  565,
+  475,
+  87,
+  30
+ ],
+ "07_eye_hooded/eyeC08_halflid_L_shade.webp": [
+  486,
+  405,
+  247,
+  170
+ ],
+ "07_eye_hooded/eyeC08_halflid_R_core.webp": [
+  372,
+  475,
+  87,
+  31
+ ],
+ "07_eye_hooded/eyeC08_halflid_R_shade.webp": [
+  291,
+  405,
+  247,
+  170
+ ],
+ "07_eye_hooded/eyeC09_sanpaku_L_core.webp": [
+  567,
+  474,
+  86,
+  31
+ ],
+ "07_eye_hooded/eyeC09_sanpaku_L_shade.webp": [
+  487,
+  404,
+  247,
+  171
+ ],
+ "07_eye_hooded/eyeC09_sanpaku_R_core.webp": [
+  371,
+  474,
+  87,
+  31
+ ],
+ "07_eye_hooded/eyeC09_sanpaku_R_shade.webp": [
+  290,
+  404,
+  248,
+  171
+ ],
+ "07_eye_hooded/eyeC10_deepset_L_core.webp": [
+  566,
+  470,
+  91,
+  36
+ ],
+ "07_eye_hooded/eyeC10_deepset_L_shade.webp": [
+  485,
+  400,
+  254,
+  178
+ ],
+ "07_eye_hooded/eyeC10_deepset_R_core.webp": [
+  369,
+  470,
+  91,
+  38
+ ],
+ "07_eye_hooded/eyeC10_deepset_R_shade.webp": [
+  286,
+  400,
+  255,
+  178
+ ],
+ "08_brow/browN01_straight_L.webp": [
+  560,
+  417,
+  124,
+  31
+ ],
+ "08_brow/browN01_straight_R.webp": [
+  340,
+  413,
+  124,
+  32
+ ],
+ "08_brow/browN02_arch_L.webp": [
+  555,
+  410,
+  119,
+  35
+ ],
+ "08_brow/browN02_arch_R.webp": [
+  351,
+  409,
+  116,
+  33
+ ],
+ "08_brow/browN03_angled_L.webp": [
+  554,
+  410,
+  121,
+  33
+ ],
+ "08_brow/browN03_angled_R.webp": [
+  350,
+  414,
+  120,
+  33
+ ],
+ "08_brow/browN04_thick_L.webp": [
+  556,
+  403,
+  134,
+  42
+ ],
+ "08_brow/browN04_thick_R.webp": [
+  335,
+  404,
+  132,
+  41
+ ],
+ "08_brow/browN05_narrow_L.webp": [
+  561,
+  414,
+  123,
+  32
+ ],
+ "08_brow/browN05_narrow_R.webp": [
+  337,
+  412,
+  127,
+  32
+ ],
+ "08_brow/browN06_short_L.webp": [
+  552,
+  412,
+  114,
+  32
+ ],
+ "08_brow/browN06_short_R.webp": [
+  360,
+  413,
+  115,
+  32
+ ],
+ "08_brow/browN07_long_L.webp": [
+  553,
+  412,
+  150,
+  35
+ ],
+ "08_brow/browN07_long_R.webp": [
+  323,
+  411,
+  149,
+  35
+ ],
+ "08_brow/browN08_upturn_L.webp": [
+  556,
+  411,
+  124,
+  32
+ ],
+ "08_brow/browN08_upturn_R.webp": [
+  344,
+  411,
+  122,
+  32
+ ],
+ "08_brow/browN09_droop_L.webp": [
+  558,
+  419,
+  123,
+  30
+ ],
+ "08_brow/browN09_droop_R.webp": [
+  347,
+  417,
+  121,
+  28
+ ],
+ "08_brow/browN10_rounded_L.webp": [
+  558,
+  411,
+  122,
+  32
+ ],
+ "08_brow/browN10_rounded_R.webp": [
+  348,
+  412,
+  121,
+  32
+ ],
+ "08_brow/browN11_messy_L.webp": [
+  553,
+  408,
+  134,
+  43
+ ],
+ "08_brow/browN11_messy_R.webp": [
+  337,
+  412,
+  131,
+  42
+ ],
+ "08_brow/browN12_sharpangle_L.webp": [
+  552,
+  403,
+  123,
+  40
+ ],
+ "08_brow/browN12_sharpangle_R.webp": [
+  346,
+  406,
+  123,
+  40
+ ],
+ "08_brow/browN13_boldflat_L.webp": [
+  553,
+  414,
+  121,
+  33
+ ],
+ "08_brow/browN13_boldflat_R.webp": [
+  351,
+  414,
+  119,
+  34
+ ],
+ "08_brow/browN14_sword_L.webp": [
+  552,
+  406,
+  119,
+  40
+ ],
+ "08_brow/browN14_sword_R.webp": [
+  351,
+  407,
+  121,
+  40
+ ],
+ "08_brow/browN15_longtail_L.webp": [
+  552,
+  409,
+  146,
+  35
+ ],
+ "08_brow/browN15_longtail_R.webp": [
+  329,
+  407,
+  143,
+  38
+ ],
+ "08_brow/browN16_softinner_L.webp": [
+  554,
+  411,
+  118,
+  33
+ ],
+ "08_brow/browN16_softinner_R.webp": [
+  352,
+  412,
+  117,
+  34
+ ],
+ "08_brow/browN17_stepped_L.webp": [
+  552,
+  416,
+  115,
+  31
+ ],
+ "08_brow/browN17_stepped_R.webp": [
+  358,
+  416,
+  116,
+  31
+ ],
+ "08_brow/browN18_thickdroop_L.webp": [
+  555,
+  428,
+  121,
+  47
+ ],
+ "08_brow/browN18_thickdroop_R.webp": [
+  351,
+  428,
+  120,
+  47
+ ],
+ "08_brow/browN19_sharparch_L.webp": [
+  554,
+  411,
+  113,
+  33
+ ],
+ "08_brow/browN19_sharparch_R.webp": [
+  358,
+  413,
+  114,
+  33
+ ],
+ "08_brow/browN20_bushy_L.webp": [
+  554,
+  401,
+  161,
+  46
+ ],
+ "08_brow/browN20_bushy_R.webp": [
+  315,
+  403,
+  151,
+  46
+ ],
+ "08_brow/browS01_straight_L.webp": [
+  561,
+  420,
+  120,
+  25
+ ],
+ "08_brow/browS01_straight_R.webp": [
+  342,
+  415,
+  120,
+  28
+ ],
+ "08_brow/browS02_arch_L.webp": [
+  559,
+  412,
+  115,
+  29
+ ],
+ "08_brow/browS02_arch_R.webp": [
+  353,
+  410,
+  112,
+  30
+ ],
+ "08_brow/browS03_angled_L.webp": [
+  557,
+  412,
+  117,
+  30
+ ],
+ "08_brow/browS03_angled_R.webp": [
+  352,
+  415,
+  116,
+  29
+ ],
+ "08_brow/browS04_thick_L.webp": [
+  559,
+  406,
+  130,
+  35
+ ],
+ "08_brow/browS04_thick_R.webp": [
+  336,
+  406,
+  131,
+  36
+ ],
+ "08_brow/browS05_narrow_L.webp": [
+  563,
+  415,
+  120,
+  28
+ ],
+ "08_brow/browS05_narrow_R.webp": [
+  340,
+  414,
+  123,
+  27
+ ],
+ "08_brow/browS06_short_L.webp": [
+  555,
+  414,
+  109,
+  27
+ ],
+ "08_brow/browS06_short_R.webp": [
+  363,
+  415,
+  108,
+  28
+ ],
+ "08_brow/browS07_long_L.webp": [
+  558,
+  414,
+  143,
+  30
+ ],
+ "08_brow/browS07_long_R.webp": [
+  327,
+  413,
+  140,
+  30
+ ],
+ "08_brow/browS08_upturn_L.webp": [
+  558,
+  412,
+  120,
+  28
+ ],
+ "08_brow/browS08_upturn_R.webp": [
+  346,
+  413,
+  120,
+  28
+ ],
+ "08_brow/browS09_droop_L.webp": [
+  560,
+  422,
+  118,
+  24
+ ],
+ "08_brow/browS09_droop_R.webp": [
+  349,
+  420,
+  115,
+  23
+ ],
+ "08_brow/browS10_rounded_L.webp": [
+  560,
+  412,
+  117,
+  29
+ ],
+ "08_brow/browS10_rounded_R.webp": [
+  349,
+  413,
+  118,
+  29
+ ],
+ "08_brow/browS11_messy_L.webp": [
+  555,
+  411,
+  130,
+  38
+ ],
+ "08_brow/browS11_messy_R.webp": [
+  340,
+  413,
+  128,
+  38
+ ],
+ "08_brow/browS12_sharpangle_L.webp": [
+  555,
+  404,
+  120,
+  38
+ ],
+ "08_brow/browS12_sharpangle_R.webp": [
+  348,
+  407,
+  121,
+  38
+ ],
+ "08_brow/browS13_boldflat_L.webp": [
+  555,
+  416,
+  116,
+  29
+ ],
+ "08_brow/browS13_boldflat_R.webp": [
+  354,
+  417,
+  114,
+  28
+ ],
+ "08_brow/browS14_sword_L.webp": [
+  554,
+  408,
+  117,
+  35
+ ],
+ "08_brow/browS14_sword_R.webp": [
+  351,
+  409,
+  119,
+  35
+ ],
+ "15_sclera/eyeA10_deepset_R.webp": [
+  390,
+  482,
+  53,
+  18
+ ],
+ "15_sclera/eyeB01_almond_L.webp": [
+  575,
+  483,
+  60,
+  19
+ ],
+ "15_sclera/eyeB01_almond_R.webp": [
+  389,
+  482,
+  60,
+  21
+ ],
+ "15_sclera/eyeB02_narrow_L.webp": [
+  578,
+  481,
+  61,
+  19
+ ],
+ "15_sclera/eyeB02_narrow_R.webp": [
+  386,
+  482,
+  60,
+  18
+ ],
+ "15_sclera/eyeB03_round_L.webp": [
+  577,
+  481,
+  61,
+  25
+ ],
+ "15_sclera/eyeB03_round_R.webp": [
+  387,
+  482,
+  60,
+  24
+ ],
+ "15_sclera/eyeB04_droop_L.webp": [
+  578,
+  484,
+  57,
+  18
+ ],
+ "15_sclera/eyeB04_droop_R.webp": [
+  390,
+  484,
+  56,
+  18
+ ],
+ "15_sclera/eyeB05_upturn_L.webp": [
+  579,
+  482,
+  57,
+  18
+ ],
+ "15_sclera/eyeB05_upturn_R.webp": [
+  389,
+  483,
+  56,
+  18
+ ],
+ "15_sclera/eyeB06_slim_L.webp": [
+  576,
+  482,
+  62,
+  18
+ ],
+ "15_sclera/eyeB06_slim_R.webp": [
+  388,
+  482,
+  60,
+  19
+ ],
+ "15_sclera/eyeB07_large_L.webp": [
+  573,
+  480,
+  69,
+  21
+ ],
+ "15_sclera/eyeB07_large_R.webp": [
+  383,
+  480,
+  69,
+  21
+ ],
+ "15_sclera/eyeB08_halflid_L.webp": [
+  577,
+  486,
+  56,
+  14
+ ],
+ "15_sclera/eyeB08_halflid_R.webp": [
+  392,
+  486,
+  53,
+  13
+ ],
+ "15_sclera/eyeB09_sanpaku_L.webp": [
+  574,
+  482,
+  66,
+  23
+ ],
+ "15_sclera/eyeB09_sanpaku_R.webp": [
+  385,
+  482,
+  65,
+  26
+ ],
+ "15_sclera/eyeB10_deepset_L.webp": [
+  579,
+  484,
+  55,
+  18
+ ],
+ "15_sclera/eyeB10_deepset_R.webp": [
+  390,
+  484,
+  55,
+  18
+ ],
+ "15_sclera/eyeC01_almond_L.webp": [
+  579,
+  484,
+  53,
+  18
+ ],
+ "15_sclera/eyeC01_almond_R.webp": [
+  393,
+  484,
+  52,
+  18
+ ],
+ "15_sclera/eyeC02_narrow_L.webp": [
+  576,
+  485,
+  58,
+  15
+ ],
+ "15_sclera/eyeC02_narrow_R.webp": [
+  391,
+  485,
+  57,
+  15
+ ],
+ "15_sclera/eyeC03_round_L.webp": [
+  580,
+  478,
+  57,
+  25
+ ],
+ "15_sclera/eyeC03_round_R.webp": [
+  388,
+  480,
+  57,
+  23
+ ],
+ "15_sclera/eyeC04_droop_L.webp": [
+  576,
+  483,
+  59,
+  18
+ ],
+ "15_sclera/eyeC04_droop_R.webp": [
+  390,
+  484,
+  59,
+  18
+ ],
+ "15_sclera/eyeC05_upturn_L.webp": [
+  579,
+  484,
+  53,
+  15
+ ],
+ "15_sclera/eyeC05_upturn_R.webp": [
+  392,
+  484,
+  52,
+  16
+ ],
+ "15_sclera/eyeC06_slim_L.webp": [
+  579,
+  484,
+  53,
+  14
+ ],
+ "15_sclera/eyeC06_slim_R.webp": [
+  393,
+  484,
+  52,
+  15
+ ],
+ "15_sclera/eyeC07_large_L.webp": [
+  575,
+  483,
+  62,
+  19
+ ],
+ "15_sclera/eyeC07_large_R.webp": [
+  389,
+  482,
+  60,
+  20
+ ],
+ "15_sclera/eyeC08_halflid_L.webp": [
+  580,
+  486,
+  49,
+  12
+ ],
+ "15_sclera/eyeC08_halflid_R.webp": [
+  393,
+  486,
+  50,
+  13
+ ],
+ "15_sclera/eyeC09_sanpaku_L.webp": [
+  580,
+  483,
+  54,
+  18
+ ],
+ "15_sclera/eyeC09_sanpaku_R.webp": [
+  390,
+  483,
+  53,
+  18
+ ],
+ "15_sclera/eyeC10_deepset_L.webp": [
+  580,
+  484,
+  52,
+  17
+ ],
+ "15_sclera/eyeC10_deepset_R.webp": [
+  394,
+  485,
+  52,
+  16
+ ]
+}
