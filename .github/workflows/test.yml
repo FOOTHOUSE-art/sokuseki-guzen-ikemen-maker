@@ -1,0 +1,21 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # 手元の `npm test` と同じもの。依存パッケージは無いので install は要らない。
+      # 検査7本 / 顔立ちプリセット / コマンド / ドキュメントの参照 /
+      # Pages で要るファイル / index.html の読み込み先 / ?v= が古くないか
+      - name: preflight
+        run: node tools/preflight.mjs
