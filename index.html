@@ -951,10 +951,13 @@ $('save').onclick=()=>{
 let LAST = null;
 const PFIX = {};        // 人物像で手で選んだ項目。抽選より優先する
 const PFOPEN = {};      // カテゴリの開け閉め
+// 検査(tools/boot_check.mjs)から手直しを試すための窓口。画面からは使わない
+window.__pfix = PFIX; window.__redraw = () => draw(cur_seed);
+window.__load = r => applyRecord(r);
 function renderPrompt(seed, ov, adjUsed){
   // **合成に使ったものと同じ ov / adj を渡す。** 渡し忘れると画像と文章がずれる。
   // イケメン度が画面の数字と一致するかで、渡せているか分かる
-  LAST = buildBaseCard({ seed, ov, adj: adjUsed });
+  LAST = buildBaseCard({ seed, ov, adj: adjUsed, person: PFIX });
   const p = LAST.person;
   const j = judge(cur, p, adjUsed, STAMPS);
   $('faceLine').textContent = LAST.block;

@@ -48,6 +48,69 @@ for (const [k, min, ja] of need) {
   if (!good) ng++;
   console.log(`  ${good ? 'OK' : 'NG'}  ${ja.padEnd(22)} ${n} 文字`);
 }
+// **人物像の手直しが画面に出るか。** 出ないことが実際にあった
+//(buildBaseCard に person を渡し忘れていて、選び直しても値が変わらなかった)
+{
+  const before = ids.get('pfright')?.innerHTML || '';
+  const g = globalThis;
+  if (typeof g.__pfix === 'object' && typeof g.__redraw === 'function') {
+    g.__pfix.role = '寿司職人';
+    await g.__redraw();
+    await new Promise(r => setTimeout(r, 400));
+    const after = ids.get('pfleft')?.innerHTML || '';
+    const good = after.includes('寿司職人');
+    if (!good) { ng++; console.log('  NG  手直しが画面に出る  選び直しても値が変わらない'); }
+    else console.log('  OK  手直しが画面に出る');
+  } else {
+    console.log('  --  手直しの確認  index.html が窓口を出していない');
+  }
+}
+
+// **ボタンを実際に押してみる。** 付いているだけで動かないものが無いか。
+// 「配線したつもり」を見つけるのはここしかない
+const press = async (id, ja, check) => {
+  const el = ids.get(id);
+  if (!el || typeof el.onclick !== 'function') { ng++; console.log(`  NG  ${ja}  処理が付いていない`); return; }
+  try {
+    await el.onclick({ preventDefault() {} });
+    await new Promise(r => setTimeout(r, 300));
+    const msg = check ? check() : '';
+    if (msg) { ng++; console.log(`  NG  ${ja}  ${msg}`); }
+    else console.log(`  OK  ${ja}`);
+  } catch (e) { ng++; console.log(`  NG  ${ja}  ${e.message}`); }
+};
+
+const store = await import('../engine/store.js?v=09300');
+const el = id => { if (!ids.has(id)) return null; return ids.get(id); };
+const before = store.all().length;
+if (el('pfTitle')) el('pfTitle').value = '検査';
+await press('pfSave', '保存', () => store.all().length > before ? '' : '増えていない');
+await press('pfDb', '保存した人物…');
+await press('copyCard', '基準カードを写す');
+if (el('derivedType')) el('derivedType').value = 'フル設定資料シート';
+await press('copyDerived', '派生を写す');
+await press('pfReset', '編集を戻す');
+await press('go', 'ガチャを回す', () => (ids.get('cardPrompt')?.value || '').length > 1000 ? '' : 'プロンプトが出ない');
+await press('share', 'URLをコピー');
+
+// **保存 → 読み込みが往復するか。** db.html から送られてくるのと同じ形で試す
+{
+  const rec = store.all()[0];
+  const g = globalThis;
+  if (rec && typeof g.__pfix === 'object') {
+    g.__pfix.role = '書き換え';
+    await g.__redraw(); await new Promise(r => setTimeout(r, 300));
+    // 保存した人物を読み直す
+    if (typeof g.__load === 'function') await g.__load(rec);
+    else { console.log('  --  保存した人物を開く  窓口が無い'); }
+    await new Promise(r => setTimeout(r, 400));
+    const now = ids.get('pfleft')?.innerHTML || '';
+    now.includes('書き換え')
+      ? (ng++, console.log('  NG  保存した人物を開く  編集が残ったまま'))
+      : console.log('  OK  保存した人物を開く');
+  }
+}
+
 const err = ids.get('err')?.textContent || '';
 if (/失敗/.test(err)) { ng++; console.log('  NG  画面のエラー欄  ' + err); }
 console.log(ng ? `\nNG ${ng}件` : '\n画面が組み上がった');

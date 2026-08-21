@@ -291,10 +291,13 @@ const AXGROUPS = [""",
              """let LAST = null;
 const PFIX = {};        // 人物像で手で選んだ項目。抽選より優先する
 const PFOPEN = {};      // カテゴリの開け閉め
+// 検査(tools/boot_check.mjs)から手直しを試すための窓口。画面からは使わない
+window.__pfix = PFIX; window.__redraw = () => draw(cur_seed);
+window.__load = r => applyRecord(r);
 function renderPrompt(seed, ov, adjUsed){
   // **合成に使ったものと同じ ov / adj を渡す。** 渡し忘れると画像と文章がずれる。
   // イケメン度が画面の数字と一致するかで、渡せているか分かる
-  LAST = buildBaseCard({ seed, ov, adj: adjUsed });
+  LAST = buildBaseCard({ seed, ov, adj: adjUsed, person: PFIX });
   const p = LAST.person;
   const j = judge(cur, p, adjUsed, STAMPS);
   $('faceLine').textContent = LAST.block;
@@ -432,6 +435,24 @@ $('share').onclick=async()=>{""",
     if left:
         raise SystemExit('!! 古い版が残っている: ' + ', '.join(left))
     print('  ok 版が3か所とも 0.9300 になった')
+
+    # **置換は空振りしても通る。** 当て終わった形に、要るものが入っているかを数える。
+    # ここを省いたせいで person: PFIX が抜け、人物像の手直しが画面に出なかった
+    must = [
+        ('person: PFIX', '人物像の手直しを生成に渡す'),
+        ("fetch('engine/face_presets.json')", '顔立ちプリセットの読み込み先'),
+        ('LAYOUT, HUE', 'カテゴリの色の読み込み'),
+        ('naturalAdj(s, A.ADJ0)', 'ガチャで微調整も引く'),
+        ('delete rest[k]', '🎲 が引き直す項目を固定しない'),
+        ('syncAdjUI()', 'スライダーを戻す'),
+        ('window.__pfix', '検査の窓口'),
+        ('encodeState(', '共有URLの書き出し'),
+    ]
+    h2 = idx.read_text(encoding='utf-8')
+    miss = [f'{w}({ja})' for w, ja in must if w not in h2]
+    if miss:
+        raise SystemExit('!! 当てたあとに見当たらない: ' + ' / '.join(miss))
+    print(f'  ok 要るものが {len(must)} 件そろっている')
     (app / 'version.txt').write_text(
         '即席偶然イケメンメーカー v0.9300  build 2026-08-20\n', encoding='utf-8')
     print('  ok 版を 0.9300 にした')

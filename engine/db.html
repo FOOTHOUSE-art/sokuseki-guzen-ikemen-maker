@@ -118,7 +118,7 @@ function render() {
     const thumb = r.thumb
       ? `<img class="thumb" src="${esc(r.thumb)}" alt="">`
       : `<div class="thumb none">画像なし</div>`;
-    return `<div class="item" data-id="${esc(r.id)}">
+    return `<div class="item">
       ${thumb}
       <h3>${esc(r.title || '無題')}</h3>
       <div class="sub">${sn.age ? esc(`${sn.age}歳・${sn.role || ''}`) : when(r.savedAt)}</div>

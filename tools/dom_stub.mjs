@@ -8,13 +8,16 @@ const mk=()=>({innerHTML:'',textContent:'',value:'',checked:false,style:{},datas
 export const ids=new Map();
 globalThis.document={getElementById:i=>{if(!ids.has(i))ids.set(i,mk());return ids.get(i);},
   createElement:()=>mk(),querySelectorAll:()=>[],body:{appendChild(){}},addEventListener(){}};
-globalThis.window={addEventListener(){},open(){},devicePixelRatio:1};
+globalThis.window=globalThis; globalThis.open=()=>{}; globalThis.devicePixelRatio=1;
 globalThis.addEventListener=()=>{};
 globalThis.location={hash:'',search:'',origin:'',pathname:'/'};
 globalThis.requestAnimationFrame=cb=>{cb();return 1;};
 globalThis.performance={now:()=>0};
 Object.defineProperty(globalThis,'navigator',{value:{clipboard:{writeText:async()=>{}}},configurable:true});
-globalThis.localStorage={getItem:()=>null,setItem(){},removeItem(){}};
+// **中身のある localStorage。** 空返しにすると、保存の検査が素通りする
+const _ls={};
+globalThis.localStorage={getItem:k=>(k in _ls?_ls[k]:null),setItem:(k,v)=>{_ls[k]=String(v)},
+  removeItem:k=>{delete _ls[k]},clear:()=>{for(const k in _ls)delete _ls[k]}};
 globalThis.fetch=async u=>{const p=String(u).replace(/^\.\//,'').replace(/\?.*$/,'');
   if(!fs.existsSync(p)) throw new Error('404 '+p);
   return {json:async()=>JSON.parse(fs.readFileSync(p,'utf8')),blob:async()=>null,ok:true};};
