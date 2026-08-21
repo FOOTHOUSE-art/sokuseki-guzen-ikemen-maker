@@ -1,0 +1,14 @@
+# 生成の途中でできるもの
+build/
+*.log
+.DS_Store
+node_modules/
+
+# 配布用に固めたもの。履歴には入れない
+*.zip
+ikemen_v*/
+
+# 出力したプロンプト(samples/ の見本だけ残す)
+*.out.txt
+
+# assets/ は入れる。これが無いと顔が出ない
