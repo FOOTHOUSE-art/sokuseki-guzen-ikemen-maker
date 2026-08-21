@@ -321,7 +321,7 @@ import { load, preload } from './loader.js?v=09300';
 import { encodeState, decodeState, shareNote } from './engine/url_state.js?v=09300';
 import { buildBaseCard, setPresets, DERIVED_TYPES } from './engine/base_card.mjs?v=09300';
 import { judge, lines as rareLines } from './engine/rarity.js?v=09300';
-import { sections, options, LAYOUT } from './engine/profile_view.js?v=09300';
+import { sections, options, LAYOUT, HUE } from './engine/profile_view.js?v=09300';
 import * as Store from './engine/store.js?v=09300';
 
 const $ = id => document.getElementById(id);
@@ -371,7 +371,10 @@ function calmCanvas(key){
 
 async function boot(){
   M = await A.init();
-  setPresets(await (await fetch('face_presets.json')).json());
+  // **1つ失敗しても画面ごと止めない。** ここで例外が出ると buildAdjUI まで
+  // 届かず、微調整も背景も作られないまま「顔だけ出る」状態になる
+  try{ setPresets(await (await fetch('engine/face_presets.json')).json()); }
+  catch(e){ console.error('顔立ちプリセットを読めない:', e); }
   ADJ = Object.assign({}, A.ADJ0);
   buildAdjUI(); wireAdj();
   $('bg').innerHTML = BGLIST.map(([v,t])=>`<option value="${v}">${t}</option>`).join('');
