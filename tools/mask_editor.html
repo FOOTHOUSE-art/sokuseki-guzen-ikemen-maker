@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ja">
+<meta charset="utf-8">
+<title>素材の手直し — 抜けを戻す / 残骸を消す</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root{
+    --bg:#14161a; --panel:#1b1e24; --line:#2a2f38; --line2:#3a4150;
+    --fg:#d8dde5; --dim:#8b95a5;
+    --restore:#4cc4d6;      /* 戻す */
+    --erase:#e8a13a;        /* 消す・残骸 */
+    --num:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:13px/1.6 "Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+    display:grid; grid-template-columns:264px 1fr 292px; height:100vh; overflow:hidden;
+  }
+  aside{background:var(--panel); border-right:1px solid var(--line); overflow-y:auto}
+  aside.right{border-right:0; border-left:1px solid var(--line)}
+  section{padding:14px 16px; border-bottom:1px solid var(--line)}
+  h1{margin:0; padding:14px 16px 12px; font-size:13px; font-weight:700; letter-spacing:.04em;
+     border-bottom:1px solid var(--line)}
+  h1 small{display:block; font-weight:400; color:var(--dim); font-size:11px; letter-spacing:0}
+  h2{margin:0 0 10px; font-size:11px; font-weight:700; color:var(--dim); letter-spacing:.10em}
+  label.f{display:block; margin:0 0 9px}
+  label.f span{display:block; color:var(--dim); font-size:11px; margin-bottom:3px}
+  input[type=file]{width:100%; font-size:11px; color:var(--dim)}
+  input[type=file]::file-selector-button{
+    background:#242832; color:var(--fg); border:1px solid var(--line2); border-radius:4px;
+    padding:4px 9px; margin-right:8px; font:inherit; font-size:11px; cursor:pointer}
+  input[type=range]{width:100%; accent-color:var(--restore)}
+  input[type=number]{width:72px; background:#0f1115; color:var(--fg); border:1px solid var(--line2);
+    border-radius:4px; padding:3px 6px; font-family:var(--num); font-size:12px}
+  .row{display:flex; align-items:center; gap:8px; justify-content:space-between; margin-bottom:8px}
+  .row .v{font-family:var(--num); font-size:12px; color:var(--dim); min-width:52px; text-align:right}
+  button{
+    background:#242832; color:var(--fg); border:1px solid var(--line2); border-radius:5px;
+    padding:6px 10px; font:inherit; font-size:12px; cursor:pointer}
+  button:hover{border-color:#4d5666}
+  button:disabled{opacity:.35; cursor:default}
+  button.wide{width:100%; margin-bottom:7px}
+  .tool{display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-bottom:11px}
+  .tool button{padding:9px 0; font-weight:700}
+  .tool button[aria-pressed=true]{background:#0f1115}
+  .tool button[data-t=restore][aria-pressed=true]{border-color:var(--restore); color:var(--restore)}
+  .tool button[data-t=erase][aria-pressed=true]{border-color:var(--erase); color:var(--erase)}
+  .chk{display:flex; align-items:center; gap:7px; margin-bottom:6px; color:var(--dim); cursor:pointer}
+  .chk input{accent-color:var(--restore)}
+  main{position:relative; overflow:hidden; background:#0c0e11}
+  #stage{position:absolute; inset:0; display:grid; place-items:center}
+  #wrap{position:relative; transform-origin:center center}
+  canvas{display:block; position:absolute; inset:0; image-rendering:pixelated}
+  #checker{position:absolute; inset:0;
+    background-image:linear-gradient(45deg,#20242b 25%,transparent 25%,transparent 75%,#20242b 75%),
+                     linear-gradient(45deg,#20242b 25%,transparent 25%,transparent 75%,#20242b 75%);
+    background-size:16px 16px; background-position:0 0,8px 8px; background-color:#171a1f}
+  #cursor{position:absolute; border:1px solid #fff; border-radius:50%; pointer-events:none;
+    mix-blend-mode:difference; display:none}
+  #hud{position:absolute; left:12px; bottom:12px; font-family:var(--num); font-size:11px;
+    color:var(--dim); background:#0c0e11cc; border:1px solid var(--line); border-radius:5px;
+    padding:5px 9px; pointer-events:none}
+  #empty{position:absolute; inset:0; display:grid; place-items:center; color:var(--dim);
+    text-align:center; line-height:2; padding:24px}
+  table{width:100%; border-collapse:collapse; font-family:var(--num); font-size:11px}
+  th{text-align:right; color:var(--dim); font-weight:400; padding:2px 4px; border-bottom:1px solid var(--line)}
+  th:first-child{text-align:left}
+  td{padding:3px 4px; text-align:right; border-bottom:1px solid #22262e}
+  td:first-child{text-align:left}
+  tr.pick{cursor:pointer}
+  tr.pick:hover td{background:#232833}
+  tr.far td{color:var(--erase)}
+  .out{font-family:var(--num); font-size:11px; background:#0f1115; border:1px solid var(--line2);
+    border-radius:5px; padding:8px 9px; white-space:pre-wrap; word-break:break-all; color:var(--dim)}
+  .note{color:var(--dim); font-size:11px; line-height:1.75; margin:8px 0 0}
+  .kbd{font-family:var(--num); background:#0f1115; border:1px solid var(--line2);
+    border-radius:3px; padding:0 4px}
+</style>
+
+<aside>
+  <h1>素材の手直し<small>抜けを戻す / 残骸を消す</small></h1>
+
+  <section>
+    <h2>読み込む</h2>
+    <label class="f"><span>抽出したもの（必須・WebP / PNG）</span>
+      <input type="file" id="fCut" accept="image/*"></label>
+    <label class="f"><span>原画（戻す筆の元になる）</span>
+      <input type="file" id="fSrc" accept="image/*"></label>
+    <label class="f"><span>下敷き（顔・耳などの合成画像）</span>
+      <input type="file" id="fUnder" accept="image/*"></label>
+    <label class="f"><span>crop.json（位置を合わせる）</span>
+      <input type="file" id="fCrop" accept=".json,application/json"></label>
+    <p class="note">crop.json を入れると、切り抜かれた素材を 1024×1024 の
+      元の位置に戻して開く。入れない場合は左上（0,0）に置く。</p>
+  </section>
+
+  <section>
+    <h2>筆</h2>
+    <div class="tool">
+      <button data-t="restore" aria-pressed="true">戻す</button>
+      <button data-t="erase" aria-pressed="false">消す</button>
+    </div>
+    <div class="row"><span>太さ</span><input type="range" id="size" min="2" max="160" value="28">
+      <span class="v" id="vSize">28</span></div>
+    <div class="row"><span>ふち</span><input type="range" id="hard" min="0" max="100" value="70">
+      <span class="v" id="vHard">70%</span></div>
+    <p class="note"><span class="kbd">[</span> <span class="kbd">]</span> で太さ、
+      <span class="kbd">E</span>／<span class="kbd">R</span> で持ち替え、
+      <span class="kbd">space</span>+ドラッグで移動、<span class="kbd">⌘/Ctrl+Z</span> で戻す。</p>
+  </section>
+
+  <section>
+    <h2>表示</h2>
+    <label class="chk"><input type="checkbox" id="showUnder" checked>下敷きを敷く</label>
+    <label class="chk"><input type="checkbox" id="showSrc">原画を薄く重ねる</label>
+    <label class="chk"><input type="checkbox" id="showAlpha">形だけ見る（白抜き）</label>
+    <label class="chk"><input type="checkbox" id="showDebris" checked>離れた塊を光らせる</label>
+    <div class="row" style="margin-top:10px"><span>倍率</span>
+      <input type="range" id="zoom" min="25" max="400" step="5" value="70">
+      <span class="v" id="vZoom">70%</span></div>
+    <button class="wide" id="fit">全体を表示</button>
+  </section>
+</aside>
+
+<main>
+  <div id="stage"><div id="wrap">
+    <div id="checker"></div>
+    <canvas id="cv" width="1024" height="1024"></canvas>
+  </div></div>
+  <div id="cursor"></div>
+  <div id="hud">読み込み待ち</div>
+  <div id="empty">左上から「抽出したもの」を読み込む<br>原画も入れると、消えた部分を戻せる</div>
+</main>
+
+<aside class="right">
+  <section>
+    <h2>本体から離れた塊</h2>
+    <p class="note" style="margin:0 0 9px">
+      幽霊の髪は、頭蓋から 60px 以上離れたところに出る。<br>
+      <strong style="color:var(--erase)">刈り上げも同じ条件に当たる。</strong>
+      消す前に必ず光っている場所を見る。</p>
+    <div class="row"><span>離れ</span><input type="range" id="dist" min="0" max="200" value="60">
+      <span class="v" id="vDist">60px</span></div>
+    <div class="row"><span>大きさ</span><input type="range" id="area" min="0" max="4000" step="50" value="0">
+      <span class="v" id="vArea">0px以下</span></div>
+    <table id="tbl"><thead><tr><th>位置</th><th>面積</th><th>離れ</th></tr></thead><tbody></tbody></table>
+    <button class="wide" id="killAll" style="margin-top:10px" disabled>光っている塊をまとめて消す</button>
+    <button class="wide" id="undo" disabled>ひとつ戻す</button>
+  </section>
+
+  <section>
+    <h2>書き出す</h2>
+    <button class="wide" id="dlWebp" disabled>WebP（切り抜き済み）</button>
+    <button class="wide" id="dlPng" disabled>PNG（1024×1024 のまま）</button>
+    <div class="out" id="meta">まだ読み込んでいない</div>
+    <button class="wide" id="copyMeta" style="margin-top:8px" disabled>crop と hairline を写す</button>
+    <p class="note">切り抜きと生え際は、開いている画像から測り直した値。
+      <strong>crop.json と metrics.json を書き換えるのは手作業。</strong>
+      生え際は中央帯（x 452–572）で α&gt;128 の一番下の行。
+      元の実測とは ±1 で一致した。</p>
+  </section>
+</aside>
+
+<script>
+const $ = id => document.getElementById(id);
+const W = 1024;
+
+/* 状態 --------------------------------------------------------------- */
+let cut = null;          // ImageData 1024x1024。編集の対象
+let src = null;          // 原画。戻す筆の元
+let under = null;        // 下敷き
+let cropMap = null;      // crop.json
+let fileName = '';
+let tool = 'restore';
+let comps = [];          // 離れた塊
+const undoStack = [];
+
+const cv = $('cv'), ctx = cv.getContext('2d', { willReadFrequently: true });
+const view = document.createElement('canvas'); view.width = view.height = W;
+const vctx = view.getContext('2d');
+
+/* 読み込み ------------------------------------------------------------ */
+async function readImage(file) {
+  const bmp = await createImageBitmap(file);
+  const c = document.createElement('canvas'); c.width = c.height = W;
+  const x = c.getContext('2d');
+  // crop.json に合う名前があれば、元の位置へ戻す
+  let ox = 0, oy = 0;
+  if (cropMap) {
+    const hit = Object.keys(cropMap).find(k => k.endsWith('/' + file.name) || k === file.name);
+    if (hit) { ox = cropMap[hit][0]; oy = cropMap[hit][1]; }
+  }
+  if (bmp.width === W && bmp.height === W) x.drawImage(bmp, 0, 0);
+  else x.drawImage(bmp, ox, oy);
+  return x.getImageData(0, 0, W, W);
+}
+
+$('fCrop').onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  try { cropMap = JSON.parse(await f.text()); hud('crop.json を読んだ（' + Object.keys(cropMap).length + '点）'); }
+  catch { hud('crop.json を読めない。JSON の形を確かめる'); }
+};
+$('fCut').onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  fileName = f.name; cut = await readImage(f);
+  undoStack.length = 0; $('undo').disabled = true;
+  $('empty').style.display = 'none';
+  ['dlWebp', 'dlPng', 'copyMeta'].forEach(id => $(id).disabled = false);
+  analyze(); render(); hud(fileName + ' を開いた');
+};
+$('fSrc').onchange = async e => { const f = e.target.files[0]; if (f) { src = await readImage(f); hud('原画を読んだ。戻す筆が使える'); } };
+$('fUnder').onchange = async e => { const f = e.target.files[0]; if (f) { under = await readImage(f); render(); } };
+
+/* 描画 ---------------------------------------------------------------- */
+function render() {
+  vctx.clearRect(0, 0, W, W);
+  if (under && $('showUnder').checked) { vctx.globalAlpha = .5; vctx.putImageData(under, 0, 0); vctx.globalAlpha = 1; }
+  if (!cut) { ctx.clearRect(0, 0, W, W); ctx.drawImage(view, 0, 0); return; }
+
+  const out = new ImageData(W, W);
+  const s = cut.data, o = out.data;
+  const alphaOnly = $('showAlpha').checked;
+  for (let i = 0; i < s.length; i += 4) {
+    const a = s[i + 3];
+    if (alphaOnly) { o[i] = o[i + 1] = o[i + 2] = 255; o[i + 3] = a; }
+    else { o[i] = s[i]; o[i + 1] = s[i + 1]; o[i + 2] = s[i + 2]; o[i + 3] = a; }
+  }
+  // 離れた塊を琥珀で染める
+  if ($('showDebris').checked) {
+    for (const c of comps) {
+      if (!c.far) continue;
+      for (const p of c.px) { const i = p * 4; o[i] = 232; o[i + 1] = 161; o[i + 2] = 58; o[i + 3] = Math.max(o[i + 3], 190); }
+    }
+  }
+  const tmp = document.createElement('canvas'); tmp.width = tmp.height = W;
+  tmp.getContext('2d').putImageData(out, 0, 0);
+
+  ctx.clearRect(0, 0, W, W);
+  ctx.drawImage(view, 0, 0);
+  if (src && $('showSrc').checked) {
+    const t2 = document.createElement('canvas'); t2.width = t2.height = W;
+    t2.getContext('2d').putImageData(src, 0, 0);
+    ctx.globalAlpha = .28; ctx.drawImage(t2, 0, 0); ctx.globalAlpha = 1;
+  }
+  ctx.drawImage(tmp, 0, 0);
+  meta();
+}
+['showUnder', 'showSrc', 'showAlpha', 'showDebris'].forEach(id => $(id).onchange = render);
+
+/* 塊を数える ----------------------------------------------------------- */
+function analyze() {
+  comps = [];
+  if (!cut) return;
+  const a = cut.data, seen = new Uint8Array(W * W), q = new Int32Array(W * W);
+  const on = i => a[i * 4 + 3] > 32;
+  for (let p = 0; p < W * W; p++) {
+    if (seen[p] || !on(p)) continue;
+    let head = 0, tail = 0; q[tail++] = p; seen[p] = 1;
+    const px = []; let x0 = W, y0 = W, x1 = 0, y1 = 0;
+    while (head < tail) {
+      const c = q[head++]; px.push(c);
+      const cx = c % W, cy = (c / W) | 0;
+      if (cx < x0) x0 = cx; if (cx > x1) x1 = cx;
+      if (cy < y0) y0 = cy; if (cy > y1) y1 = cy;
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+        const nx = cx + dx, ny = cy + dy;
+        if (nx < 0 || ny < 0 || nx >= W || ny >= W) continue;
+        const n = ny * W + nx;
+        if (!seen[n] && on(n)) { seen[n] = 1; q[tail++] = n; }
+      }
+    }
+    comps.push({ px, area: px.length, box: [x0, y0, x1, y1] });
+  }
+  comps.sort((u, v) => v.area - u.area);
+  const main = comps[0];
+  for (const c of comps) {
+    if (c === main) { c.dist = 0; continue; }
+    const [x0, y0, x1, y1] = c.box, [mx0, my0, mx1, my1] = main.box;
+    const dx = Math.max(mx0 - x1, x0 - mx1, 0), dy = Math.max(my0 - y1, y0 - my1, 0);
+    c.dist = Math.round(Math.hypot(dx, dy));
+  }
+  markFar();
+}
+
+function markFar() {
+  const d = +$('dist').value, ar = +$('area').value;
+  for (const c of comps) c.far = c !== comps[0] && (c.dist >= d || (ar > 0 && c.area <= ar));
+  const rows = comps.slice(1).filter(c => c.area > 4).slice(0, 60);
+  $('tbl').tBodies[0].innerHTML = rows.map((c, i) => {
+    const [x0, y0, x1, y1] = c.box;
+    return `<tr class="pick ${c.far ? 'far' : ''}" data-i="${comps.indexOf(c)}">
+      <td>${((x0 + x1) / 2) | 0}, ${((y0 + y1) / 2) | 0}</td>
+      <td>${c.area.toLocaleString()}</td><td>${c.dist}</td></tr>`;
+  }).join('') || '<tr><td colspan="3" style="color:#8b95a5">離れた塊はない</td></tr>';
+  $('killAll').disabled = !comps.some(c => c.far);
+  $('tbl').tBodies[0].querySelectorAll('tr.pick').forEach(tr => tr.onclick = () => {
+    const c = comps[+tr.dataset.i], [x0, y0, x1, y1] = c.box;
+    centerOn((x0 + x1) / 2, (y0 + y1) / 2);
+  });
+}
+$('dist').oninput = () => { $('vDist').textContent = $('dist').value + 'px'; markFar(); render(); };
+$('area').oninput = () => { $('vArea').textContent = $('area').value + 'px以下'; markFar(); render(); };
+
+$('killAll').onclick = () => {
+  push();
+  let n = 0;
+  for (const c of comps) if (c.far) { for (const p of c.px) cut.data[p * 4 + 3] = 0; n += c.area; }
+  analyze(); render(); hud(n.toLocaleString() + 'px 消した');
+};
+
+/* 取り消し ------------------------------------------------------------- */
+function push() {
+  undoStack.push(new Uint8ClampedArray(cut.data));
+  if (undoStack.length > 24) undoStack.shift();
+  $('undo').disabled = false;
+}
+$('undo').onclick = () => {
+  const prev = undoStack.pop(); if (!prev) return;
+  cut.data.set(prev); $('undo').disabled = !undoStack.length;
+  analyze(); render(); hud('ひとつ戻した');
+};
+
+/* 筆 ------------------------------------------------------------------- */
+document.querySelectorAll('.tool button').forEach(b => b.onclick = () => {
+  tool = b.dataset.t;
+  document.querySelectorAll('.tool button').forEach(x => x.setAttribute('aria-pressed', x === b));
+});
+$('size').oninput = () => { $('vSize').textContent = $('size').value; sizeCursor(); };
+$('hard').oninput = () => { $('vHard').textContent = $('hard').value + '%'; };
+
+function paint(cx, cy) {
+  const r = +$('size').value / 2, hard = +$('hard').value / 100;
+  const x0 = Math.max(0, (cx - r) | 0), x1 = Math.min(W - 1, (cx + r) | 0);
+  const y0 = Math.max(0, (cy - r) | 0), y1 = Math.min(W - 1, (cy + r) | 0);
+  const d = cut.data, sd = src && src.data;
+  for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+    const dist = Math.hypot(x - cx, y - cy);
+    if (dist > r) continue;
+    // ふちの柔らかさ。hard=1 で切り立つ
+    const t = hard >= 1 ? 1 : Math.min(1, (1 - dist / r) / Math.max(1e-6, 1 - hard));
+    const f = Math.max(0, Math.min(1, t));
+    const i = (y * W + x) * 4;
+    if (tool === 'erase') {
+      d[i + 3] = Math.max(0, d[i + 3] - 255 * f);
+    } else if (sd) {
+      const want = sd[i + 3] * f;
+      if (want > d[i + 3]) {
+        // 戻すときは色も原画から持ってくる。透明な画素は色を持っていない
+        d[i] = sd[i]; d[i + 1] = sd[i + 1]; d[i + 2] = sd[i + 2];
+        d[i + 3] = want;
+      }
+    }
+  }
+}
+
+/* 画面の操作 ----------------------------------------------------------- */
+let zoom = .7, panX = 0, panY = 0, drawing = false, panning = false, space = false, last = null;
+const wrap = $('wrap'), stage = $('stage'), cur = $('cursor');
+wrap.style.width = wrap.style.height = W + 'px';
+
+function applyView() {
+  wrap.style.transform = `translate(${panX}px,${panY}px) scale(${zoom})`;
+  $('vZoom').textContent = Math.round(zoom * 100) + '%';
+  $('zoom').value = Math.round(zoom * 100);
+  sizeCursor();
+}
+function sizeCursor() { const s = +$('size').value * zoom; cur.style.width = cur.style.height = s + 'px'; }
+function fit() { const r = stage.getBoundingClientRect(); zoom = Math.min(r.width, r.height) / W * .92; panX = panY = 0; applyView(); }
+function centerOn(x, y) { zoom = Math.max(zoom, 1.6); panX = (W / 2 - x) * zoom; panY = (W / 2 - y) * zoom; applyView(); }
+$('zoom').oninput = () => { zoom = +$('zoom').value / 100; applyView(); };
+$('fit').onclick = fit;
+addEventListener('resize', () => applyView());
+
+function toImage(e) {
+  const r = cv.getBoundingClientRect();
+  return [(e.clientX - r.left) / r.width * W, (e.clientY - r.top) / r.height * W];
+}
+stage.addEventListener('pointerdown', e => {
+  if (space || e.button === 1) { panning = true; last = [e.clientX, e.clientY]; return; }
+  if (!cut) return;
+  drawing = true; push();
+  const [x, y] = toImage(e); paint(x, y); render();
+  stage.setPointerCapture(e.pointerId);
+});
+stage.addEventListener('pointermove', e => {
+  cur.style.display = 'block';
+  cur.style.left = (e.clientX - cur.offsetWidth / 2) + 'px';
+  cur.style.top = (e.clientY - cur.offsetHeight / 2) + 'px';
+  if (panning) { panX += e.clientX - last[0]; panY += e.clientY - last[1]; last = [e.clientX, e.clientY]; applyView(); return; }
+  if (!drawing) { if (cut) { const [x, y] = toImage(e); hud(`${x | 0}, ${y | 0}`); } return; }
+  const [x, y] = toImage(e); paint(x, y); render();
+});
+addEventListener('pointerup', () => {
+  if (drawing) { drawing = false; analyze(); render(); }
+  panning = false;
+});
+stage.addEventListener('pointerleave', () => cur.style.display = 'none');
+stage.addEventListener('wheel', e => {
+  e.preventDefault();
+  zoom = Math.max(.25, Math.min(4, zoom * (e.deltaY < 0 ? 1.1 : 1 / 1.1)));
+  applyView();
+}, { passive: false });
+
+addEventListener('keydown', e => {
+  if (e.code === 'Space') { space = true; e.preventDefault(); }
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); $('undo').click(); }
+  if (e.key === '[') { $('size').value = Math.max(2, +$('size').value - 4); $('size').oninput(); }
+  if (e.key === ']') { $('size').value = Math.min(160, +$('size').value + 4); $('size').oninput(); }
+  if (e.key.toLowerCase() === 'e') document.querySelector('[data-t=erase]').click();
+  if (e.key.toLowerCase() === 'r') document.querySelector('[data-t=restore]').click();
+});
+addEventListener('keyup', e => { if (e.code === 'Space') space = false; });
+
+/* 測る・書き出す ------------------------------------------------------- */
+function bbox() {
+  const d = cut.data;
+  let x0 = W, y0 = W, x1 = -1, y1 = -1;
+  for (let y = 0; y < W; y++) for (let x = 0; x < W; x++) {
+    if (d[(y * W + x) * 4 + 3] > 0) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  }
+  return x1 < 0 ? [0, 0, 0, 0] : [x0, y0, x1 - x0 + 1, y1 - y0 + 1];
+}
+function hairline() {
+  // 中央帯で α>128 の一番下の行。元の実測と ±1 で一致した
+  const d = cut.data; let y = -1;
+  for (let yy = 0; yy < W; yy++) for (let x = 452; x <= 572; x++)
+    if (d[(yy * W + x) * 4 + 3] > 128) { y = yy; break; }
+  for (let yy = W - 1; yy >= 0; yy--) { let hit = false;
+    for (let x = 452; x <= 572; x++) if (d[(yy * W + x) * 4 + 3] > 128) { hit = true; break; }
+    if (hit) return yy; }
+  return y;
+}
+function meta() {
+  const b = bbox(), h = hairline();
+  $('meta').textContent =
+    `${fileName || '(名前なし)'}\ncrop  [${b.join(', ')}]\nhairline  ${h}\n` +
+    `塊 ${comps.length}　うち離れ ${comps.filter(c => c.far).length}`;
+  $('meta').dataset.json = JSON.stringify({ crop: b, hairline: h }, null, 1);
+}
+$('copyMeta').onclick = async () => {
+  await navigator.clipboard.writeText($('meta').dataset.json || '');
+  hud('crop と hairline を写した');
+};
+function cropped() {
+  const b = bbox();
+  const c = document.createElement('canvas'); c.width = b[2]; c.height = b[3];
+  const t = document.createElement('canvas'); t.width = t.height = W;
+  t.getContext('2d').putImageData(cut, 0, 0);
+  c.getContext('2d').drawImage(t, b[0], b[1], b[2], b[3], 0, 0, b[2], b[3]);
+  return c;
+}
+function save(canvas, type, ext) {
+  canvas.toBlob(bl => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(bl);
+    a.download = (fileName.replace(/\.[^.]+$/, '') || 'material') + ext;
+    a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }, type, .9);
+}
+$('dlWebp').onclick = () => save(cropped(), 'image/webp', '.webp');
+$('dlPng').onclick = () => {
+  const t = document.createElement('canvas'); t.width = t.height = W;
+  t.getContext('2d').putImageData(cut, 0, 0);
+  save(t, 'image/png', '_1024.png');
+};
+
+function hud(s) { $('hud').textContent = s; }
+fit();
+</script>
+</html>

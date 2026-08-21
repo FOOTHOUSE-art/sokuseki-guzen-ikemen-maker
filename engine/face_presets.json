@@ -1,0 +1,723 @@
+{
+ "_note": "偶然イケメンメーカーの facePresets 35種を、即席メーカーの素材IDと微調整に対応づけた素案。fix は軸の固定、adj は微調整。指定しない軸は抽選のまま。2026-08-20: 似すぎていた6件を引き離した(手順5')。verify_presets.py で一致率を測る。",
+ "_axes": "outline / skinTone / eye / brow(形) / browDensity / nose / mouth / tear / hair / hairColor / beard / glass / cloth / clothColor",
+ "_adj": "eyeGap / eyeScale / eyeWidth / eyeHeight / eyeY / lidDrop / lidRise / innerY / outerY / browY / browGap / browInner / browOuter / browTilt / browAlpha / noseY / noseW / lipThick / lipWidth / mouthCorner / mouthY / faceW / faceH / chinY / centri",
+ "presets": {
+  "普通顔": {
+   "fix": {
+    "outline": "egg",
+    "eye": "eyeB01_almond",
+    "brow": "02_arch",
+    "nose": "nose01_straight",
+    "mouth": "mouth01_standard"
+   },
+   "adj": {}
+  },
+  "爽やか知的アナウンサー系": {
+   "fix": {
+    "outline": "egg",
+    "skinTone": "light",
+    "eye": "eyeB01_almond",
+    "brow": "01_straight",
+    "browDensity": "N",
+    "nose": "nose01_straight",
+    "mouth": "mouth01_standard",
+    "tear": "tear02_natural",
+    "hair": "hair20_shortpart",
+    "hairColor": "kuro",
+    "beard": "none",
+    "cloth": "cloth01_dressshirt",
+    "clothColor": "white"
+   },
+   "adj": {
+    "eyeGap": -12,
+    "browY": 8,
+    "browAlpha": 1.0
+   }
+  },
+  "大学サッカー部系": {
+   "fix": {
+    "outline": "square",
+    "skinTone": "tan",
+    "eye": "eyeA01_almond",
+    "brow": "04_thick",
+    "nose": "nose06_wide",
+    "mouth": "mouth07_wide",
+    "hair": "hair03_fadeshort",
+    "hairColor": "kuro",
+    "cloth": "cloth03_tshirt",
+    "clothColor": "navy"
+   },
+   "adj": {
+    "browY": 10,
+    "eyeHeight": 0.94
+   }
+  },
+  "スーツ映え社会人系": {
+   "fix": {
+    "outline": "long",
+    "skinTone": "neutral",
+    "eye": "eyeB02_narrow",
+    "brow": "01_straight",
+    "nose": "nose07_longhigh",
+    "mouth": "mouth02_thin",
+    "hair": "hair07_sidepart",
+    "hairColor": "kuro",
+    "beard": "beard_shaved",
+    "cloth": "cloth01_dressshirt",
+    "clothColor": "lightgray"
+   },
+   "adj": {
+    "eyeGap": -10,
+    "browY": 6,
+    "chinY": 4
+   }
+  },
+  "高身長モデル系": {
+   "fix": {
+    "outline": "slim",
+    "skinTone": "light",
+    "eye": "eyeB06_slim",
+    "brow": "01_straight",
+    "browDensity": "S",
+    "nose": "nose07_longhigh",
+    "mouth": "mouth02_thin",
+    "hair": "hair28_sweptmedium",
+    "hairColor": "ankasshoku",
+    "cloth": "cloth04_opencollar",
+    "clothColor": "black"
+   },
+   "adj": {
+    "eyeGap": -16,
+    "faceH": 1.06,
+    "chinY": 8,
+    "lipThick": 0.9
+   }
+  },
+  "親しみやすい大学生系": {
+   "fix": {
+    "outline": "round",
+    "skinTone": "neutral",
+    "eye": "eyeB01_almond",
+    "brow": "02_arch",
+    "nose": "nose01_straight",
+    "mouth": "mouth05_upturn",
+    "tear": "tear02_natural",
+    "hair": "hair10_shortlayer",
+    "hairColor": "kuro",
+    "cloth": "cloth03_tshirt",
+    "clothColor": "white"
+   },
+   "adj": {
+    "mouthCorner": -5
+   }
+  },
+  "体育会系スポーツ男子": {
+   "fix": {
+    "outline": "square",
+    "skinTone": "tan",
+    "eye": "eyeA02_narrow",
+    "brow": "13_boldflat",
+    "nose": "nose06_wide",
+    "mouth": "mouth07_wide",
+    "hair": "hair01_buzz",
+    "hairColor": "kuro",
+    "cloth": "cloth05_sleeveless",
+    "clothColor": "gray"
+   },
+   "adj": {
+    "browY": 12,
+    "eyeHeight": 0.9,
+    "faceW": 1.04
+   }
+  },
+  "清潔感のある若手俳優風": {
+   "fix": {
+    "outline": "egg",
+    "skinTone": "light",
+    "eye": "eyeB01_almond",
+    "brow": "02_arch",
+    "nose": "nose09_greek",
+    "mouth": "mouth08_bow",
+    "tear": "tear02_natural",
+    "hair": "hair13_koreanpart",
+    "hairColor": "ankasshoku",
+    "cloth": "cloth02_shirt",
+    "clothColor": "white"
+   },
+   "adj": {
+    "eyeGap": -14,
+    "browY": 8,
+    "mouthCorner": -4
+   }
+  },
+  "落ち着いた大人系": {
+   "fix": {
+    "outline": "long",
+    "skinTone": "neutral",
+    "eye": "eyeC01_almond",
+    "brow": "07_long",
+    "nose": "nose01_straight",
+    "mouth": "mouth01_standard",
+    "hair": "hair17_sweptpart",
+    "hairColor": "kuro",
+    "beard": "beard_shaved",
+    "cloth": "cloth02_shirt",
+    "clothColor": "charcoal"
+   },
+   "adj": {
+    "lidDrop": 4,
+    "browY": 4,
+    "chinY": 4
+   }
+  },
+  "韓国アイドル風": {
+   "fix": {
+    "outline": "egg",
+    "skinTone": "light",
+    "eye": "eyeB06_slim",
+    "brow": "01_straight",
+    "browDensity": "N",
+    "nose": "nose01_straight",
+    "mouth": "mouth08_bow",
+    "tear": "tear03_strong",
+    "hair": "hair13_koreanpart",
+    "hairColor": "ankasshoku",
+    "beard": "none",
+    "cloth": "cloth02_shirt",
+    "clothColor": "white"
+   },
+   "adj": {
+    "eyeGap": -16,
+    "browY": 10,
+    "lipThick": 0.94,
+    "faceW": 0.96,
+    "chinY": -4
+   }
+  },
+  "日本の若手俳優風": {
+   "fix": {
+    "outline": "egg",
+    "skinTone": "light",
+    "eye": "eyeB10_deepset",
+    "brow": "14_sword",
+    "nose": "nose01_straight",
+    "mouth": "mouth01_standard",
+    "hair": "hair20_shortpart",
+    "hairColor": "kuro",
+    "cloth": "cloth04_opencollar",
+    "clothColor": "navy"
+   },
+   "adj": {
+    "eyeGap": -12,
+    "browY": 10
+   }
+  },
+  "ワイルド系": {
+   "fix": {
+    "outline": "hex",
+    "skinTone": "tan",
+    "eye": "eyeA10_deepset",
+    "brow": "11_messy",
+    "nose": "nose02_aquiline",
+    "mouth": "mouth07_wide",
+    "hair": "hair26_wolfmedium",
+    "hairColor": "ankasshoku",
+    "beard": "beard_full",
+    "beardStrength": "mid",
+    "cloth": "cloth05_sleeveless",
+    "clothColor": "olive"
+   },
+   "adj": {
+    "browY": 12,
+    "faceW": 1.06,
+    "eyeHeight": 0.92
+   }
+  },
+  "真面目系": {
+   "fix": {
+    "outline": "rect",
+    "skinTone": "light",
+    "eye": "eyeA01_almond",
+    "brow": "01_straight",
+    "nose": "nose01_straight",
+    "mouth": "mouth02_thin",
+    "hair": "hair08_crop",
+    "hairColor": "kuro",
+    "glass": "square",
+    "glassColor": "black",
+    "cloth": "cloth01_dressshirt",
+    "clothColor": "white"
+   },
+   "adj": {
+    "browY": 4,
+    "mouthCorner": 2
+   }
+  },
+  "中性系": {
+   "fix": {
+    "outline": "egg",
+    "skinTone": "light",
+    "eye": "eyeB07_large",
+    "brow": "10_rounded",
+    "browDensity": "S",
+    "nose": "nose04_small",
+    "mouth": "mouth08_bow",
+    "tear": "tear02_natural",
+    "hair": "hair15_seethrough",
+    "hairColor": "beju",
+    "beard": "none",
+    "cloth": "cloth03_tshirt",
+    "clothColor": "white"
+   },
+   "adj": {
+    "eyeScale": 1.1,
+    "eyeGap": -10,
+    "faceW": 0.94,
+    "chinY": -6,
+    "lipThick": 1.08
+   }
+  },
+  "やりらふぃー系": {
+   "fix": {
+    "outline": "invtri",
+    "skinTone": "tan",
+    "eye": "eyeB05_upturn",
+    "brow": "12_sharpangle",
+    "browDensity": "S",
+    "nose": "nose01_straight",
+    "mouth": "mouth05_upturn",
+    "hair": "hair25_twistperm",
+    "hairColor": "beju",
+    "cloth": "cloth04_opencollar",
+    "clothColor": "black"
+   },
+   "adj": {
+    "outerY": -6,
+    "browY": 8,
+    "mouthCorner": -6
+   }
+  },
+  "塩顔系": {
+   "fix": {
+    "outline": "slim",
+    "skinTone": "light",
+    "eye": "eyeA06_slim",
+    "brow": "05_narrow",
+    "browDensity": "S",
+    "nose": "nose04_small",
+    "mouth": "mouth02_thin",
+    "tear": "none",
+    "hair": "hair20_shortpart",
+    "hairColor": "kuro",
+    "beard": "none",
+    "cloth": "cloth02_shirt",
+    "clothColor": "lightgray"
+   },
+   "adj": {
+    "eyeHeight": 0.9,
+    "lipThick": 0.86,
+    "noseW": 0.9,
+    "faceW": 0.95
+   }
+  },
+  "犬系男子風": {
+   "fix": {
+    "outline": "round",
+    "skinTone": "neutral",
+    "eye": "eyeB03_round",
+    "brow": "04_thick",
+    "nose": "nose05_upturned",
+    "mouth": "mouth07_wide",
+    "tear": "tear02_natural",
+    "hair": "hair06_upbang",
+    "hairColor": "ankasshoku",
+    "cloth": "cloth03_tshirt",
+    "clothColor": "saxe"
+   },
+   "adj": {
+    "eyeScale": 1.06,
+    "mouthCorner": -6,
+    "browY": 8
+   }
+  },
+  "クール系": {
+   "fix": {
+    "outline": "long",
+    "skinTone": "light",
+    "eye": "eyeB02_narrow",
+    "brow": "14_sword",
+    "nose": "nose07_longhigh",
+    "mouth": "mouth02_thin",
+    "tear": "none",
+    "hair": "hair17_sweptpart",
+    "hairColor": "kuro",
+    "cloth": "cloth02_shirt",
+    "clothColor": "black"
+   },
+   "adj": {
+    "eyeGap": -12,
+    "eyeHeight": 0.88,
+    "browY": 8,
+    "mouthCorner": 2,
+    "chinY": 5
+   }
+  },
+  "ミステリアス系": {
+   "fix": {
+    "outline": "slim",
+    "skinTone": "light",
+    "eye": "eyeC08_halflid",
+    "brow": "07_long",
+    "browDensity": "S",
+    "nose": "nose07_longhigh",
+    "mouth": "mouth02_thin",
+    "hair": "hair27_centermedium",
+    "hairColor": "kuro",
+    "cloth": "cloth02_shirt",
+    "clothColor": "charcoal"
+   },
+   "adj": {
+    "lidDrop": 8,
+    "eyeGap": -8,
+    "faceH": 1.05
+   }
+  },
+  "サブカル系": {
+   "fix": {
+    "outline": "hex",
+    "skinTone": "light",
+    "eye": "eyeC03_round",
+    "brow": "06_short",
+    "browDensity": "S",
+    "nose": "nose03_button",
+    "mouth": "mouth06_small",
+    "hair": "hair16_onelength",
+    "hairColor": "kuro",
+    "glass": "round",
+    "glassColor": "brown",
+    "cloth": "cloth02_shirt",
+    "clothColor": "olive"
+   },
+   "adj": {
+    "eyeScale": 1.05,
+    "browY": -4
+   }
+  },
+  "やんちゃ系": {
+   "fix": {
+    "outline": "invtri",
+    "skinTone": "tan",
+    "eye": "eyeA05_upturn",
+    "brow": "03_angled",
+    "nose": "nose05_upturned",
+    "mouth": "mouth07_wide",
+    "hair": "hair05_spiky",
+    "hairColor": "akaruicha",
+    "cloth": "cloth03_tshirt",
+    "clothColor": "wine"
+   },
+   "adj": {
+    "outerY": -7,
+    "browY": 12,
+    "mouthCorner": -6
+   }
+  },
+  "ホスト系": {
+   "fix": {
+    "outline": "invtri",
+    "skinTone": "light",
+    "eye": "eyeB09_sanpaku",
+    "brow": "12_sharpangle",
+    "browDensity": "S",
+    "nose": "nose07_longhigh",
+    "mouth": "mouth08_bow",
+    "hair": "hair29_wavymedium",
+    "hairColor": "beju",
+    "cloth": "cloth01_dressshirt",
+    "clothColor": "black",
+    "tie": "on",
+    "tieColor": "wine"
+   },
+   "adj": {
+    "eyeGap": -14,
+    "outerY": -5,
+    "browY": 10,
+    "faceW": 0.95,
+    "chinY": 6
+   }
+  },
+  "おじさん系": {
+   "fix": {
+    "outline": "square",
+    "skinTone": "tan",
+    "eye": "eyeA08_halflid",
+    "brow": "18_thickdroop",
+    "nose": "nose06_wide",
+    "mouth": "mouth04_downturn",
+    "hair": "hair07_sidepart",
+    "hairColor": "kuro",
+    "beard": "beard_shaved",
+    "cloth": "cloth01_dressshirt",
+    "clothColor": "lightgray",
+    "tie": "on"
+   },
+   "adj": {
+    "lidDrop": 10,
+    "browY": -6,
+    "mouthCorner": 7,
+    "faceW": 1.05,
+    "chinY": 6
+   }
+  },
+  "ブサイク系": {
+   "fix": {
+    "outline": "pear",
+    "skinTone": "neutral",
+    "eye": "eyeA04_droop",
+    "brow": "11_messy",
+    "nose": "nose08_flat",
+    "mouth": "mouth10_parted",
+    "pimple": "pimple_n5",
+    "pores": "pores",
+    "hair": "hair11_mushroom",
+    "hairColor": "kuro",
+    "cloth": "cloth03_tshirt",
+    "clothColor": "beige"
+   },
+   "adj": {
+    "eyeGap": 18,
+    "browY": -10,
+    "noseW": 1.15,
+    "chinY": -8,
+    "mouthCorner": 6
+   }
+  },
+  "昭和顔（濃い顔立ち）": {
+   "fix": {
+    "outline": "rect",
+    "skinTone": "tan",
+    "eye": "eyeB10_deepset",
+    "brow": "20_bushy",
+    "nose": "nose02_aquiline",
+    "mouth": "mouth03_full",
+    "hair": "hair09_pompadour",
+    "hairColor": "kuro",
+    "cloth": "cloth01_dressshirt",
+    "clothColor": "beige"
+   },
+   "adj": {
+    "browY": 8,
+    "noseW": 1.08,
+    "lipThick": 1.1
+   }
+  },
+  "しょうゆ顔": {
+   "fix": {
+    "outline": "egg",
+    "skinTone": "neutral",
+    "eye": "eyeA01_almond",
+    "brow": "02_arch",
+    "browDensity": "N",
+    "nose": "nose01_straight",
+    "mouth": "mouth06_small",
+    "tear": "tear01_subtle",
+    "hair": "hair12_centerpart",
+    "hairColor": "kuro",
+    "cloth": "cloth02_shirt",
+    "clothColor": "white"
+   },
+   "adj": {
+    "eyeHeight": 0.95,
+    "lipThick": 0.92,
+    "browY": 4
+   }
+  },
+  "ソース顔": {
+   "fix": {
+    "outline": "rect",
+    "skinTone": "tan",
+    "eye": "eyeB10_deepset",
+    "brow": "04_thick",
+    "nose": "nose02_aquiline",
+    "mouth": "mouth03_full",
+    "hair": "hair10_shortlayer",
+    "hairColor": "ankasshoku",
+    "cloth": "cloth04_opencollar",
+    "clothColor": "navy"
+   },
+   "adj": {
+    "browY": 10,
+    "noseW": 1.1,
+    "lipThick": 1.12
+   }
+  },
+  "彫りの深い縄文系": {
+   "fix": {
+    "outline": "rect",
+    "skinTone": "tan",
+    "eye": "eyeB10_deepset",
+    "brow": "20_bushy",
+    "nose": "nose02_aquiline",
+    "mouth": "mouth03_full",
+    "hair": "hair08_crop",
+    "hairColor": "kuro",
+    "beard": "beard_chin",
+    "cloth": "cloth05_sleeveless",
+    "clothColor": "charcoal"
+   },
+   "adj": {
+    "browY": 13,
+    "lidDrop": -3,
+    "noseW": 1.12,
+    "faceW": 1.04
+   }
+  },
+  "あっさり弥生系": {
+   "fix": {
+    "outline": "long",
+    "skinTone": "light",
+    "eye": "eyeA06_slim",
+    "brow": "01_straight",
+    "browDensity": "S",
+    "nose": "nose08_flat",
+    "mouth": "mouth02_thin",
+    "hair": "hair16_onelength",
+    "hairColor": "kuro",
+    "cloth": "cloth02_shirt",
+    "clothColor": "lightgray"
+   },
+   "adj": {
+    "eyeHeight": 0.9,
+    "browY": -4,
+    "noseW": 0.92,
+    "faceH": 1.04
+   }
+  },
+  "たれ目系": {
+   "fix": {
+    "outline": "egg",
+    "skinTone": "light",
+    "eye": "eyeB04_droop",
+    "brow": "09_droop",
+    "browDensity": "N",
+    "nose": "nose01_straight",
+    "mouth": "mouth01_standard",
+    "tear": "tear02_natural",
+    "hair": "hair20_shortpart",
+    "hairColor": "kuro",
+    "cloth": "cloth02_shirt",
+    "clothColor": "saxe"
+   },
+   "adj": {
+    "outerY": 10,
+    "mouthCorner": -3
+   }
+  },
+  "つり目系": {
+   "fix": {
+    "outline": "invtri",
+    "skinTone": "light",
+    "eye": "eyeB05_upturn",
+    "brow": "12_sharpangle",
+    "nose": "nose01_straight",
+    "mouth": "mouth02_thin",
+    "hair": "hair17_sweptpart",
+    "hairColor": "kuro",
+    "cloth": "cloth02_shirt",
+    "clothColor": "charcoal"
+   },
+   "adj": {
+    "outerY": -9,
+    "browTilt": -4,
+    "browY": 8
+   }
+  },
+  "平成アイドル風": {
+   "fix": {
+    "outline": "egg",
+    "skinTone": "light",
+    "eye": "eyeB07_large",
+    "brow": "02_arch",
+    "nose": "nose03_button",
+    "mouth": "mouth05_upturn",
+    "tear": "tear02_natural",
+    "hair": "hair06_upbang",
+    "hairColor": "ankasshoku",
+    "cloth": "cloth03_tshirt",
+    "clothColor": "white"
+   },
+   "adj": {
+    "eyeScale": 1.1,
+    "browY": 6,
+    "mouthCorner": -6
+   }
+  },
+  "弟系童顔（笑顔が武器）": {
+   "fix": {
+    "outline": "round",
+    "skinTone": "light",
+    "eye": "eyeB03_round",
+    "brow": "10_rounded",
+    "browDensity": "S",
+    "nose": "nose03_button",
+    "mouth": "mouth05_upturn",
+    "tear": "tear03_strong",
+    "hair": "hair11_mushroom",
+    "hairColor": "kuriiro",
+    "cloth": "cloth03_tshirt",
+    "clothColor": "beige"
+   },
+   "adj": {
+    "eyeScale": 1.14,
+    "eyeY": 4,
+    "chinY": -8,
+    "mouthCorner": -8,
+    "faceH": 0.96
+   }
+  },
+  "垂れ目パピー系": {
+   "fix": {
+    "outline": "round",
+    "skinTone": "light",
+    "eye": "eyeB04_droop",
+    "brow": "09_droop",
+    "browDensity": "S",
+    "nose": "nose03_button",
+    "mouth": "mouth08_bow",
+    "tear": "tear03_strong",
+    "hair": "hair19_permmush",
+    "hairColor": "kuriiro",
+    "cloth": "cloth03_tshirt",
+    "clothColor": "white"
+   },
+   "adj": {
+    "outerY": 10,
+    "eyeScale": 1.12,
+    "chinY": -6,
+    "browY": -4
+   }
+  },
+  "愛嬌くしゃ笑い顔": {
+   "fix": {
+    "outline": "hex",
+    "skinTone": "neutral",
+    "eye": "eyeA08_halflid",
+    "brow": "10_rounded",
+    "nose": "nose03_button",
+    "mouth": "mouth07_wide",
+    "tear": "tear03_strong",
+    "hair": "hair10_shortlayer",
+    "hairColor": "ankasshoku",
+    "cloth": "cloth03_tshirt",
+    "clothColor": "saxe"
+   },
+   "adj": {
+    "lidDrop": 7,
+    "lidRise": 6,
+    "mouthCorner": -9,
+    "lipWidth": 1.1
+   }
+  }
+ }
+}
