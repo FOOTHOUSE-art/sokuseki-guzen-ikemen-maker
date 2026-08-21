@@ -1,7 +1,7 @@
 /* 即席イケメンメーカー — アプリ本体 */
-import * as E from './engine.js?v=09157';
-import { warpToOutline } from './warp.js?v=09157';
-import { initLoader, load, cacheCount, cacheBytes } from "./loader.js?v=09157";
+import * as E from './engine.js?v=09300';
+import { warpToOutline } from './warp.js?v=09300';
+import { initLoader, load, cacheCount, cacheBytes } from "./loader.js?v=09300";
 
 export let M = null;                       // parts.json
 const C = new E.Compositor();

@@ -2,7 +2,7 @@
  * 髪とひげは egg 基準で抽出されているので、選ばれた輪郭へ写像する。
  * 幅は耳を除いて測り61行で平滑化する。耳の張り出しが段差になり、
  * そのまま比を取ると耳のまわりだけ歪む(実測: y420→440 で 413→465px の段差)。 */
-import { load } from "./loader.js?v=09157";
+import { load } from "./loader.js?v=09300";
 const W = 1024, H = 1024, SMOOTH = 61, CLAMP = [0.85, 1.15];
 const profiles = new Map();
 
