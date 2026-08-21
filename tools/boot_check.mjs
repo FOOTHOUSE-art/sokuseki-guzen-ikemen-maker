@@ -92,6 +92,17 @@ await press('copyDerived', '派生を写す');
 await press('pfReset', '編集を戻す');
 await press('go', 'ガチャを回す', () => (ids.get('cardPrompt')?.value || '').length > 1000 ? '' : 'プロンプトが出ない');
 await press('share', 'URLをコピー');
+// 微調整の2つのボタン。押しても何も起きないことがあった
+{
+  const g = globalThis;
+  const before = JSON.stringify(g.__adj ? g.__adj() : null);
+  await press('adjZero', '完全初期化', () => {
+    const a = g.__adj ? g.__adj() : null;
+    return a && Object.values(a).some(v => typeof v === 'number' && v !== 0 && v !== 1)
+      ? '既定に戻っていない' : '';
+  });
+  await press('adjSuggest', '提案に戻す');
+}
 
 // **保存 → 読み込みが往復するか。** db.html から送られてくるのと同じ形で試す
 {

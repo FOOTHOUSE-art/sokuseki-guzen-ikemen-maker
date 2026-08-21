@@ -500,3 +500,21 @@ export function naturalAdj(seed, adj0 = {}) {
   }
   return out;
 }
+
+/** 自然な範囲で何度か引いて、**いちばんイケメン度が高いものを採る**。
+ *
+ *   bestAdj(seed, adj0, adj => ikemenScore(state, adj), 24)
+ *
+ * 上限まで振って作るのとは違う。**振れ幅は naturalAdj のまま**で、
+ * その中から良いものを選ぶだけなので、顔は自然な範囲に収まる。
+ * 回数を増やすほど上がるが、24回で頭打ちに近い。
+ */
+export function bestAdj(seed, adj0, score, tries = 24) {
+  let best = null, top = -Infinity;
+  for (let i = 0; i < tries; i++) {
+    const a = naturalAdj((seed + i * 0x9e3779b1) >>> 0, adj0);
+    const v = score(a);
+    if (v > top) { top = v; best = a; }
+  }
+  return best || Object.assign({}, adj0);
+}

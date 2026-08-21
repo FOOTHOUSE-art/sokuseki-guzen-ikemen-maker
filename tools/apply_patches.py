@@ -133,7 +133,7 @@ const AXGROUPS = [""",
              "import { judge, lines as rareLines } from './engine/rarity.js?v=09300';\n"
              "import { sections, options, LAYOUT, HUE } from './engine/profile_view.js?v=09300';\n"
              "import * as Store from './engine/store.js?v=09300';\n"
-             "import { naturalAdj } from './engine/face_text.js?v=09300';",
+             "import { naturalAdj, bestAdj } from './engine/face_text.js?v=09300';",
              'index.html 統合エンジンの読み込み')
     h = sub1(h, "  M = await A.init();",
              "  M = await A.init();\n"
@@ -237,8 +237,10 @@ const AXGROUPS = [""",
       <div id="pfleft"></div>
       <div class="card">
         <h2>この人物</h2>
-        <label class="chk" style="display:flex;gap:6px;align-items:center;margin-bottom:8px">
+        <label class="chk" style="display:flex;gap:6px;align-items:center;margin-bottom:4px">
           <input type="checkbox" id="adjRandom" checked>微調整も自然な範囲で引く</label>
+        <label class="chk" style="display:flex;gap:6px;align-items:center;margin-bottom:8px">
+          <input type="checkbox" id="adjBest" checked>そのうち整った顔を選ぶ</label>
         <div style="display:flex;gap:6px">
           <input id="pfTitle" placeholder="名前を付けて保存" style="flex:1;min-width:0">
           <button id="pfSave">保存</button>
@@ -261,14 +263,40 @@ const AXGROUPS = [""",
       <div id="pfright"></div>""",
              'index.html 最右列')
 
+    # 微調整の見出しに、戻すボタンを2つ足す。
+    # **既存の「初期化」は残す**(何をするボタンか覚えている人がいる)
+    h = sub1(h,
+             '<button id="adjReset" style="float:right;font-size:11px;padding:3px 9px;'
+             'border-radius:8px;font-weight:500">初期化</button>',
+             '<span style="float:right;display:flex;gap:6px">'
+             '<button id="adjSuggest" style="font-size:11px;padding:3px 9px;border-radius:8px;'
+             'font-weight:500">提案に戻す</button>'
+             '<button id="adjZero" style="font-size:11px;padding:3px 9px;border-radius:8px;'
+             'font-weight:500">完全初期化</button></span>',
+             'index.html 微調整のボタン')
+
     # **ガチャのときだけ微調整も引き直す。**
     # URLや保存から戻したときに引き直すと、同じ人物が別の顔になる
     h = sub1(h, "$('go').onclick=()=>draw((Math.random()*4294967296)>>>0);",
-             """$('go').onclick=()=>{
+             """let SUGGEST = null;      // このシードで提案した微調整。「提案に戻す」で使う
+$('go').onclick=()=>{
   const s=(Math.random()*4294967296)>>>0;
-  if($('adjRandom').checked){ ADJ = naturalAdj(s, A.ADJ0); syncAdjUI(); }
+  if($('adjRandom').checked){
+    // **振れ幅は naturalAdj のまま。** その中から良いものを選ぶだけなので、
+    // 上限まで振った不自然な顔にはならない
+    const st = A.roll(s, OV);
+    SUGGEST = $('adjBest').checked
+      ? bestAdj(s, A.ADJ0, a => A.ikemenScore(st, a))
+      : naturalAdj(s, A.ADJ0);
+    ADJ = Object.assign({}, SUGGEST); syncAdjUI();
+  } else SUGGEST = null;
   draw(s);
-};""",
+};
+$('adjSuggest').onclick = () => {
+  if(!SUGGEST) return;
+  ADJ = Object.assign({}, SUGGEST); syncAdjUI(); draw(cur_seed);
+};
+$('adjZero').onclick = () => { ADJ = Object.assign({}, A.ADJ0); syncAdjUI(); draw(cur_seed); };""",
              'index.html ガチャで微調整も引く')
 
     # draw() の最後で作る。$('perf') を書いている行の直前に差す
@@ -294,6 +322,7 @@ const PFOPEN = {};      // カテゴリの開け閉め
 // 検査(tools/boot_check.mjs)から手直しを試すための窓口。画面からは使わない
 window.__pfix = PFIX; window.__redraw = () => draw(cur_seed);
 window.__load = r => applyRecord(r);
+window.__adj = () => ADJ;
 function renderPrompt(seed, ov, adjUsed){
   // **合成に使ったものと同じ ov / adj を渡す。** 渡し忘れると画像と文章がずれる。
   // イケメン度が画面の数字と一致するかで、渡せているか分かる
@@ -350,13 +379,19 @@ function openPick(b){
   const k = b.dataset.sel, list = options(b.dataset.pool);
   const now = LAST.person[k];
   const sel = document.createElement('select');
-  sel.innerHTML = list.map(o => `<option${o===now?' selected':''}>${esc(o)}</option>`).join('');
+  sel.innerHTML = list.map(o =>
+    `<option value="${esc(o)}"${String(o)===String(now)?' selected':''}>${esc(pfLabel(b.dataset.pool,o))}</option>`).join('');
   sel.style.cssText = 'position:fixed;z-index:99;font-size:12px;max-width:280px';
   const r = b.getBoundingClientRect();
   sel.style.left = Math.max(8, r.right - 260) + 'px'; sel.style.top = r.bottom + 'px';
   document.body.appendChild(sel); sel.focus();
   const done = () => { sel.remove(); };
-  sel.onchange = () => { PFIX[k] = sel.value; done(); draw(cur_seed); };
+  sel.onchange = () => {
+    // 数の選択肢(身長)は数値で渡す。文字のままだと生成側が読めない
+    const v = sel.value;
+    PFIX[k] = /^\d+$/.test(v) ? Number(v) : v;
+    done(); draw(cur_seed);
+  };
   sel.onblur = done;
 }
 $('pfReset').onclick = () => { for(const k in PFIX) delete PFIX[k]; draw(cur_seed); };
@@ -446,6 +481,10 @@ $('share').onclick=async()=>{""",
         ('delete rest[k]', '🎲 が引き直す項目を固定しない'),
         ('syncAdjUI()', 'スライダーを戻す'),
         ('window.__pfix', '検査の窓口'),
+        ("$('adjZero')", '完全初期化'),
+        ("$('adjSuggest')", '提案に戻す'),
+        ('bestAdj(', 'イケメン寄りに引く'),
+        ('window.__adj', '微調整の窓口'),
         ('encodeState(', '共有URLの書き出し'),
     ]
     h2 = idx.read_text(encoding='utf-8')

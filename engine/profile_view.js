@@ -13,12 +13,23 @@
  */
 import { pools, buildPrompt } from './guzen.js';
 
-/** 選択肢。pools_person の42キーがそのまま使える */
+/* pools に無い選択肢。**身長は数値で渡さないと体重が追随しない。**
+ * 生成側が見ているのは heightRaw(数値)で、height('175cm')は表示用。
+ * 表示用のほうを上書きしても、体重は元のまま残る。 */
+const EXTRA = {
+  heightRaw: Array.from({ length: 46 }, (_, i) => 150 + i),   // 150〜195cm
+};
+
+/** 選択肢。pools_person の42キーと、上の EXTRA */
 export function options(poolKey) {
+  if (EXTRA[poolKey]) return EXTRA[poolKey].slice();
   const v = pools[poolKey];
   if (!v) return [];
   return Array.isArray(v) ? v.slice() : Object.keys(v);
 }
+
+/** 選択肢の見せ方。数値のままだと何の値か分からない */
+export const label = (poolKey, v) => (poolKey === 'heightRaw' ? v + 'cm' : String(v));
 
 const j = a => (Array.isArray(a) ? a.filter(Boolean).join('・') : a) || '';
 const headRatio = p => (buildPrompt(Object.assign({}, p, { __faceBlock: '' }), true)
@@ -52,9 +63,11 @@ export function sections(p) {
     ] },
 
     { id: 'body', title: '体型', open: true, rows: [
-      R('身長', p.height, 'height'),
-      // **体重は体型から決まる。** 体型を選び直すと、同じ身長のまま体重が変わる。
-      // 直に上書きもできるが、そのときは体型と食い違ったままになる
+      // **身長は heightRaw(数値)で渡す。** height('175cm')は表示用で、
+      // そちらを上書きしても体重は追随しない
+      R('身長', p.height, 'heightRaw', 'heightRaw'),
+      // **体重は身長と体型から決まる。** どちらを変えても付いてくる。
+      // 直に上書きもできるが、そのときは身長・体型と食い違ったままになる
       R('体重', p.weight, 'weight'),
       R('体型', p.bodyType, 'bodyType', 'bodyTypes'),
       R('頭身', headRatio(p)),

@@ -173,8 +173,10 @@
       <div id="pfleft"></div>
       <div class="card">
         <h2>この人物</h2>
-        <label class="chk" style="display:flex;gap:6px;align-items:center;margin-bottom:8px">
+        <label class="chk" style="display:flex;gap:6px;align-items:center;margin-bottom:4px">
           <input type="checkbox" id="adjRandom" checked>微調整も自然な範囲で引く</label>
+        <label class="chk" style="display:flex;gap:6px;align-items:center;margin-bottom:8px">
+          <input type="checkbox" id="adjBest" checked>そのうち整った顔を選ぶ</label>
         <div style="display:flex;gap:6px">
           <input id="pfTitle" placeholder="名前を付けて保存" style="flex:1;min-width:0">
           <button id="pfSave">保存</button>
@@ -258,7 +260,7 @@
       </div>
       <div class="card" style="margin-top:12px">
         <h2 class="fold" data-fold="adjBox">微調整
-          <button id="adjReset" style="float:right;font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500">初期化</button>
+          <span style="float:right;display:flex;gap:6px"><button id="adjSuggest" style="font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500">提案に戻す</button><button id="adjZero" style="font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500">完全初期化</button></span>
         </h2>
         <div id="adjBox"></div>
         <div class="srow" style="margin-top:8px"><label>眉の色</label>
@@ -325,7 +327,7 @@ import { buildBaseCard, setPresets, DERIVED_TYPES } from './engine/base_card.mjs
 import { judge, lines as rareLines } from './engine/rarity.js?v=09300';
 import { sections, options, LAYOUT, HUE } from './engine/profile_view.js?v=09300';
 import * as Store from './engine/store.js?v=09300';
-import { naturalAdj } from './engine/face_text.js?v=09300';
+import { naturalAdj, bestAdj } from './engine/face_text.js?v=09300';
 
 const $ = id => document.getElementById(id);
 const cv = $('cv'), ctx = cv.getContext('2d');
@@ -933,11 +935,25 @@ document.querySelectorAll('h2.fold').forEach(hh=>{
     hh.classList.toggle('closed',closed);
   };
 });
+let SUGGEST = null;      // このシードで提案した微調整。「提案に戻す」で使う
 $('go').onclick=()=>{
   const s=(Math.random()*4294967296)>>>0;
-  if($('adjRandom').checked){ ADJ = naturalAdj(s, A.ADJ0); syncAdjUI(); }
+  if($('adjRandom').checked){
+    // **振れ幅は naturalAdj のまま。** その中から良いものを選ぶだけなので、
+    // 上限まで振った不自然な顔にはならない
+    const st = A.roll(s, OV);
+    SUGGEST = $('adjBest').checked
+      ? bestAdj(s, A.ADJ0, a => A.ikemenScore(st, a))
+      : naturalAdj(s, A.ADJ0);
+    ADJ = Object.assign({}, SUGGEST); syncAdjUI();
+  } else SUGGEST = null;
   draw(s);
 };
+$('adjSuggest').onclick = () => {
+  if(!SUGGEST) return;
+  ADJ = Object.assign({}, SUGGEST); syncAdjUI(); draw(cur_seed);
+};
+$('adjZero').onclick = () => { ADJ = Object.assign({}, A.ADJ0); syncAdjUI(); draw(cur_seed); };
 $('forceGlass').onchange=()=>cur&&draw(cur_seed);
 $('clearOv').onclick=()=>{ OV={}; draw(cur_seed); };
 $('bg').onchange=()=>cur&&draw(cur_seed);
@@ -954,6 +970,7 @@ const PFOPEN = {};      // カテゴリの開け閉め
 // 検査(tools/boot_check.mjs)から手直しを試すための窓口。画面からは使わない
 window.__pfix = PFIX; window.__redraw = () => draw(cur_seed);
 window.__load = r => applyRecord(r);
+window.__adj = () => ADJ;
 function renderPrompt(seed, ov, adjUsed){
   // **合成に使ったものと同じ ov / adj を渡す。** 渡し忘れると画像と文章がずれる。
   // イケメン度が画面の数字と一致するかで、渡せているか分かる
@@ -1010,13 +1027,19 @@ function openPick(b){
   const k = b.dataset.sel, list = options(b.dataset.pool);
   const now = LAST.person[k];
   const sel = document.createElement('select');
-  sel.innerHTML = list.map(o => `<option${o===now?' selected':''}>${esc(o)}</option>`).join('');
+  sel.innerHTML = list.map(o =>
+    `<option value="${esc(o)}"${String(o)===String(now)?' selected':''}>${esc(pfLabel(b.dataset.pool,o))}</option>`).join('');
   sel.style.cssText = 'position:fixed;z-index:99;font-size:12px;max-width:280px';
   const r = b.getBoundingClientRect();
   sel.style.left = Math.max(8, r.right - 260) + 'px'; sel.style.top = r.bottom + 'px';
   document.body.appendChild(sel); sel.focus();
   const done = () => { sel.remove(); };
-  sel.onchange = () => { PFIX[k] = sel.value; done(); draw(cur_seed); };
+  sel.onchange = () => {
+    // 数の選択肢(身長)は数値で渡す。文字のままだと生成側が読めない
+    const v = sel.value;
+    PFIX[k] = /^\d+$/.test(v) ? Number(v) : v;
+    done(); draw(cur_seed);
+  };
   sel.onblur = done;
 }
 $('pfReset').onclick = () => { for(const k in PFIX) delete PFIX[k]; draw(cur_seed); };
