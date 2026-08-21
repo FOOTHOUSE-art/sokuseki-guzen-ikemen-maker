@@ -317,7 +317,10 @@ export function faceToJa(s, adj = {}, presets = null, opt = {}) {
   const centri = (adj.centri || 0) + (-(adj.eyeGap || 0) / 2);
 
   const inject = {
-    facePreset: nearestPreset(s, presets),
+    // プリセット表を読めなかったときも止めない。**strictFace が facePreset を
+    // 要求するので、null のままだと生成そのものが落ちる。**
+    // 「普通顔」は偶然側の語彙にもある、当たり障りのない既定
+    facePreset: nearestPreset(s, presets) || '普通顔',
     faceLine: M.faceLine[s.outline],
     eyelid: M.eyelid[s.eyeGroup],
     eyeShape: M.eyeShape[eK],
