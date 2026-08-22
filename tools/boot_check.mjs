@@ -104,6 +104,29 @@ await press('share', 'URLをコピー');
   await press('adjSuggest', '提案に戻す');
 }
 
+// **▼ を実際に開いてみる。** 押しても何も起きないことがあった
+//(pfLabel を import し忘れていて、開いた瞬間に例外)
+{
+  const g = globalThis;
+  if (typeof g.__pick === 'function') {
+    try {
+      const before = ids.get('pfleft')?.innerHTML || '';
+      const sel = g.__pick('role', 'roles');
+      const box = g.__lastSelect;
+      if (!box || !(box.innerHTML || '').includes('<option')) {
+        ng++; console.log('  NG  ▼ を開く  選択肢が出ない');
+      } else {
+        box.value = '寿司職人';
+        await box.onchange();
+        await new Promise(r => setTimeout(r, 300));
+        (ids.get('pfleft')?.innerHTML || '').includes('寿司職人')
+          ? console.log('  OK  ▼ で選び直す')
+          : (ng++, console.log('  NG  ▼ で選び直す  画面が変わらない'));
+      }
+    } catch (e) { ng++; console.log('  NG  ▼ を開く  ' + e.message); }
+  } else console.log('  --  ▼ の確認  窓口が無い');
+}
+
 // **保存 → 読み込みが往復するか。** db.html から送られてくるのと同じ形で試す
 {
   const rec = store.all()[0];

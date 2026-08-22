@@ -325,7 +325,7 @@ import { load, preload } from './loader.js?v=09300';
 import { encodeState, decodeState, shareNote } from './engine/url_state.js?v=09300';
 import { buildBaseCard, setPresets, DERIVED_TYPES } from './engine/base_card.mjs?v=09300';
 import { judge, lines as rareLines } from './engine/rarity.js?v=09300';
-import { sections, options, LAYOUT, HUE } from './engine/profile_view.js?v=09300';
+import { sections, options, LAYOUT, HUE, label as pfLabel } from './engine/profile_view.js?v=09300';
 import * as Store from './engine/store.js?v=09300';
 import { naturalAdj, bestAdj } from './engine/face_text.js?v=09300';
 
@@ -968,6 +968,8 @@ const PFOPEN = {};      // カテゴリの開け閉め
 window.__pfix = PFIX; window.__redraw = () => draw(cur_seed);
 window.__load = r => applyRecord(r);
 window.__adj = () => ADJ;
+window.__pick = (key, pool) => openPick({ dataset:{ sel:key, pool },
+  getBoundingClientRect:()=>({right:0,bottom:0}) });
 function renderPrompt(seed, ov, adjUsed){
   // **合成に使ったものと同じ ov / adj を渡す。** 渡し忘れると画像と文章がずれる。
   // イケメン度が画面の数字と一致するかで、渡せているか分かる

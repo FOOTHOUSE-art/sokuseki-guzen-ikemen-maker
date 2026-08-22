@@ -14,7 +14,7 @@ globalThis.__knownIds = HAVE;
 globalThis.document={getElementById:i=>{
     if(!HAVE.has(i)) return null;
     if(!ids.has(i))ids.set(i,mk());return ids.get(i);},
-  createElement:()=>mk(),querySelectorAll:()=>[],body:{appendChild(){}},addEventListener(){}};
+  createElement:()=>{const e=mk(); globalThis.__lastSelect=e; return e;},querySelectorAll:()=>[],body:{appendChild(){}},addEventListener(){}};
 globalThis.window=globalThis; globalThis.open=()=>{}; globalThis.devicePixelRatio=1;
 globalThis.addEventListener=()=>{};
 globalThis.location={hash:'',search:'',origin:'',pathname:'/'};

@@ -131,7 +131,7 @@ const AXGROUPS = [""",
              "import { encodeState, decodeState, shareNote } from './engine/url_state.js?v=09300';\n"
              "import { buildBaseCard, setPresets, DERIVED_TYPES } from './engine/base_card.mjs?v=09300';\n"
              "import { judge, lines as rareLines } from './engine/rarity.js?v=09300';\n"
-             "import { sections, options, LAYOUT, HUE } from './engine/profile_view.js?v=09300';\n"
+             "import { sections, options, LAYOUT, HUE, label as pfLabel } from './engine/profile_view.js?v=09300';\n"
              "import * as Store from './engine/store.js?v=09300';\n"
              "import { naturalAdj, bestAdj } from './engine/face_text.js?v=09300';",
              'index.html 統合エンジンの読み込み')
@@ -338,6 +338,8 @@ const PFOPEN = {};      // カテゴリの開け閉め
 window.__pfix = PFIX; window.__redraw = () => draw(cur_seed);
 window.__load = r => applyRecord(r);
 window.__adj = () => ADJ;
+window.__pick = (key, pool) => openPick({ dataset:{ sel:key, pool },
+  getBoundingClientRect:()=>({right:0,bottom:0}) });
 function renderPrompt(seed, ov, adjUsed){
   // **合成に使ったものと同じ ov / adj を渡す。** 渡し忘れると画像と文章がずれる。
   // イケメン度が画面の数字と一致するかで、渡せているか分かる
@@ -499,6 +501,8 @@ $('share').onclick=async()=>{""",
         ("$('adjSuggest')", '提案に戻す'),
         ('bestAdj(', 'イケメン寄りに引く'),
         ('window.__adj', '微調整の窓口'),
+        ('label as pfLabel', '選択肢の見せ方'),
+        ('window.__pick', '選び直しの窓口'),
         ('encodeState(', '共有URLの書き出し'),
     ]
     h2 = idx.read_text(encoding='utf-8')
