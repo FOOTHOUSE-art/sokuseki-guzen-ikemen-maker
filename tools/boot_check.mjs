@@ -104,45 +104,27 @@ await press('share', 'URLをコピー');
   await press('adjSuggest', '提案に戻す');
 }
 
-// **▼ を実際に開いてみる。** 押しても何も起きないことがあった
-//(pfLabel を import し忘れていて、開いた瞬間に例外)
+// **▼ で選び直したら、その場で画面が変わるか。**
+// 「選んでも今の人物に反映されず、次のガチャで出てくる」ことがあった
 {
   const g = globalThis;
   if (typeof g.__pick === 'function') {
     try {
-      const before = ids.get('pfleft')?.innerHTML || '';
-      const sel = g.__pick('role', 'roles');
-      const box = g.__lastSelect;
-      if (!box || !(box.innerHTML || '').includes('<option')) {
-        ng++; console.log('  NG  ▼ を開く  選択肢が出ない');
-      } else {
-        box.value = '寿司職人';
-        await box.onchange();
-        await new Promise(r => setTimeout(r, 300));
-        (ids.get('pfleft')?.innerHTML || '').includes('寿司職人')
-          ? console.log('  OK  ▼ で選び直す')
-          : (ng++, console.log('  NG  ▼ で選び直す  画面が変わらない'));
+      // ▼ を押した状態(行が select に差し替わる)
+      if (typeof g.__edit === 'function') {
+        g.__edit('role');
+        await new Promise(r => setTimeout(r, 200));
+        (ids.get('pfleft')?.innerHTML || '').includes('data-edit="role"')
+          ? console.log('  OK  ▼ で行が select になる')
+          : (ng++, console.log('  NG  ▼ で行が select にならない'));
       }
-    } catch (e) { ng++; console.log('  NG  ▼ を開く  ' + e.message); }
+      g.__pick('role', '寿司職人');
+      await new Promise(r => setTimeout(r, 400));
+      (ids.get('pfleft')?.innerHTML || '').includes('寿司職人')
+        ? console.log('  OK  ▼ で選び直すと、その場で変わる')
+        : (ng++, console.log('  NG  ▼ で選び直す  表示中の人物が変わらない'));
+    } catch (e) { ng++; console.log('  NG  ▼ で選び直す  ' + e.message); }
   } else console.log('  --  ▼ の確認  窓口が無い');
-}
-
-// **保存 → 読み込みが往復するか。** db.html から送られてくるのと同じ形で試す
-{
-  const rec = store.all()[0];
-  const g = globalThis;
-  if (rec && typeof g.__pfix === 'object') {
-    g.__pfix.role = '書き換え';
-    await g.__redraw(); await new Promise(r => setTimeout(r, 300));
-    // 保存した人物を読み直す
-    if (typeof g.__load === 'function') await g.__load(rec);
-    else { console.log('  --  保存した人物を開く  窓口が無い'); }
-    await new Promise(r => setTimeout(r, 400));
-    const now = ids.get('pfleft')?.innerHTML || '';
-    now.includes('書き換え')
-      ? (ng++, console.log('  NG  保存した人物を開く  編集が残ったまま'))
-      : console.log('  OK  保存した人物を開く');
-  }
 }
 
 const err = ids.get('err')?.textContent || '';

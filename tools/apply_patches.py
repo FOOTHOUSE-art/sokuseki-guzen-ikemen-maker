@@ -203,6 +203,9 @@ const AXGROUPS = [""",
              "  .pfrow.pf-on b{color:#0a7d4a}\n"
              "  .pf-b{border:0;background:transparent;cursor:pointer;font-size:11px;color:var(--muted);padding:0}\n"
              "  .pf-b:hover{color:var(--fg)}\n"
+             "  .pf-sel{grid-column:2/4;width:100%;font-size:12px;padding:1px 4px;\n"
+             "    border:1px solid var(--c);border-radius:5px;background:#fff}\n"
+             "  .pfrow.pf-edit{background:color-mix(in srgb,var(--c) 9%,transparent)}\n"
              "  .pfsec>summary{cursor:pointer;list-style:none;display:flex;align-items:center}\n"
              "  .pfsec>summary::-webkit-details-marker{display:none}\n"
              "  .pfsec>summary::before{content:\'\\25b8\';margin-right:6px;color:var(--muted);\n"
@@ -334,12 +337,13 @@ $('adjSuggest').onclick = () => {
              """let LAST = null;
 const PFIX = {};        // 人物像で手で選んだ項目。抽選より優先する
 const PFOPEN = {};      // カテゴリの開け閉め
+let EDITING = null;     // いま select に差し替えている行
 // 検査(tools/boot_check.mjs)から手直しを試すための窓口。画面からは使わない
 window.__pfix = PFIX; window.__redraw = () => draw(cur_seed);
 window.__load = r => applyRecord(r);
 window.__adj = () => ADJ;
-window.__pick = (key, pool) => openPick({ dataset:{ sel:key, pool },
-  getBoundingClientRect:()=>({right:0,bottom:0}) });
+window.__pick = (key, value) => { startEdit(key); commitEdit(key, value); };
+window.__edit = key => startEdit(key);
 function renderPrompt(seed, ov, adjUsed){
   // **合成に使ったものと同じ ov / adj を渡す。** 渡し忘れると画像と文章がずれる。
   // イケメン度が画面の数字と一致するかで、渡せているか分かる
@@ -366,10 +370,17 @@ function renderPerson(p){
     <summary><h2>${s.title}<span class="pfn">${s.rows.length}</span></h2></summary>
     <div class="pfrows">` + s.rows.map(r => {
       const opts = r.pool ? options(r.pool) : [];
-      const btn = !r.key ? ''
-        : opts.length ? `<button class="pf-b" data-sel="${r.key}" data-pool="${r.pool}" title="選び直す">▼</button>`
-                      : `<button class="pf-b" data-dice="${r.key}" title="引き直す">&#127922;</button>`;
       const on = PFIX[r.key] != null ? ' pf-on' : '';
+      if (EDITING && EDITING === r.key && opts.length) {
+        const now = LAST.person[r.key];
+        const list = opts.map(o =>
+          `<option value="${esc(o)}"${String(o)===String(now)?' selected':''}>${esc(pfLabel(r.pool,o))}</option>`).join('');
+        return `<div class="pfrow pf-edit"><b>${esc(r.label)}</b>` +
+          `<select class="pf-sel" data-edit="${r.key}">${list}</select><span></span></div>`;
+      }
+      const btn = !r.key ? ''
+        : opts.length ? `<button class="pf-b" data-sel="${r.key}" title="選び直す">▼</button>`
+                      : `<button class="pf-b" data-dice="${r.key}" title="引き直す">&#127922;</button>`;
       return `<div class="pfrow${on}"><b>${esc(r.label)}</b><span>${esc(r.value)}</span>${btn}</div>`;
     }).join('') + `</div></details>`).join('');
   $('pfleft').innerHTML = box('left');
@@ -379,7 +390,15 @@ function renderPerson(p){
   // 開け閉めを覚えておく。引き直すたびに閉じると使いものにならない
   document.querySelectorAll('.pfsec').forEach(d =>
     d.ontoggle = () => { PFOPEN[d.dataset.sec] = d.open; });
-  document.querySelectorAll('[data-sel]').forEach(b => b.onclick = () => openPick(b));
+  document.querySelectorAll('[data-sel]').forEach(b => b.onclick = () => startEdit(b.dataset.sel));
+  document.querySelectorAll('[data-edit]').forEach(sel => {
+    sel.onchange = () => commitEdit(sel.dataset.edit, sel.value);
+    // 選ばずに離れたら元に戻す。**onchange より先に走らせない**
+    sel.onblur = () => setTimeout(() => {
+      if (EDITING === sel.dataset.edit) { EDITING = null; renderPerson(LAST.person); }
+    }, 150);
+    sel.focus();
+  });
   document.querySelectorAll('[data-dice]').forEach(b => b.onclick = () => {
     // 候補が無い項目は、別のシードで引き直してその項目だけ持ってくる。
     // **引き直す項目を PFIX に入れたまま渡さない。** 渡すとその値で固定され、
@@ -392,24 +411,16 @@ function renderPerson(p){
     draw(cur_seed);
   });
 }
-function openPick(b){
-  const k = b.dataset.sel, list = options(b.dataset.pool);
-  const now = LAST.person[k];
-  const sel = document.createElement('select');
-  sel.innerHTML = list.map(o =>
-    `<option value="${esc(o)}"${String(o)===String(now)?' selected':''}>${esc(pfLabel(b.dataset.pool,o))}</option>`).join('');
-  sel.style.cssText = 'position:fixed;z-index:99;font-size:12px;max-width:280px';
-  const r = b.getBoundingClientRect();
-  sel.style.left = Math.max(8, r.right - 260) + 'px'; sel.style.top = r.bottom + 'px';
-  document.body.appendChild(sel); sel.focus();
-  const done = () => { sel.remove(); };
-  sel.onchange = () => {
-    // 数の選択肢(身長)は数値で渡す。文字のままだと生成側が読めない
-    const v = sel.value;
-    PFIX[k] = /^\d+$/.test(v) ? Number(v) : v;
-    done(); draw(cur_seed);
-  };
-  sel.onblur = done;
+// **その場で select に差し替える。**
+// 前は body に浮かせた select を出していたが、onblur が onchange より先に走って
+// 値が確定する前に消えることがあり、「選んでも今の人物に反映されない」になった。
+// 行そのものを select にすれば、消えるタイミングの問題が起きない。
+function startEdit(key){ EDITING = key; renderPerson(LAST.person); }
+function commitEdit(key, raw){
+  // 数の選択肢(身長)は数値で渡す。文字のままだと生成側が読めない
+  PFIX[key] = /^[0-9]+$/.test(raw) ? Number(raw) : raw;
+  EDITING = null;
+  draw(cur_seed);            // ここで作り直す。表示中の人物がその場で変わる
 }
 $('pfReset').onclick = () => { for(const k in PFIX) delete PFIX[k]; draw(cur_seed); };
 
@@ -503,6 +514,8 @@ $('share').onclick=async()=>{""",
         ('window.__adj', '微調整の窓口'),
         ('label as pfLabel', '選択肢の見せ方'),
         ('window.__pick', '選び直しの窓口'),
+        ('data-edit=', 'その場で select に差し替える'),
+        ('window.__edit', '差し替えの窓口'),
         ('encodeState(', '共有URLの書き出し'),
     ]
     h2 = idx.read_text(encoding='utf-8')
