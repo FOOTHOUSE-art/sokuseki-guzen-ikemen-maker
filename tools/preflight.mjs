@@ -123,6 +123,15 @@ for (const f of ['index.html', 'db.html', 'app.js', 'engine.js', 'assets/parts.j
   /\?v=09157/.test(h) ? ng('?v= が古いまま') : ok('?v= が今の版');
 }
 
+// **assets と engine の json がそろっているか。** engine は検査用のコピー。
+// ずれると node 側だけ古い素材で動き、「指定した髪型にならない」になる
+for (const f of ['crop.json', 'metrics.json', 'parts.json']) {
+  const a = path.join('assets', f), b = path.join('engine', f);
+  if (!fs.existsSync(a) || !fs.existsSync(b)) continue;
+  fs.readFileSync(a, 'utf8') === fs.readFileSync(b, 'utf8')
+    ? ok(`assets と engine の ${f}`) : ng(`assets と engine の ${f} が違う`, 'engine 側が古い');
+}
+
 // **HTML に無い id を触っていないか。** $('x') が null を返し、
 // null.onclick で**スクリプト全体が止まる**。画面が丸ごと動かなくなる
 for (const page of ['index.html', 'db.html']) {
