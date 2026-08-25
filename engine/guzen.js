@@ -6780,4 +6780,5 @@ ${targetJa}
 export { generateCharacter, buildPrompt, buildDerivedPrompt, pools,
   rarityBreakdown, scoreRarity, buildFullProfileText,
   ensureProfileMeasurements, generateInnerProfile, buildInnerSection,
-  buildUniformEditRows, displayValue, buildBodyHairSummary, underwearDesc, T };
+  buildUniformEditRows, displayValue, buildBodyHairSummary, underwearDesc, T,
+  sportsHistoryLine };

@@ -11,7 +11,7 @@
  *   pool がある行  → ▼ 選び直す。`buildBaseCard({ person: { key: 値 } })` に流す
  *   pool が無い行  → 🎲 引き直すだけ。文章として組み立てられていて、候補が無い
  */
-import { pools, buildPrompt } from './guzen.js';
+import { pools, buildPrompt, sportsHistoryLine } from './guzen.js';
 
 /* pools に無い選択肢。**身長は数値で渡さないと体重が追随しない。**
  * 生成側が見ているのは heightRaw(数値)で、height('175cm')は表示用。
@@ -53,6 +53,8 @@ export function sections(p) {
       R('MBTI', `${p.mbti}（${p.personality}）`, 'mbti', 'mbtis'),
       R('一人称', p.pronoun, 'pronoun'),
       R('キャッチ', p.catchText || p.bioText, 'catchText'),
+      R('まとめ', p.summaryText, 'summaryText'),
+      R('見かけた場面', p.sceneIdea, 'sceneIdea'),
     ] },
 
     { id: 'abc', title: 'ABC', open: true, rows: [
@@ -73,7 +75,13 @@ export function sections(p) {
       R('頭身', headRatio(p)),
       R('足', `${p.footSize}・${p.footShape}`, 'footShape', 'footShapes'),
       R('体毛', p.bodyHairOverall, 'bodyHairOverall', 'bodyHairOverall'),
+      // **経験競技は表示から抜けていた。** 人物像には入っていて、
+      // プロンプトにも出ているのに、画面の項目に入れ忘れていた
+      R('鍛え方', p.trainingLevel, 'trainingLevel'),
+      R('経験競技', String(sportsHistoryLine(p, false) || '')
+        .replace(/^経験競技：/, '').replace(/。$/, '') || 'なし', 'sportsHistory'),
       R('姿勢', p.posture, 'posture'),
+      R('左右差', p.bodyAsym, 'bodyAsym'),
       R('基準服装', `${p.boxerBrand || ''}${p.boxerColor ? '・' + p.boxerColor : ''}`
         + `${p.baseWearType ? '・' + p.baseWearType : ''}`, 'boxerBrand', 'boxerBrands'),
     ] },
@@ -135,6 +143,9 @@ export function sections(p) {
       R('靴下・ニオイ', p.sockSmellText, 'sockSmellText'),
       R('靴下・悩み', p.sockTroubleText, 'sockTroubleText'),
       R('靴下・合わせ方', p.sockPairText, 'sockPairText'),
+      R('体つきと服', p.muscleFashionNote, 'muscleFashionNote'),
+      R('着こなしの癖', p.senseFashionNote, 'senseFashionNote'),
+      R('時代の空気', p.holidayEraFashionNote, 'holidayEraFashionNote'),
     ] },
 
     { id: 'past', title: '過去・人間関係', open: true, rows: [
@@ -161,17 +172,20 @@ export function sections(p) {
         'outfitType', 'outfitTypes'),
       R('ブランド', p.outfitBrand, 'outfitBrand', 'outfitBrands'),
       R('上着（平日）', p.jacket, 'jacket', 'jackets'),
-      R('トップス（平日）', p.top, 'top', 'tops'),
-      R('ボトムス（平日）', p.bottom, 'bottom', 'bottoms'),
-      R('靴（平日）', p.shoes, 'shoes', 'shoes'),
-      R('靴下', `${p.sockBrand || ''}・${p.sockColor || ''}・${p.sockType || ''}`,
+      R('トップス（平日）', `${p.topBrand || ''}${p.topBrand ? 'の' : ''}${p.top || ''}`, 'top', 'tops'),
+      R('ボトムス（平日）', `${p.bottomBrand || ''}${p.bottomBrand ? 'の' : ''}${p.bottom || ''}`, 'bottom', 'bottoms'),
+      R('靴（平日）', `${p.shoesBrand || ''}${p.shoesBrand ? 'の' : ''}${p.shoes || ''}`, 'shoes', 'shoes'),
+      R('靴下（平日）', `${p.sockBrand || ''}・${p.sockColor || ''}・${p.sockType || ''}`,
         'sockType', 'sockTypes'),
+      R('靴下の作り', `${p.sockShape || ''}・${p.sockMaterial || ''}`, 'sockShape', 'sockShapes'),
+      R('靴下の状態', p.sockUse, 'sockUse', 'sockUse'),
       R('アクセサリー（平日）', j(p.accessories) || 'なし', 'accessories'),
       R('私服', p.holidayOutfitType, 'holidayOutfitType', 'outfitTypes'),
-      R('上着（休日）', p.holidayJacket, 'holidayJacket', 'jackets'),
-      R('トップス（休日）', p.holidayTop, 'holidayTop', 'tops'),
-      R('ボトムス（休日）', p.holidayBottom, 'holidayBottom', 'bottoms'),
-      R('靴（休日）', p.holidayShoes, 'holidayShoes', 'shoes'),
+      R('上着（休日）', `${p.holidayOuterBrand || ''}${p.holidayOuterBrand ? 'の' : ''}${p.holidayJacket || ''}`, 'holidayJacket', 'jackets'),
+      R('トップス（休日）', `${p.holidayTopBrand || ''}${p.holidayTopBrand ? 'の' : ''}${p.holidayTop || ''}`, 'holidayTop', 'tops'),
+      R('ボトムス（休日）', `${p.holidayBottomBrand || ''}${p.holidayBottomBrand ? 'の' : ''}${p.holidayBottom || ''}`, 'holidayBottom', 'bottoms'),
+      R('靴（休日）', `${p.holidayShoesBrand || ''}${p.holidayShoesBrand ? 'の' : ''}${p.holidayShoes || ''}`, 'holidayShoes', 'shoes'),
+      R('靴下（休日）', `${p.holidaySockBrand || ''}・${p.holidaySockColor || ''}`, 'holidaySockBrand', 'sockBrands'),
       R('アクセサリー（休日）', j(p.holidayAccessories) || 'なし', 'holidayAccessories'),
       R('着こなしメモ', p.holidayStyleNote || p.styleNote, 'holidayStyleNote'),
     ] },
